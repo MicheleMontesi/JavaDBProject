@@ -4,7 +4,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Dimension;
 
-public class getScreenDimension {
+public class GetScreenDimension {
     
     public static Dimension center() {
 		
