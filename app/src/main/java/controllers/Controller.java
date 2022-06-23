@@ -15,17 +15,20 @@ public class Controller implements Initializable {
     private ListView<String> myEntityList;
     @FXML
     private ListView<String> myOperationList;
-    private List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Elimina", "Visualizza"));
+    private List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Elimina", "Visualizza", "Ricerca Tramite Parametro"));
     private Map<String, List<String>> operationsMap= new HashMap<>(
             Map.of("Dipendente", new ArrayList<>(defaultOperations),
                     "Paziente", new ArrayList<>(defaultOperations),
                     "Unita' Operativa", new ArrayList<>(defaultOperations),
-                    "Farmaco", new ArrayList<>(defaultOperations))
+                    "Farmaco", new ArrayList<>(defaultOperations),
+                    "Beni Strumentali", new ArrayList<>(defaultOperations),
+                    "Farmaco Terapia", new ArrayList<>(defaultOperations))
     );
     private String currentEntitySelection;
 
     private void initOperationMap() {
-        operationsMap.get("Dipendente").addAll(Arrays.asList("Visualizza Turni dato un Nome", "esempio"));
+        operationsMap.get("Dipendente").add("Visualizza Turni");
+        operationsMap.get("Paziente").addAll(Arrays.asList("Visualizza Cartella Clinica", ""));
     }
 
     @Override
