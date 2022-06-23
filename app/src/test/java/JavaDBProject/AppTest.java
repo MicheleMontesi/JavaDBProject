@@ -7,8 +7,4 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
-    	System.out.println(getClass().getResource("DBApplication.fxml"));
-        assertNotNull("app should have a greeting");
-    }
 }
