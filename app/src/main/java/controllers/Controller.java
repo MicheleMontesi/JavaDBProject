@@ -1,10 +1,9 @@
 package controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import utilities.CreateOperationsMap;
 
 import java.net.URL;
 import java.util.*;
@@ -15,34 +14,18 @@ public class Controller implements Initializable {
     private ListView<String> myEntityList;
     @FXML
     private ListView<String> myOperationList;
-    private List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Elimina", "Visualizza", "Ricerca Tramite Parametro"));
-    private Map<String, List<String>> operationsMap= new HashMap<>(
-            Map.of("Dipendente", new ArrayList<>(defaultOperations),
-                    "Paziente", new ArrayList<>(defaultOperations),
-                    "Unita' Operativa", new ArrayList<>(defaultOperations),
-                    "Farmaco", new ArrayList<>(defaultOperations),
-                    "Beni Strumentali", new ArrayList<>(defaultOperations),
-                    "Farmaco Terapia", new ArrayList<>(defaultOperations))
-    );
+    private final Map<String, List<String>> permittedOp = CreateOperationsMap.initOperationMap();
     private String currentEntitySelection;
-
-    private void initOperationMap() {
-        operationsMap.get("Dipendente").add("Visualizza Turni");
-        operationsMap.get("Paziente").addAll(Arrays.asList("Visualizza Cartella Clinica", ""));
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.initOperationMap();
-        myEntityList.getItems().addAll(operationsMap.keySet());
-        myEntityList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                currentEntitySelection = myEntityList.getSelectionModel().getSelectedItem();
-                System.out.println(currentEntitySelection);
-                myOperationList.getItems().clear();
-                myOperationList.getItems().addAll(operationsMap.get(currentEntitySelection));
-            }
+/*        this.initOperationMap();*/
+        myEntityList.getItems().addAll(permittedOp.keySet());
+        myEntityList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            currentEntitySelection = myEntityList.getSelectionModel().getSelectedItem();
+            System.out.println(currentEntitySelection);
+            myOperationList.getItems().clear();
+            myOperationList.getItems().addAll(permittedOp.get(currentEntitySelection));
         });
     }
 }
