@@ -42,7 +42,7 @@
 <?import javafx.scene.text.Font?>
 
 <VBox prefHeight="1109.0" prefWidth="1615.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
-      fx:controller="controllers.Controller">
+      fx:controller="controllers.MainController">
     <AnchorPane VBox.vgrow="ALWAYS">
         <Label alignment="CENTER" style="-fx-border-color: black;" text="Select an entity" textAlignment="CENTER"
                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
