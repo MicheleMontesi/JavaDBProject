@@ -71,7 +71,7 @@ public class CreateWorkerController {
 
     private boolean birthAndSuitabilityCheck() {
         final Date birth = Date.from(
-                Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+                Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()))); // possibile problema, prova a prendere la data in un altro modo
         var differenceInTime = new Date().getTime() - birth.getTime();
         var differenceInDays = differenceInTime / (1000*3600*24);
         var differenceInYears = differenceInDays /365;

@@ -99,6 +99,7 @@ public class WorkersTable implements Table<Worker, String> {
         } catch (final SQLIntegrityConstraintViolationException e) {
             return false;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new IllegalStateException();
         }
     }
