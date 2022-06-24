@@ -3,9 +3,9 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import utilities.CreateOperationsMap;
 
 import java.io.IOException;
@@ -19,21 +19,11 @@ public class Controller implements Initializable {
     @FXML
     private ListView<String> myOperationList;
     @FXML
-    private AnchorPane contentPane;
+    private BorderPane contentPane;
+
     private final Map<String, List<String>> permittedOp = CreateOperationsMap.initOperationMap();
     private String currentEntitySelection;
     private String currentOperationSelection;
-
-    @FXML
-    private void itemMembers() {
-        Node node;
-        try {
-            node = FXMLLoader.load(ClassLoader.getSystemResource("Scenes/WorkerSearchByParameter.fxml"));
-            contentPane.getChildren().setAll(node);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,10 +41,19 @@ public class Controller implements Initializable {
             if (currentOperationSelection != null) {
                 System.out.println(currentOperationSelection);
                 if (currentOperationSelection.equals("Ricerca Tramite Parametro")) {
-                    itemMembers(); //non va cerca di correggere
+                    loadContent("Scenes/WorkerSearchByParameter");
                 }
-
             }
         });
+    }
+
+    private void loadContent(String file) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(ClassLoader.getSystemResource(file + ".fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        contentPane.setCenter(root);
     }
 }
