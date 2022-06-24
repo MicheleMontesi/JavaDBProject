@@ -18,6 +18,7 @@ public class OperationChooser {
             case "Dipendente":
                 switch (currentOperationSelection) {
                     case "Crea" -> this.loadContent("CreateWorker");
+                    case "Elimina" -> this.loadContent("DeleteWorker");
                     case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByParameter");
                     default -> this.contentPane.getChildren().clear();
                 }
