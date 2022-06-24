@@ -13,7 +13,7 @@ public record Worker(String fiscalCode, String name, String surname, Optional<Da
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
         this.name = Objects.requireNonNull(name);
         this.surname = Objects.requireNonNull(surname);
-        this.birthDay = Objects.requireNonNull(birthDay);
+        this.birthDay = birthDay;
         this.residence = Objects.requireNonNull(residence);
         this.gender = Objects.requireNonNull(gender);
         this.workerId = workerId;

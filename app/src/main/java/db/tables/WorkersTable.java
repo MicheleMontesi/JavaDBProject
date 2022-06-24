@@ -34,7 +34,7 @@ public class WorkersTable implements Table<Worker, String> {
                             "Sesso CHAR(1), " +
                             "CodiceDipendente INT, " +
                             "TitoloDiStudio CHAR(40), " +
-                            "IdoneitàAllaMansione CHAR(1), " +
+                            "IdoneitaAllaMansione CHAR(1), " +
                             "Socio CHAR(1), " +
                             "CreditiECM INT" +
                             ")"
@@ -78,9 +78,9 @@ public class WorkersTable implements Table<Worker, String> {
     }
 
     @Override
-    public boolean save(Worker worker) {
+    public boolean save(Worker worker) { //togli il optional alla data
         final String query = "INSERT INTO " + TABLE_NAME + "(CodiceFiscale, Nome, Cognome, Compleanno, Residenza, " +
-                "Sesso, CodiceDipendente, TitoloDiStudio, IdoneitàAllaMansione, Socio, CreditiECM) " +
+                "Sesso, CodiceDipendente, TitoloDiStudio, IdoneitaAllaMansione, Socio, CreditiECM) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, worker.fiscalCode());
@@ -114,7 +114,7 @@ public class WorkersTable implements Table<Worker, String> {
                 "Sesso = ?, " +
                 "CodiceDipendente = ?, " +
                 "TitoloDiStudio = ?, " +
-                "IdoneitàAllaMansione = ?, " +
+                "IdoneitaAllaMansione = ?, " +
                 "Socio = ?, " +
                 "CreditiECM = ? " +
                 "WHERE CodiceFiscale = ?";
@@ -159,7 +159,7 @@ public class WorkersTable implements Table<Worker, String> {
                 final String gender = resultSet.getString("Sesso");
                 final int workerId = resultSet.getInt("CodiceDipendente");
                 final String edQualification = resultSet.getString("TitoloDiStudio");
-                final boolean suitability = resultSet.getString("IdoneitàAllaMansione").equals("Y");
+                final boolean suitability = resultSet.getString("IdoneitaAllaMansione").equals("Y");
                 final boolean partner = resultSet.getString("Socio").equals("Y");
                 final int ECMCredits = resultSet.getInt("CreditiECM");
 

@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import model.Worker;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
@@ -44,8 +45,8 @@ public class CreateWorkerController {
             final String residence = residenceField.getText();
             final String gender = genderField.getText();
             final String ed = edField.getText();
-            final Optional<Date> birth = Optional.of(Date.from(
-                            Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()))));
+            final Optional<Date> birth = birthPicker.getValue() != null ? Optional.of(Date.from(
+                            Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault())))) : Optional.empty();
             final int workerId = Integer.parseInt(workerCodeField.getText());
             final int ecm = Integer.parseInt(ecmField.getText());
             final boolean suitability = suitabilityCheck.isSelected();
@@ -58,7 +59,7 @@ public class CreateWorkerController {
     }
 
     private boolean lengthChecker(TextField field, int minLength, int maxLength) {
-        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         if (field.getText().length() < minLength || field.getText().length() > maxLength) {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The size of the field must be between " + minLength +
@@ -70,11 +71,27 @@ public class CreateWorkerController {
     }
 
     private boolean birthAndSuitabilityCheck() {
-        final Date birth = Date.from(
-                Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()))); // possibile problema, prova a prendere la data in un altro modo
-        var differenceInTime = new Date().getTime() - birth.getTime();
-        var differenceInDays = differenceInTime / (1000*3600*24);
-        var differenceInYears = differenceInDays /365;
-        return (differenceInYears <= 80 && differenceInYears >= 18) && suitabilityCheck.isSelected();
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        if (birthPicker.getValue() != null) {
+            final Date birth = Date.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+            var differenceInTime = new Date().getTime() - birth.getTime();
+            var differenceInDays = differenceInTime / (1000*3600*24);
+            var differenceInYears = differenceInDays /365;
+            if (!((differenceInYears <= 80 && differenceInYears >= 18) && suitabilityCheck.isSelected())) {
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("The data can be blank or must be between 80 years ago and 18 years ago\n" +
+                        "and the field \"IdonitaAllaMansione\" must be checked");
+                errorAlert.showAndWait();
+                return false;
+            }
+            return true;
+        }
+        if (!suitabilityCheck.isSelected()) {
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("The field \"IdonitaAllaMansione\" must be checked");
+            errorAlert.showAndWait();
+            return false;
+        }
+        return true;
     }
 }
