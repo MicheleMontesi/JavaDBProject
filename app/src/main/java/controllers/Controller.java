@@ -1,14 +1,12 @@
 package controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import utilities.CreateOperationsMap;
+import utilities.FXMLContentLoader;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -41,19 +39,9 @@ public class Controller implements Initializable {
             if (currentOperationSelection != null) {
                 System.out.println(currentOperationSelection);
                 if (currentOperationSelection.equals("Ricerca Tramite Parametro")) {
-                    loadContent("Scenes/WorkerSearchByParameter");
+                    FXMLContentLoader.loadContent("WorkerSearchByParameter", contentPane);
                 }
             }
         });
-    }
-
-    private void loadContent(String file) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(ClassLoader.getSystemResource(file + ".fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        contentPane.setCenter(root);
     }
 }
