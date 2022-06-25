@@ -2,6 +2,11 @@ package controllers.dipendente;
 
 import db.ConnectionProvider;
 import db.tables.WorkersTable;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -37,17 +42,17 @@ public class ViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("fiscalCode"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        birthColumn.setCellValueFactory(new PropertyValueFactory<>("birthDay"));
-        residenceColumn.setCellValueFactory(new PropertyValueFactory<>("residence"));
-        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        workerCodeColumn.setCellValueFactory(new PropertyValueFactory<>("workerId"));
-        edQualColumn.setCellValueFactory(new PropertyValueFactory<>("edQualification"));
-        suitabilityColumn.setCellValueFactory(new PropertyValueFactory<>("suitability"));
-        partnerColumn.setCellValueFactory(new PropertyValueFactory<>("partner"));
-        ECMColumn.setCellValueFactory(new PropertyValueFactory<>("ECMCredits"));
+        idColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().fiscalCode()));
+        nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().name()));
+        surnameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().surname()));
+        birthColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(this, "", cellData.getValue().birthDay()));
+        residenceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().residence()));
+        genderColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().gender()));
+        workerCodeColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().workerId()));
+        edQualColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().edQualification()));
+        suitabilityColumn.setCellValueFactory(cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().suitability()));
+        partnerColumn.setCellValueFactory(cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().partner()));
+        ECMColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().ECMCredits()));
 
         table.setItems(list);
     }

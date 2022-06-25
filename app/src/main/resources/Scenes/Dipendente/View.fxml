@@ -32,30 +32,24 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
 <HBox alignment="CENTER" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.dipendente.ViewController">
-    <ScrollPane>
-        <AnchorPane>
-            <TableView fx:id="table" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                <columns>
-                    <TableColumn fx:id="idColumn" editable="false" prefWidth="105.0" text="Codice Fiscale" />
-                    <TableColumn fx:id="nameColumn" editable="false" prefWidth="109.0" text="Nome" />
-                    <TableColumn fx:id="surnameColumn" editable="false" prefWidth="120.0" text="Cognome" />
-                    <TableColumn fx:id="birthColumn" editable="false" prefWidth="118.0" text="Data di Nascita" />
-                    <TableColumn fx:id="residenceColumn" editable="false" prefWidth="105.0" text="Residenza" />
-                    <TableColumn fx:id="genderColumn" editable="false" prefWidth="109.0" text="Sesso" />
-                    <TableColumn fx:id="workerCodeColumn" editable="false" prefWidth="120.0" text="Codice Dipendente" />
-                    <TableColumn fx:id="edQualColumn" editable="false" prefWidth="118.0" text="Titolo di studio" />
-                    <TableColumn fx:id="ECMColumn" editable="false" prefWidth="75.0" text="Crediti ECM" />
-                    <TableColumn fx:id="suitabilityColumn" editable="false" prefWidth="75.0" text="Idoneita Alla Mansione" />
-                    <TableColumn fx:id="partnerColumn" editable="false" prefWidth="75.0" text="Socio" />
-                </columns>
-            </TableView>
-        </AnchorPane>
-    </ScrollPane>
+      <TableView fx:id="table">
+          <columns>
+              <TableColumn fx:id="idColumn" editable="false" prefWidth="150.0" text="Codice Fiscale" />
+              <TableColumn fx:id="nameColumn" editable="false" prefWidth="150.0" text="Nome" />
+              <TableColumn fx:id="surnameColumn" editable="false" prefWidth="150.0" text="Cognome" />
+              <TableColumn fx:id="birthColumn" editable="false" prefWidth="200.0" text="Data di Nascita" />
+              <TableColumn fx:id="residenceColumn" editable="false" prefWidth="300.0" text="Residenza" />
+              <TableColumn fx:id="genderColumn" editable="false" prefWidth="109.0" text="Sesso" />
+              <TableColumn fx:id="workerCodeColumn" editable="false" prefWidth="120.0" text="Codice Dipendente" />
+              <TableColumn fx:id="edQualColumn" editable="false" prefWidth="200.0" text="Titolo di studio" />
+              <TableColumn fx:id="ECMColumn" editable="false" prefWidth="75.0" text="Crediti ECM" />
+              <TableColumn fx:id="suitabilityColumn" editable="false" prefWidth="150.0" text="Idoneita Alla Mansione" />
+              <TableColumn fx:id="partnerColumn" editable="false" prefWidth="75.0" text="Socio" />
+          </columns>
+      </TableView>
 </HBox>
