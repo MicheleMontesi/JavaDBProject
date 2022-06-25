@@ -34,6 +34,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -49,5 +51,20 @@
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
       <TextField fx:id="idField" layoutX="180.0" layoutY="35.0" promptText="Enter the id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
       <Button fx:id="searchButton" layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#search" text="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <TableView fx:id="table" layoutX="5.0" layoutY="76.0" prefHeight="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0">
+         <columns>
+            <TableColumn fx:id="idColumn" editable="false" prefWidth="150.0" text="Codice Fiscale" />
+            <TableColumn fx:id="nameColumn" editable="false" prefWidth="150.0" text="Nome" />
+            <TableColumn fx:id="surnameColumn" editable="false" prefWidth="150.0" text="Cognome" />
+            <TableColumn fx:id="birthColumn" editable="false" prefWidth="200.0" text="Data di Nascita" />
+            <TableColumn fx:id="residenceColumn" editable="false" prefWidth="300.0" text="Residenza" />
+            <TableColumn fx:id="genderColumn" editable="false" prefWidth="109.0" text="Sesso" />
+            <TableColumn fx:id="workerCodeColumn" editable="false" prefWidth="120.0" text="Codice Dipendente" />
+            <TableColumn fx:id="edQualColumn" editable="false" prefWidth="200.0" text="Titolo di studio" />
+            <TableColumn fx:id="ECMColumn" editable="false" prefWidth="75.0" text="Crediti ECM" />
+            <TableColumn fx:id="suitabilityColumn" editable="false" prefWidth="150.0" text="Idoneita Alla Mansione" />
+            <TableColumn fx:id="partnerColumn" editable="false" prefWidth="75.0" text="Socio" />
+         </columns>
+      </TableView>
    </AnchorPane>
 </HBox>
