@@ -21,7 +21,7 @@ public class OperationChooser {
                     case "Crea" -> this.loadContent("CreateWorker");
                     case "Elimina" -> this.loadContent("DeleteWorker");
                     case "Visualizza" -> this.loadContent("View");
-                    case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByParameter");
+                    case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByFiscalCode");
                     default -> this.contentPane.getChildren().clear();
                 }
                 break;
