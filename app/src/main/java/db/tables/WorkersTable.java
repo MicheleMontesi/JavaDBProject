@@ -57,7 +57,7 @@ public class WorkersTable implements Table<Worker, String> {
 
     @Override
     public Optional<Worker> findByFiscalCode(String fiscalCode) {
-        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE id = ?";
+        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, fiscalCode);
             final ResultSet resultSet = statement.executeQuery();
