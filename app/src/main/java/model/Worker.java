@@ -2,18 +2,17 @@ package model;
 
 import java.util.Date;
 import java.util.Objects;
-import java.util.Optional;
 
-public record Worker(String fiscalCode, String name, String surname, Optional<Date> birthDay, String residence,
+public record Worker(String fiscalCode, String name, String surname, Date birthDay, String residence,
                      String gender, int workerId, String edQualification, boolean suitability, boolean partner,
                      int ECMCredits) {
-    public Worker(final String fiscalCode, final String name, final String surname, final Optional<Date> birthDay,
+    public Worker(final String fiscalCode, final String name, final String surname, final Date birthDay,
                   final String residence, final String gender, final int workerId, final String edQualification,
                   final boolean suitability, final boolean partner, final int ECMCredits) {
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
         this.name = Objects.requireNonNull(name);
         this.surname = Objects.requireNonNull(surname);
-        this.birthDay = birthDay;
+        this.birthDay = Objects.requireNonNull(birthDay);
         this.residence = Objects.requireNonNull(residence);
         this.gender = Objects.requireNonNull(gender);
         this.workerId = workerId;

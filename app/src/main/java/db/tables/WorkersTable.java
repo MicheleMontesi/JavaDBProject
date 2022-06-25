@@ -86,7 +86,7 @@ public class WorkersTable implements Table<Worker, String> {
             statement.setString(1, worker.fiscalCode());
             statement.setString(2, worker.name());
             statement.setString(3, worker.surname());
-            statement.setDate(4, worker.birthDay().map(DateConverter::dateToSqlDate).orElse(null));
+            statement.setDate(4, DateConverter.dateToSqlDate(worker.birthDay()));
             statement.setString(5, worker.residence());
             statement.setString(6, worker.gender());
             statement.setInt(7, worker.workerId());
@@ -121,7 +121,7 @@ public class WorkersTable implements Table<Worker, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, worker.name());
             statement.setString(2, worker.surname());
-            statement.setDate(3, worker.birthDay().map(DateConverter::dateToSqlDate).orElse(null));
+            statement.setDate(3, DateConverter.dateToSqlDate(worker.birthDay()));
             statement.setString(4, worker.residence());
             statement.setString(5, worker.gender());
             statement.setInt(6, worker.workerId());
@@ -153,8 +153,7 @@ public class WorkersTable implements Table<Worker, String> {
                 final String fiscalCode = resultSet.getString("CodiceFiscale");
                 final String name = resultSet.getString("Nome");
                 final String surname = resultSet.getString("Cognome");
-                final Optional<Date> birthDay = Optional.ofNullable(DateConverter
-                        .sqlDateToDate(resultSet.getDate("Compleanno")));
+                final Date birthDay = DateConverter.sqlDateToDate(resultSet.getDate("Compleanno"));
                 final String residence = resultSet.getString("Residenza");
                 final String gender = resultSet.getString("Sesso");
                 final int workerId = resultSet.getInt("CodiceDipendente");

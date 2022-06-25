@@ -3,14 +3,16 @@ package controllers.dipendente;
 import db.ConnectionProvider;
 import db.tables.WorkersTable;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import model.Worker;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Optional;
+
+import static utilities.checkers.PersonCheckers.*;
 
 public class CreateWorkerController {
 
@@ -30,23 +32,22 @@ public class CreateWorkerController {
     public void create() {
         if (
             lengthChecker(idField, 16, 16) &
-            lengthChecker(nameField, 2, 25) &
-            lengthChecker(surnameField, 2, 25) &
+            lengthChecker(nameField, 2, 15) &
+            lengthChecker(surnameField, 2, 15) &
+            birthAndSuitabilityCheck(birthPicker, suitabilityCheck) &
             lengthChecker(residenceField, 10, 50) &
-            lengthChecker(genderField, 1, 1) &
+            genderCheck(genderField) &
+            intCheck(workerCodeField, 1, 10) &
             lengthChecker(edField, 10, 50) &
-            lengthChecker(workerCodeField, 1, 10) &
-            lengthChecker(ecmField, 0, 3) &
-            birthAndSuitabilityCheck()
+            intCheck(ecmField, 0, 5)
         ) {
             final String id = idField.getText();
             final String name = nameField.getText();
             final String surname = surnameField.getText();
             final String residence = residenceField.getText();
-            final String gender = genderField.getText();
+            final String gender = genderField.getText().toUpperCase();
             final String ed = edField.getText();
-            final Optional<Date> birth = birthPicker.getValue() != null ? Optional.of(Date.from(
-                            Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault())))) : Optional.empty();
+            final Date birth = Date.from(Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             final int workerId = Integer.parseInt(workerCodeField.getText());
             final int ecm = Integer.parseInt(ecmField.getText());
             final boolean suitability = suitabilityCheck.isSelected();
@@ -56,42 +57,5 @@ public class CreateWorkerController {
                     workerId, ed, suitability, partner, ecm));
         }
 
-    }
-
-    private boolean lengthChecker(TextField field, int minLength, int maxLength) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        if (field.getText().length() < minLength || field.getText().length() > maxLength) {
-            errorAlert.setHeaderText("Input not valid");
-            errorAlert.setContentText("The size of the field must be between " + minLength +
-                    " and " + maxLength + " characters");
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
-    }
-
-    private boolean birthAndSuitabilityCheck() {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        if (birthPicker.getValue() != null) {
-            final Date birth = Date.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            var differenceInTime = new Date().getTime() - birth.getTime();
-            var differenceInDays = differenceInTime / (1000*3600*24);
-            var differenceInYears = differenceInDays /365;
-            if (!((differenceInYears <= 80 && differenceInYears >= 18) && suitabilityCheck.isSelected())) {
-                errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("The data can be blank or must be between 80 years ago and 18 years ago\n" +
-                        "and the field \"IdonitaAllaMansione\" must be checked");
-                errorAlert.showAndWait();
-                return false;
-            }
-            return true;
-        }
-        if (!suitabilityCheck.isSelected()) {
-            errorAlert.setHeaderText("Input not valid");
-            errorAlert.setContentText("The field \"IdonitaAllaMansione\" must be checked");
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
     }
 }
