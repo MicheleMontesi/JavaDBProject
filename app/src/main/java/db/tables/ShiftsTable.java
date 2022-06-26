@@ -78,7 +78,7 @@ public class ShiftsTable implements Table<Shift, String> {
         final String query = "INSERT INTO " + TURNO + "(CodiceFiscale, GiornoSettimana, OraInizio, OraFine, CodiceUnita) " +
                 "VALUES (?,?,?,?,?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, shift.workerFiscalCode());
+            statement.setString(1, shift.fiscalCode());
             statement.setString(2, shift.dayOfTheWeek());
             statement.setTime(3, Time.valueOf(shift.beginTime()));
             statement.setTime(4, Time.valueOf(shift.endTime()));
@@ -102,7 +102,7 @@ public class ShiftsTable implements Table<Shift, String> {
             statement.setTime(1, Time.valueOf(shift.beginTime()));
             statement.setTime(2, Time.valueOf(shift.endTime()));
             statement.setString(3, shift.unitId());
-            statement.setString(4, shift.workerFiscalCode());
+            statement.setString(4, shift.fiscalCode());
             statement.setString(5, shift.dayOfTheWeek());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
