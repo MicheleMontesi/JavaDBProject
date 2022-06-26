@@ -14,20 +14,30 @@ public class OperationChooser {
     private BorderPane contentPane;
 
     public void choose() {
-        switch (currentEntitySelection) {
-            case "Dipendente":
-                switch (currentOperationSelection) {
-                    case "Crea" -> this.loadContent("CreateWorker");
-                    case "Elimina" -> this.loadContent("DeleteWorker");
-                    case "Visualizza" -> this.loadContent("View");
-                    case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByFiscalCode");
-                    case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
-                    default -> this.contentPane.getChildren().clear();
-                }
-                break;
-            default:
-                this.contentPane.getChildren().clear();
-                break;
+        try {
+            switch (currentEntitySelection) {
+                case "Dipendente":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreateWorker");
+                        case "Elimina" -> this.loadContent("DeleteWorker");
+                        case "Visualizza" -> this.loadContent("View");
+                        case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByFiscalCode");
+                        case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
+                        default -> this.contentPane.getChildren().clear();
+                    }
+                    break;
+                case "Turno":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreateShift");
+                    }
+                    break;
+                default:
+                    this.contentPane.getChildren().clear();
+                    break;
+            }
+
+        } catch (NullPointerException e) {
+            System.out.println("Nothing to show here");
         }
     }
 
