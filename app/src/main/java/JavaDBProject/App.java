@@ -17,7 +17,7 @@ public class App extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(ClassLoader.getSystemResource("Scenes/MainScene.fxml"));
+        Parent root = FXMLLoader.load(ClassLoader.getSystemResource("scenes/MainScene.fxml"));
         primaryStage.setTitle("DataBase Cooperativa Sanitaria");
         primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
         primaryStage.show();

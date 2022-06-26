@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -35,8 +34,8 @@ public class OperationChooser {
     private void loadContent(String file) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(ClassLoader.getSystemResource(String.valueOf(Paths.get("Scenes",
-                    currentEntitySelection, file + ".fxml"))));
+            root = FXMLLoader.load(ClassLoader.getSystemResource(String.valueOf(Paths.get("scenes",
+                    currentEntitySelection.toLowerCase(), file + ".fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }
