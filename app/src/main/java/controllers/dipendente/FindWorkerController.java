@@ -9,10 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Worker;
-import utilities.CreateView;
+import utilities.CreateWorkerView;
 
 import java.util.Date;
-import java.util.Optional;
 
 import static utilities.checkers.PersonCheckers.lengthChecker;
 
@@ -40,13 +39,12 @@ public class FindWorkerController {
 
     public void search() {
         if (lengthChecker(idField, 16, 16)) {
-            var mar = workersTable.findByFiscalCode(idField.getText());
-            if (mar.isPresent()) {
-                final ObservableList<Worker> list = FXCollections.observableArrayList(mar.get());
-                CreateView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
+            var worker = workersTable.findByFiscalCode(idField.getText());
+            if (worker.isPresent()) {
+                final ObservableList<Worker> list = FXCollections.observableArrayList(worker.get());
+                CreateWorkerView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
                         workerCodeColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
             } else {
-                System.out.println(Optional.empty());
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
                 errorAlert.setContentText("The fiscal code \"" + idField.getText() + "\" doesn't exist.");

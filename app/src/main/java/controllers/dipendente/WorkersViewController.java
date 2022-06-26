@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Worker;
-import utilities.CreateView;
+import utilities.CreateWorkerView;
 
 import java.net.URL;
 import java.util.Date;
@@ -36,7 +36,7 @@ public class WorkersViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CreateView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
+        CreateWorkerView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
                 workerCodeColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
     }
 }
