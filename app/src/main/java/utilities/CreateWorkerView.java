@@ -11,7 +11,7 @@ import model.Worker;
 
 import java.util.Date;
 
-public class CreateView {
+public class CreateWorkerView {
 
     public static void create(final TableView<Worker> table,
                        final TableColumn<Worker, String> idColumn,
