@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import model.PersonRelated;
 import model.Worker;
 
 import java.time.Instant;
@@ -32,7 +33,7 @@ public class CreateWorkerController {
     public void create() {
         if (
             lengthChecker(idField, 16, 16) &
-            isNotAlreadyPresent(idField, workersTable, Worker::fiscalCode) &
+            isNotAlreadyPresent(idField, workersTable, PersonRelated::fiscalCode) &
             lengthChecker(nameField, 2, 15) &
             lengthChecker(surnameField, 2, 15) &
             birthAndSuitabilityCheck(birthPicker, suitabilityCheck) &
