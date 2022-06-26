@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.Date;
 
 public class WorkersTable implements Table<Worker, String> {
-    public static final String TABLE_NAME = "dipendente";
+    public static final String DIPENDENTE = "dipendente";
     private final Connection connection;
 
     public WorkersTable(final Connection connection) {
@@ -18,14 +18,14 @@ public class WorkersTable implements Table<Worker, String> {
 
     @Override
     public String getTableName() {
-        return TABLE_NAME;
+        return DIPENDENTE;
     }
 
     @Override
     public boolean createTable() {
         try (final Statement statement = this.connection.createStatement()) {
             statement.executeUpdate(
-                    "CREATE TABLE " + TABLE_NAME + " (" +
+                    "CREATE TABLE " + DIPENDENTE + " (" +
                             "CodiceFiscale CHAR(16) NOT NULL PRIMARY KEY, " +
                             "Nome CHAR(40), " +
                             "Cognome CHAR(40), " +
@@ -48,7 +48,7 @@ public class WorkersTable implements Table<Worker, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + TABLE_NAME);
+            statement.executeQuery("DROP TABLE " + DIPENDENTE);
             return true;
         } catch (SQLException e) {
             return false;
@@ -56,12 +56,12 @@ public class WorkersTable implements Table<Worker, String> {
     }
 
     @Override
-    public Optional<Worker> findByFiscalCode(String fiscalCode) {
-        final String query = "SELECT * FROM " + TABLE_NAME + " WHERE CodiceFiscale = ?";
+    public Optional<List<Worker>> findByFiscalCode(String fiscalCode) {
+        final String query = "SELECT * FROM " + DIPENDENTE + " WHERE CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, fiscalCode);
             final ResultSet resultSet = statement.executeQuery();
-            return readWorkersFromResultSet(resultSet).stream().findFirst();
+            return Optional.of(readWorkersFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -70,7 +70,7 @@ public class WorkersTable implements Table<Worker, String> {
     @Override
     public List<Worker> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TABLE_NAME);
+            final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + DIPENDENTE);
             return readWorkersFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -78,8 +78,8 @@ public class WorkersTable implements Table<Worker, String> {
     }
 
     @Override
-    public boolean save(Worker worker) { //togli il optional alla data
-        final String query = "INSERT INTO " + TABLE_NAME + "(CodiceFiscale, Nome, Cognome, Compleanno, Residenza, " +
+    public void save(Worker worker) { //togli il optional alla data
+        final String query = "INSERT INTO " + DIPENDENTE + "(CodiceFiscale, Nome, Cognome, Compleanno, Residenza, " +
                 "Sesso, CodiceDipendente, TitoloDiStudio, IdoneitaAllaMansione, Socio, CreditiECM) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
@@ -95,18 +95,16 @@ public class WorkersTable implements Table<Worker, String> {
             statement.setString(10, worker.partner() ? "Y" : "N");
             statement.setInt(11, worker.ECMCredits());
             statement.executeUpdate();
-            return true;
         } catch (final SQLIntegrityConstraintViolationException e) {
-            return false;
-        } catch (SQLException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
             throw new IllegalStateException();
         }
     }
 
     @Override
     public boolean update(Worker worker) {
-        final String query = "UPDATE " + TABLE_NAME + " SET " +
+        final String query = "UPDATE " + DIPENDENTE + " SET " +
                 "Nome = ?, " +
                 "Cognome = ?, " +
                 "Compleanno = ?, " +
@@ -136,11 +134,11 @@ public class WorkersTable implements Table<Worker, String> {
     }
 
     @Override
-    public boolean delete(final String CodiceFiscale) {
-        final String query = "DELETE FROM " + TABLE_NAME + " WHERE CodiceFiscale = ?";
+    public void delete(final String CodiceFiscale) {
+        final String query = "DELETE FROM " + DIPENDENTE + " WHERE CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)){
             statement.setString(1, CodiceFiscale);
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
