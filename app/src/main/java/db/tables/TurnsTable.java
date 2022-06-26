@@ -27,8 +27,8 @@ public class TurnsTable implements Table<Turn, String> {
             statement.executeUpdate(
                     "CREATE TABLE " + TURNO + " (" +
                             "CodiceFiscale CHAR(16) NOT NULL PRIMARY KEY, " +
-                            "GiornoSettimana CHAR(10), " +
-                            "OraInizio TIME, " +
+                            "GiornoSettimana CHAR(10) NOT NULL PRIMARY KEY, " +
+                            "OraInizio TIME NOT NULL PRIMARY KEY , " +
                             "OraFine TIME, " +
                             "CodiceUnita CHAR(5)" +
                             ")"
