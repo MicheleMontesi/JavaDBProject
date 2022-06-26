@@ -3,11 +3,11 @@ package model;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public record Turn(String workerFiscalCode, String dayOfTheWeek, LocalTime beginTime, LocalTime endTime,
-                   String unitId) {
+public record Shift(String workerFiscalCode, String dayOfTheWeek, LocalTime beginTime, LocalTime endTime,
+                    String unitId) {
 
-    public Turn(final String workerFiscalCode, final String dayOfTheWeek, final LocalTime beginTime,
-                final LocalTime endTime, final String unitId) {
+    public Shift(final String workerFiscalCode, final String dayOfTheWeek, final LocalTime beginTime,
+                 final LocalTime endTime, final String unitId) {
         this.workerFiscalCode = workerFiscalCode;
         this.dayOfTheWeek = Objects.requireNonNull(dayOfTheWeek);
         this.beginTime = Objects.requireNonNull(beginTime);
@@ -30,12 +30,12 @@ public record Turn(String workerFiscalCode, String dayOfTheWeek, LocalTime begin
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Turn turn = (Turn) o;
-        return workerFiscalCode.equals(turn.workerFiscalCode)
-                && dayOfTheWeek.equals(turn.dayOfTheWeek)
-                && beginTime.equals(turn.beginTime)
-                && endTime.equals(turn.endTime)
-                && unitId.equals(turn.unitId);
+        Shift shift = (Shift) o;
+        return workerFiscalCode.equals(shift.workerFiscalCode)
+                && dayOfTheWeek.equals(shift.dayOfTheWeek)
+                && beginTime.equals(shift.beginTime)
+                && endTime.equals(shift.endTime)
+                && unitId.equals(shift.unitId);
     }
 
     @Override

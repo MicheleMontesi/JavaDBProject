@@ -5,17 +5,17 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import model.Turn;
+import model.Shift;
 
 import java.time.LocalTime;
 
-public class CreateTurnView {
+public class CreateShiftView {
 
-    public static void create(final TableView<Turn> table,
-                              final TableColumn<Turn, String> dayColumn,
-                              final TableColumn<Turn, LocalTime> beginColumn,
-                              final TableColumn<Turn, LocalTime> endColumn,
-                              final ObservableList<Turn> list) {
+    public static void create(final TableView<Shift> table,
+                              final TableColumn<Shift, String> dayColumn,
+                              final TableColumn<Shift, LocalTime> beginColumn,
+                              final TableColumn<Shift, LocalTime> endColumn,
+                              final ObservableList<Shift> list) {
 
         dayColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().dayOfTheWeek()));
         beginColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().beginTime()));

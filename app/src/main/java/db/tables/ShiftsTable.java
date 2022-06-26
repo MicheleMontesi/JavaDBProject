@@ -1,18 +1,18 @@
 package db.tables;
 
 import db.Table;
-import model.Turn;
+import model.Shift;
 
 import java.sql.*;
 import java.time.LocalTime;
 import java.util.*;
 
-public class TurnsTable implements Table<Turn, String> {
+public class ShiftsTable implements Table<Shift, String> {
 
     public static final String TURNO = "turno";
     private final Connection connection;
 
-    public TurnsTable(Connection connection) {
+    public ShiftsTable(Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 
@@ -50,7 +50,7 @@ public class TurnsTable implements Table<Turn, String> {
     }
 
     @Override
-    public Optional<List<Turn>> findByFiscalCode(String fiscalCode) {
+    public Optional<List<Shift>> findByFiscalCode(String fiscalCode) {
         final String query = "SELECT * FROM " +
                 TURNO + " t join " + WorkersTable.DIPENDENTE + " d on (t.CodiceFiscale = d.CodiceFiscale) " +
                 "WHERE d.CodiceFiscale = ?";
@@ -64,7 +64,7 @@ public class TurnsTable implements Table<Turn, String> {
     }
 
     @Override
-    public List<Turn> findAll() {
+    public List<Shift> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TURNO);
             return readTurnFromResultSet(resultSet);
@@ -74,15 +74,15 @@ public class TurnsTable implements Table<Turn, String> {
     }
 
     @Override
-    public void save(Turn turn) {
+    public void save(Shift shift) {
         final String query = "INSERT INTO " + TURNO + "(CodiceFiscale, GiornoSettimana, OraInizio, OraFine, CodiceUnita) " +
                 "VALUES (?,?,?,?,?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, turn.workerFiscalCode());
-            statement.setString(2, turn.dayOfTheWeek());
-            statement.setTime(3, Time.valueOf(turn.beginTime()));
-            statement.setTime(4, Time.valueOf(turn.endTime()));
-            statement.setString(5, turn.unitId());
+            statement.setString(1, shift.workerFiscalCode());
+            statement.setString(2, shift.dayOfTheWeek());
+            statement.setTime(3, Time.valueOf(shift.beginTime()));
+            statement.setTime(4, Time.valueOf(shift.endTime()));
+            statement.setString(5, shift.unitId());
             statement.executeUpdate();
         }catch (final SQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
@@ -92,18 +92,18 @@ public class TurnsTable implements Table<Turn, String> {
     }
 
     @Override
-    public boolean update(Turn turn) {
+    public boolean update(Shift shift) {
         final String query = "UPDATE " + TURNO + " SET " +
                 "OraInizio = ?, " +
                 "OraFine = ?, " +
                 "CodiceUnita = ? " +
                 "WHERE CodiceFiscale = ? AND GiornoSettimana = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setTime(1, Time.valueOf(turn.beginTime()));
-            statement.setTime(2, Time.valueOf(turn.endTime()));
-            statement.setString(3, turn.unitId());
-            statement.setString(4, turn.workerFiscalCode());
-            statement.setString(5, turn.dayOfTheWeek());
+            statement.setTime(1, Time.valueOf(shift.beginTime()));
+            statement.setTime(2, Time.valueOf(shift.endTime()));
+            statement.setString(3, shift.unitId());
+            statement.setString(4, shift.workerFiscalCode());
+            statement.setString(5, shift.dayOfTheWeek());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new IllegalStateException(e);
@@ -121,8 +121,8 @@ public class TurnsTable implements Table<Turn, String> {
         }
     }
 
-    private List<Turn> readTurnFromResultSet(final ResultSet resultSet) {
-        final List<Turn> list = new ArrayList<>();
+    private List<Shift> readTurnFromResultSet(final ResultSet resultSet) {
+        final List<Shift> list = new ArrayList<>();
         try {
             while (resultSet.next()) {
                 final String workerFiscalCode = resultSet.getString("CodiceFiscale");
@@ -131,8 +131,8 @@ public class TurnsTable implements Table<Turn, String> {
                 final LocalTime endTime = resultSet.getTime("OraFine").toLocalTime();
                 final String unitId = resultSet.getString("CodiceUnita");
 
-                final Turn turn = new Turn(workerFiscalCode, dayOfTheWeek, beginTime, endTime, unitId);
-                list.add(turn);
+                final Shift shift = new Shift(workerFiscalCode, dayOfTheWeek, beginTime, endTime, unitId);
+                list.add(shift);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
