@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public record Worker(String fiscalCode, String name, String surname, Date birthDay, String residence,
                      String gender, int workerId, String edQualification, boolean suitability, boolean partner,
-                     int ECMCredits) {
+                     int ECMCredits) implements PersonRelated {
 
     public Worker(final String fiscalCode, final String name, final String surname, final Date birthDay,
                   final String residence, final String gender, final int workerId, final String edQualification,
