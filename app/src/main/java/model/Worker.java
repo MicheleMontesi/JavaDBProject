@@ -42,23 +42,25 @@ public record Worker(String fiscalCode, String name, String surname, Date birthD
 
     @Override
     public boolean equals(Object o) {
-        return (o instanceof Worker)
-                && ((Worker) o).workerId() == this.workerId()
-                && Objects.equals(((Worker) o).fiscalCode(), this.fiscalCode())
-                && Objects.equals(((Worker) o).name(), this.name())
-                && Objects.equals(((Worker) o).surname(), this.surname())
-                && ((Worker) o).birthDay() == this.birthDay()
-                && Objects.equals(((Worker) o).residence(), this.residence())
-                && Objects.equals(((Worker) o).gender(), this.gender())
-                && Objects.equals(((Worker) o).edQualification(), this.edQualification())
-                && ((Worker) o).suitability() == this.suitability()
-                && ((Worker) o).partner() == this.partner()
-                && ((Worker) o).ECMCredits() == this.ECMCredits();
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Worker worker = (Worker) o;
+        return workerId == worker.workerId
+                && suitability == worker.suitability
+                && partner == worker.partner
+                && ECMCredits == worker.ECMCredits
+                && fiscalCode.equals(worker.fiscalCode)
+                && name.equals(worker.name)
+                && surname.equals(worker.surname)
+                && birthDay.equals(worker.birthDay)
+                && residence.equals(worker.residence)
+                && gender.equals(worker.gender)
+                && edQualification.equals(worker.edQualification);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workerId, suitability, partner, ECMCredits, fiscalCode,
-                name, surname, birthDay, residence, gender, edQualification);
+        return Objects.hash(fiscalCode, name, surname, birthDay, residence, gender,
+                workerId, edQualification, suitability, partner, ECMCredits);
     }
 }
