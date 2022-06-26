@@ -7,7 +7,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Worker;
 
+import java.text.Normalizer;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -84,5 +87,18 @@ public class PersonCheckers {
             errorAlert.showAndWait();
             return false;
         }
+    }
+
+    public static boolean dayCheck(TextField dayField) {
+        List<String> week = new ArrayList<>(Arrays.asList("LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI", "SABATO", "DOMENICA"));
+        final var str = Normalizer.normalize(dayField.getText(), Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "");
+        if (week.stream().noneMatch(e->e.equalsIgnoreCase(str))) {
+            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("INPUT NOT VALID");
+            errorAlert.setContentText("The day of the week must be one of these:\n" + week);
+            return false;
+        }
+        return true;
     }
 }
