@@ -7,10 +7,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Worker;
 import utilities.CreateView;
 
@@ -50,6 +47,10 @@ public class FindWorkerController {
                         workerCodeColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
             } else {
                 System.out.println(Optional.empty());
+                final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setHeaderText("Input not valid");
+                errorAlert.setContentText("The fiscal code \"" + idField.getText() + "\" doesn't exist.");
+                errorAlert.showAndWait();
             }
         }
     }
