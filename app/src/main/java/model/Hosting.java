@@ -2,10 +2,11 @@ package model;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
-public record Hosting(String fiscalCode, Date beginDate, Date endDate, String unitCode) {
+public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitCode) {
 
-    public Hosting(String fiscalCode, Date beginDate, Date endDate, String unitCode) {
+    public Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitCode) {
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
         this.beginDate = Objects.requireNonNull(beginDate);
         this.endDate = Objects.requireNonNull(endDate);
