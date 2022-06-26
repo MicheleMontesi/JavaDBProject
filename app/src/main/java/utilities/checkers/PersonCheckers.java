@@ -1,10 +1,12 @@
 package utilities.checkers;
 
+import db.Table;
 import db.tables.WorkersTable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import model.PersonRelated;
 import model.Worker;
 
 import java.text.Normalizer;
@@ -14,6 +16,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class PersonCheckers {
 
@@ -29,11 +32,9 @@ public class PersonCheckers {
         return true;
     }
 
-    public static boolean isNotAlreadyPresent(TextField field, WorkersTable workersTable, Function<Worker, ?> matchString) {
-        var workerList = workersTable.findAll();
-        List<?> idList = workerList.stream().map(matchString).toList();
-        System.out.println(idList);
-        System.out.println(field.getText());
+    public static boolean isNotAlreadyPresent(TextField field, Table<? extends PersonRelated, String> table, Function<PersonRelated, ?> matchString) {
+        var list = table.findAll();
+        List<?> idList = list.stream().map(matchString).toList();
         if (idList.contains(field.getText())) {
             final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
@@ -97,6 +98,19 @@ public class PersonCheckers {
             final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("INPUT NOT VALID");
             errorAlert.setContentText("The day of the week must be one of these:\n" + week);
+            errorAlert.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean timeCheck(TextField timeField) {
+        Pattern p = Pattern.compile("^([0-1]?\\d|2[0-3]):[0-5]\\d$");
+        if (!p.matcher(timeField.getText()).matches()) {
+            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("INPUT NOT VALID");
+            errorAlert.setContentText("The time must be in the format HH:mm");
+            errorAlert.showAndWait();
             return false;
         }
         return true;
