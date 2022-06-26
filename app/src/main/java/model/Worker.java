@@ -6,6 +6,7 @@ import java.util.Objects;
 public record Worker(String fiscalCode, String name, String surname, Date birthDay, String residence,
                      String gender, int workerId, String edQualification, boolean suitability, boolean partner,
                      int ECMCredits) {
+
     public Worker(final String fiscalCode, final String name, final String surname, final Date birthDay,
                   final String residence, final String gender, final int workerId, final String edQualification,
                   final boolean suitability, final boolean partner, final int ECMCredits) {
@@ -41,20 +42,23 @@ public record Worker(String fiscalCode, String name, String surname, Date birthD
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Worker that = (Worker) o;
-        return workerId == that.workerId
-                && suitability == that.suitability
-                && partner == that.partner
-                && ECMCredits == that.ECMCredits
-                && fiscalCode.equals(that.fiscalCode)
-                && name.equals(that.name)
-                && surname.equals(that.surname)
-                && birthDay.equals(that.birthDay)
-                && residence.equals(that.residence)
-                && gender.equals(that.gender)
-                && edQualification.equals(that.edQualification);
+        return (o instanceof Worker)
+                && ((Worker) o).workerId() == this.workerId()
+                && Objects.equals(((Worker) o).fiscalCode(), this.fiscalCode())
+                && Objects.equals(((Worker) o).name(), this.name())
+                && Objects.equals(((Worker) o).surname(), this.surname())
+                && ((Worker) o).birthDay() == this.birthDay()
+                && Objects.equals(((Worker) o).residence(), this.residence())
+                && Objects.equals(((Worker) o).gender(), this.gender())
+                && Objects.equals(((Worker) o).edQualification(), this.edQualification())
+                && ((Worker) o).suitability() == this.suitability()
+                && ((Worker) o).partner() == this.partner()
+                && ((Worker) o).ECMCredits() == this.ECMCredits();
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(workerId, suitability, partner, ECMCredits, fiscalCode,
+                name, surname, birthDay, residence, gender, edQualification);
+    }
 }

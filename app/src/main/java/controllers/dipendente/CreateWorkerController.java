@@ -32,12 +32,14 @@ public class CreateWorkerController {
     public void create() {
         if (
             lengthChecker(idField, 16, 16) &
+            isNotAlreadyPresent(idField, workersTable, Worker::fiscalCode) &
             lengthChecker(nameField, 2, 15) &
             lengthChecker(surnameField, 2, 15) &
             birthAndSuitabilityCheck(birthPicker, suitabilityCheck) &
             lengthChecker(residenceField, 10, 50) &
             genderCheck(genderField) &
             intCheck(workerCodeField, 1, 10) &
+            /*isNotAlreadyPresent(workerCodeField, workersTable, Worker::workerId) &*/
             lengthChecker(edField, 10, 50) &
             intCheck(ecmField, 0, 5)
         ) {
@@ -56,6 +58,18 @@ public class CreateWorkerController {
             workersTable.save(new Worker(id, name, surname, birth, residence, gender,
                     workerId, ed, suitability, partner, ecm));
         }
+    }
+
+    public void setWorkerCodeField() {
+        var max = workersTable.findAll()
+                .stream()
+                .map(Worker::workerId)
+                .toList()
+                .stream()
+                .mapToInt(v->v)
+                .max()
+                .orElse(0);
+        workerCodeField.setText(Integer.toString(max + 1));
 
     }
 }
