@@ -28,7 +28,7 @@ public class FindWorkerController {
     @FXML
     private TableColumn<Worker, Date> birthColumn;
     @FXML
-    private TableColumn<Worker, Integer> workerCodeColumn, ECMColumn;
+    private TableColumn<Worker, Integer> workerIdColumn, ECMColumn;
     @FXML
     private TableColumn<Worker, Boolean> suitabilityColumn, partnerColumn;
 
@@ -43,7 +43,7 @@ public class FindWorkerController {
             if (worker.isPresent()) {
                 final ObservableList<Worker> list = FXCollections.observableArrayList(worker.get());
                 CreateWorkerView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
-                        workerCodeColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
+                        workerIdColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");

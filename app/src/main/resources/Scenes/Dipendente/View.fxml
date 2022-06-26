@@ -45,7 +45,7 @@
               <TableColumn fx:id="birthColumn" editable="false" prefWidth="200.0" text="Data di Nascita" />
               <TableColumn fx:id="residenceColumn" editable="false" prefWidth="300.0" text="Residenza" />
               <TableColumn fx:id="genderColumn" editable="false" prefWidth="109.0" text="Sesso" />
-              <TableColumn fx:id="workerCodeColumn" editable="false" prefWidth="120.0" text="Codice Dipendente" />
+              <TableColumn fx:id="workerIdColumn" editable="false" prefWidth="120.0" text="Codice Dipendente" />
               <TableColumn fx:id="edQualColumn" editable="false" prefWidth="200.0" text="Titolo di studio" />
               <TableColumn fx:id="ECMColumn" editable="false" prefWidth="75.0" text="Crediti ECM" />
               <TableColumn fx:id="suitabilityColumn" editable="false" prefWidth="150.0" text="Idoneita Alla Mansione" />

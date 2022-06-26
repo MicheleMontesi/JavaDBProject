@@ -20,7 +20,7 @@ public class CreateWorkerView {
                        final TableColumn<Worker, Date> birthColumn,
                        final TableColumn<Worker, String>residenceColumn,
                        final TableColumn<Worker, String>genderColumn,
-                       final TableColumn<Worker, Integer> workerCodeColumn,
+                       final TableColumn<Worker, Integer> workerIdColumn,
                        final TableColumn<Worker, Boolean> suitabilityColumn,
                        final TableColumn<Worker, Boolean>partnerColumn,
                        final TableColumn<Worker, String>edQualColumn,
@@ -33,7 +33,7 @@ public class CreateWorkerView {
         birthColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(null, "", cellData.getValue().birthDay()));
         residenceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().residence()));
         genderColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().gender()));
-        workerCodeColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().workerId()));
+        workerIdColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().workerId()));
         edQualColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().edQualification()));
         suitabilityColumn.setCellValueFactory(cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().suitability()));
         partnerColumn.setCellValueFactory(cellData -> new ReadOnlyBooleanWrapper(cellData.getValue().partner()));

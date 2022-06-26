@@ -42,7 +42,7 @@
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.dipendente.CreateWorkerController">
-   <AnchorPane onMouseEntered="#setWorkerCodeField" HBox.hgrow="ALWAYS">
+   <AnchorPane onMouseEntered="#setWorkerIdField" HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
@@ -61,7 +61,7 @@
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="130.0" prefWidth="165.0" text="Sesso" translateY="60.0" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="genderField" layoutX="180.0" layoutY="125.0" promptText="Enter M or F..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Codice Dipendente" translateY="60.0" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="workerCodeField" editable="false" layoutX="180.0" layoutY="155.0" promptText="Enter the worker id..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <TextField fx:id="workerIdField" editable="false" layoutX="180.0" layoutY="155.0" promptText="Enter the worker id..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="190.0" prefWidth="165.0" text="Titolo Di Studio" translateY="60.0" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="edField" layoutX="180.0" layoutY="185.0" promptText="Enter the educational qualification..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="280.0" prefWidth="165.0" text="Crediti ECM" AnchorPane.leftAnchor="9.0" />

@@ -18,7 +18,7 @@ public class CreateWorkerController {
 
     @FXML
     private TextField idField, nameField, surnameField, residenceField,
-            genderField, workerCodeField, edField, ecmField;
+            genderField, workerIdField, edField, ecmField;
     @FXML
     private CheckBox suitabilityCheck, partnerCheck;
     @FXML
@@ -38,8 +38,7 @@ public class CreateWorkerController {
             birthAndSuitabilityCheck(birthPicker, suitabilityCheck) &
             lengthChecker(residenceField, 10, 50) &
             genderCheck(genderField) &
-            intCheck(workerCodeField, 1, 10) &
-            /*isNotAlreadyPresent(workerCodeField, workersTable, Worker::workerId) &*/
+            intCheck(workerIdField, 1, 10) &
             lengthChecker(edField, 10, 50) &
             intCheck(ecmField, 0, 5)
         ) {
@@ -50,7 +49,7 @@ public class CreateWorkerController {
             final String gender = genderField.getText().toUpperCase();
             final String ed = edField.getText();
             final Date birth = Date.from(Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            final int workerId = Integer.parseInt(workerCodeField.getText());
+            final int workerId = Integer.parseInt(workerIdField.getText());
             final int ecm = Integer.parseInt(ecmField.getText());
             final boolean suitability = suitabilityCheck.isSelected();
             final boolean partner = partnerCheck.isSelected();
@@ -60,7 +59,7 @@ public class CreateWorkerController {
         }
     }
 
-    public void setWorkerCodeField() {
+    public void setWorkerIdField() {
         var max = workersTable.findAll()
                 .stream()
                 .map(Worker::workerId)
@@ -69,7 +68,7 @@ public class CreateWorkerController {
                 .mapToInt(v->v)
                 .max()
                 .orElse(0);
-        workerCodeField.setText(Integer.toString(max + 1));
+        workerIdField.setText(Integer.toString(max + 1));
 
     }
 }

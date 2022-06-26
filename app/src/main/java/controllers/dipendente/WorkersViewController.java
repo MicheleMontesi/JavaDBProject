@@ -23,7 +23,7 @@ public class WorkersViewController implements Initializable {
     @FXML
     private TableColumn<Worker, Date> birthColumn;
     @FXML
-    private TableColumn<Worker, Integer> workerCodeColumn, ECMColumn;
+    private TableColumn<Worker, Integer> workerIdColumn, ECMColumn;
     @FXML
     private TableColumn<Worker, Boolean> suitabilityColumn, partnerColumn;
 
@@ -37,6 +37,6 @@ public class WorkersViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         CreateWorkerView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
-                workerCodeColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
+                workerIdColumn, suitabilityColumn, partnerColumn, edQualColumn, ECMColumn, list);
     }
 }
