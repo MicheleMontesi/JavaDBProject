@@ -26,17 +26,19 @@ public class WorkersTable implements Table<Worker, String> {
         try (final Statement statement = this.connection.createStatement()) {
             statement.executeUpdate(
                     "CREATE TABLE " + DIPENDENTE + " (" +
-                            "CodiceFiscale CHAR(16) NOT NULL PRIMARY KEY, " +
-                            "Nome CHAR(40), " +
-                            "Cognome CHAR(40), " +
-                            "Compleanno DATE, " +
-                            "Residenza CHAR(40), " +
-                            "Sesso CHAR(1), " +
-                            "CodiceDipendente INT, " +
-                            "TitoloDiStudio CHAR(40), " +
-                            "IdoneitaAllaMansione CHAR(1), " +
-                            "Socio CHAR(1), " +
-                            "CreditiECM INT" +
+                            "CodiceFiscale CHAR(16) NOT NULL, " +
+                            "Nome CHAR(40) NOT NULL, " +
+                            "Cognome CHAR(40) NOT NULL, " +
+                            "Compleanno DATE NOT NULL, " +
+                            "Residenza CHAR(50) NOT NULL, " +
+                            "Sesso CHAR(1) NOT NULL, " +
+                            "CodiceDipendente INT NOT NULL, " +
+                            "TitoloDiStudio CHAR(50) NOT NULL, " +
+                            "IdoneitaAllaMansione CHAR(1) NOT NULL, " +
+                            "Socio CHAR(1) NOT NULL, " +
+                            "CreditiECM INT NOT NULL, " +
+                            "CONSTRAINT SID_DIPENDENTE_ID UNIQUE (CodiceDipendente), " +
+                            "CONSTRAINT ID_DIPENDENTE_ID PRIMARY KEY (CodiceFiscale)" +
                             ")"
             );
             return true;
