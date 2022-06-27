@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.Date;
 
 public class WorkersTable implements Table<Worker, String> {
-    public static final String DIPENDENTE = "dipendente";
+    protected static final String DIPENDENTE = "dipendente";
     private final Connection connection;
 
     public WorkersTable(final Connection connection) {
@@ -37,9 +37,11 @@ public class WorkersTable implements Table<Worker, String> {
                             "IdoneitaAllaMansione CHAR(1) NOT NULL, " +
                             "Socio CHAR(1) NOT NULL, " +
                             "CreditiECM INT NOT NULL, " +
-                            "CONSTRAINT SID_DIPENDENTE_ID UNIQUE (CodiceDipendente), " +
-                            "CONSTRAINT ID_DIPENDENTE_ID PRIMARY KEY (CodiceFiscale)" +
-                            ")"
+                            "PRIMARY KEY (CodiceFiscale), " +
+                            "UNIQUE KEY SID_DIPENDENTE_ID (CodiceDipendente), " +
+                            "UNIQUE KEY SID_DIPENDENTE_IND (CodiceDipendente), " +
+                            "UNIQUE KEY ID_DIPENDENTE_IND (CodiceFiscale)" +
+                            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             );
             return true;
         } catch (SQLException e) {
@@ -58,10 +60,10 @@ public class WorkersTable implements Table<Worker, String> {
     }
 
     @Override
-    public Optional<List<Worker>> findByFiscalCode(String fiscalCode) {
+    public Optional<List<Worker>> findByCode(String code) {
         final String query = "SELECT * FROM " + DIPENDENTE + " WHERE CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, fiscalCode);
+            statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
             return Optional.of(readWorkersFromResultSet(resultSet));
         } catch (SQLException e) {
@@ -129,6 +131,7 @@ public class WorkersTable implements Table<Worker, String> {
             statement.setString(8, worker.suitability() ? "Y" : "N");
             statement.setString(9, worker.partner() ? "Y" : "N");
             statement.setInt(10, worker.ECMCredits());
+            statement.setString(11, worker.fiscalCode());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new IllegalStateException(e);

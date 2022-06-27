@@ -9,7 +9,7 @@ import java.util.*;
 
 public class ShiftsTable implements Table<Shift, String> {
 
-    public static final String TURNO = "turno";
+    protected static final String TURNO = "turno";
     private final Connection connection;
 
     public ShiftsTable(Connection connection) {
@@ -26,12 +26,17 @@ public class ShiftsTable implements Table<Shift, String> {
         try (final Statement statement = this.connection.createStatement()) {
             statement.executeUpdate(
                     "CREATE TABLE " + TURNO + " (" +
-                            "CodiceFiscale CHAR(16) NOT NULL PRIMARY KEY, " +
-                            "GiornoSettimana CHAR(10) NOT NULL PRIMARY KEY, " +
-                            "OraInizio TIME NOT NULL PRIMARY KEY , " +
-                            "OraFine TIME, " +
-                            "CodiceUnita CHAR(5)" +
-                            ")"
+                            "CodiceFiscale CHAR(16) NOT NULL, " +
+                            "GiornoSettimana CHAR(10) NOT NULL, " +
+                            "OraInizio TIME NOT NULL, " +
+                            "OraFine TIME NOT NULL, " +
+                            "CodiceUnita CHAR(5) NOT NULL, " +
+                            "PRIMARY KEY (CodiceFiscale,GiornoSettimana,OraInizio), " +
+                            "UNIQUE KEY ID_TURNO_IND (CodiceFiscale,GiornoSettimana,OraInizio), " +
+                            "KEY FKSVOLGERE_IND (CodiceUnita), " +
+                            "CONSTRAINT FKASSEGNARE FOREIGN KEY (CodiceFiscale) REFERENCES dipendente (CodiceFiscale), " +
+                            "CONSTRAINT FKSVOLGERE_FK FOREIGN KEY (CodiceUnita) REFERENCES unita_operativa (CodiceUnita)" +
+                            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             );
             return true;
         } catch (SQLException e) {
@@ -50,12 +55,12 @@ public class ShiftsTable implements Table<Shift, String> {
     }
 
     @Override
-    public Optional<List<Shift>> findByFiscalCode(String fiscalCode) {
+    public Optional<List<Shift>> findByCode(String code) {
         final String query = "SELECT * FROM " +
                 TURNO + " t join " + WorkersTable.DIPENDENTE + " d on (t.CodiceFiscale = d.CodiceFiscale) " +
                 "WHERE d.CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, fiscalCode);
+            statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
             return Optional.of(readTurnFromResultSet(resultSet));
         } catch (SQLException e) {

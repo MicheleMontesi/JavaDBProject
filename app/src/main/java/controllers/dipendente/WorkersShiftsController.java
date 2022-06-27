@@ -35,7 +35,7 @@ public class WorkersShiftsController {
 
     public void search() {
         if (lengthChecker(idField, 16, 16)) {
-            var shift = shiftsTable.findByFiscalCode(idField.getText());
+            var shift = shiftsTable.findByCode(idField.getText());
             if (shift.isPresent()) {
                 final ObservableList<Shift> list = FXCollections.observableArrayList(shift.get());
                 CreateShiftView.create(table, dayColumn, beginColumn, endColumn, list);

@@ -8,7 +8,7 @@ public interface Table<V,K> {
     String getTableName();
     boolean createTable();
     boolean dropTable();
-    Optional<List<V>> findByFiscalCode(final K fiscalCode);
+    Optional<List<V>> findByCode(final K code);
     List<V> findAll();
     void save(final V value);
     boolean update(final V updatedValue);

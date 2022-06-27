@@ -39,7 +39,7 @@ public class FindWorkerController {
 
     public void search() {
         if (lengthChecker(idField, 16, 16)) {
-            var worker = workersTable.findByFiscalCode(idField.getText());
+            var worker = workersTable.findByCode(idField.getText());
             if (worker.isPresent()) {
                 final ObservableList<Worker> list = FXCollections.observableArrayList(worker.get());
                 CreateWorkerView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,
