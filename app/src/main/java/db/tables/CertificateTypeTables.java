@@ -2,7 +2,6 @@ package db.tables;
 
 import db.Table;
 import model.CertificateType;
-import model.ContractType;
 
 import java.sql.*;
 import java.util.ArrayList;
