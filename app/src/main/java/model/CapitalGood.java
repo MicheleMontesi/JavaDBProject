@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
-public record CapitalGoods(String unitId, int goodId, Date purchaseDate, Date nextMaintenance, boolean vehicle,
-                           Optional<String> toolName, Optional<String> licencePlate, Optional<String> typology,
-                           Optional<Date> insuranceExpiration) {
+public record CapitalGood(String unitId, int goodId, Date purchaseDate, Date nextMaintenance, boolean vehicle,
+                          Optional<String> toolName, Optional<String> licencePlate, Optional<String> typology,
+                          Optional<Date> insuranceExpiration) {
 
-    public CapitalGoods(String unitId, int goodId, Date purchaseDate, Date nextMaintenance, boolean vehicle,
-                        Optional<String> toolName, Optional<String> licencePlate, Optional<String> typology,
-                        Optional<Date> insuranceExpiration) {
+    public CapitalGood(String unitId, int goodId, Date purchaseDate, Date nextMaintenance, boolean vehicle,
+                       Optional<String> toolName, Optional<String> licencePlate, Optional<String> typology,
+                       Optional<Date> insuranceExpiration) {
         this.unitId = Objects.requireNonNull(unitId);
         this.goodId = goodId;
         this.purchaseDate = Objects.requireNonNull(purchaseDate);
@@ -41,7 +41,7 @@ public record CapitalGoods(String unitId, int goodId, Date purchaseDate, Date ne
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CapitalGoods that = (CapitalGoods) o;
+        CapitalGood that = (CapitalGood) o;
         return goodId == that.goodId
                 && vehicle == that.vehicle
                 && unitId.equals(that.unitId)
