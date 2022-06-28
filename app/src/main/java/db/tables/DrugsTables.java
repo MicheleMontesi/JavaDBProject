@@ -64,7 +64,7 @@ public class DrugsTables implements Table<Drug, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
-            return Optional.of(readContractFromResultSet(resultSet));
+            return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -74,7 +74,7 @@ public class DrugsTables implements Table<Drug, String> {
     public List<Drug> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + FARMACO);
-            return readContractFromResultSet(resultSet);
+            return readFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -132,7 +132,8 @@ public class DrugsTables implements Table<Drug, String> {
         }
     }
 
-    private List<Drug> readContractFromResultSet(final ResultSet resultSet) {
+    @Override
+    public List<Drug> readFromResultSet(final ResultSet resultSet) {
         final List<Drug> list = new ArrayList<>();
         try {
             while (resultSet.next()) {

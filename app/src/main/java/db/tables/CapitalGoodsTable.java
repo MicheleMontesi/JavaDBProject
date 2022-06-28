@@ -65,7 +65,7 @@ public class CapitalGoodsTable implements Table<CapitalGood, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
-            return Optional.of(readGoodFromResultSet(resultSet));
+            return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -75,7 +75,7 @@ public class CapitalGoodsTable implements Table<CapitalGood, String> {
     public List<CapitalGood> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + BENI);
-            return readGoodFromResultSet(resultSet);
+            return readFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -143,8 +143,8 @@ public class CapitalGoodsTable implements Table<CapitalGood, String> {
             throw new RuntimeException(e);
         }
     }
-
-    private List<CapitalGood> readGoodFromResultSet(final ResultSet resultSet) {
+    @Override
+    public List<CapitalGood> readFromResultSet(final ResultSet resultSet) {
         final List<CapitalGood> list = new ArrayList<>();
         try {
             while (resultSet.next()) {

@@ -65,7 +65,7 @@ public class MedicalRecordsTable implements Table<MedicalRecords, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
-            return Optional.of(readMedicalRecFromResultSet(resultSet));
+            return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -75,7 +75,7 @@ public class MedicalRecordsTable implements Table<MedicalRecords, String> {
     public List<MedicalRecords> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + CARTELLA);
-            return readMedicalRecFromResultSet(resultSet);
+            return readFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -128,8 +128,8 @@ public class MedicalRecordsTable implements Table<MedicalRecords, String> {
             throw new IllegalStateException(e);
         }
     }
-
-    private List<MedicalRecords> readMedicalRecFromResultSet(final ResultSet resultSet) {
+    @Override
+    public List<MedicalRecords> readFromResultSet(final ResultSet resultSet) {
         final List<MedicalRecords> list = new ArrayList<>();
         try {
             while (resultSet.next()) {

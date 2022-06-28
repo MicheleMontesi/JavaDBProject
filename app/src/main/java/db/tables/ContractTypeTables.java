@@ -57,7 +57,7 @@ public class ContractTypeTables implements Table<ContractType, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, name);
             final ResultSet resultSet = statement.executeQuery();
-            return Optional.of(readContractFromResultSet(resultSet));
+            return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -67,7 +67,7 @@ public class ContractTypeTables implements Table<ContractType, String> {
     public List<ContractType> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TIPOLOGIA_CONTRATTO);
-            return readContractFromResultSet(resultSet);
+            return readFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -113,7 +113,8 @@ public class ContractTypeTables implements Table<ContractType, String> {
         }
     }
 
-    private List<ContractType> readContractFromResultSet(final ResultSet resultSet) {
+    @Override
+    public List<ContractType> readFromResultSet(final ResultSet resultSet) {
         final List<ContractType> list = new ArrayList<>();
         try {
             while (resultSet.next()) {

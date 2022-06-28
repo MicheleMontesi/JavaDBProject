@@ -65,7 +65,7 @@ public class WorkersTable implements Table<Worker, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
-            return Optional.of(readWorkersFromResultSet(resultSet));
+            return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -75,7 +75,7 @@ public class WorkersTable implements Table<Worker, String> {
     public List<Worker> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + DIPENDENTE);
-            return readWorkersFromResultSet(resultSet);
+            return readFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -148,8 +148,8 @@ public class WorkersTable implements Table<Worker, String> {
             throw new RuntimeException(e);
         }
     }
-
-    private List<Worker> readWorkersFromResultSet(final ResultSet resultSet) {
+    @Override
+    public List<Worker> readFromResultSet(final ResultSet resultSet) {
         final List<Worker> list = new ArrayList<>();
         try {
             while (resultSet.next()) {
