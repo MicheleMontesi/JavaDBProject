@@ -57,8 +57,7 @@ public class ShiftsTable implements Table<Shift, String> {
     @Override
     public Optional<List<Shift>> findByCode(String code) {
         final String query = "SELECT * FROM " +
-                TURNO + " t join " + WorkersTable.DIPENDENTE + " d on (t.CodiceFiscale = d.CodiceFiscale) " +
-                "WHERE d.CodiceFiscale = ?";
+                TURNO + " WHERE CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
