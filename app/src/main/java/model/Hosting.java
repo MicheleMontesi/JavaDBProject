@@ -4,13 +4,13 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
-public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitCode) {
+public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitId) {
 
-    public Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitCode) {
+    public Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitId) {
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
         this.beginDate = Objects.requireNonNull(beginDate);
         this.endDate = Objects.requireNonNull(endDate);
-        this.unitCode = Objects.requireNonNull(unitCode);
+        this.unitId = Objects.requireNonNull(unitId);
     }
 
     @Override
@@ -19,7 +19,7 @@ public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate,
                 "fiscalCode='" + fiscalCode + '\'' +
                 ", beginDate=" + beginDate +
                 ", endDate=" + endDate +
-                ", unitCode='" + unitCode + '\'' +
+                ", unitId='" + unitId + '\'' +
                 '}';
     }
 
@@ -31,11 +31,11 @@ public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate,
         return fiscalCode.equals(hosting.fiscalCode)
                 && beginDate.equals(hosting.beginDate)
                 && endDate.equals(hosting.endDate)
-                && unitCode.equals(hosting.unitCode);
+                && unitId.equals(hosting.unitId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fiscalCode, beginDate, endDate, unitCode);
+        return Objects.hash(fiscalCode, beginDate, endDate, unitId);
     }
 }
