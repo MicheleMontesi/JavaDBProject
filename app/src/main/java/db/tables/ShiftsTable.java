@@ -129,7 +129,7 @@ public class ShiftsTable implements Table<Shift, String> {
             statement.setString(4, giornoSettimana);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
