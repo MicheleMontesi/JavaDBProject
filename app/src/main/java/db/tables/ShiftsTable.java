@@ -116,10 +116,17 @@ public class ShiftsTable implements Table<Shift, String> {
     }
 
     @Override
-    public void delete(String CodiceFiscale) {
-        final String query = "DELETE FROM " + TURNO + " WHERE CodiceFiscale = ?";
+    public void delete(String codBene){
+    }
+
+    public void deleteByParameters(String CodiceFiscale, Time oraInizio, String giornoSettimana, String codiceUnita) {
+        final String query = "DELETE FROM " + TURNO + " WHERE CodiceFiscale = ? " +
+                "AND OraInizio = ? AND CodiceUnita = ? AND GiornoSettimana = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)){
             statement.setString(1, CodiceFiscale);
+            statement.setTime(2, oraInizio);
+            statement.setString(3, codiceUnita);
+            statement.setString(4, giornoSettimana);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
