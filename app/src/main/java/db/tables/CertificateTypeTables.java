@@ -56,7 +56,7 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, name);
             final ResultSet resultSet = statement.executeQuery();
-            return Optional.of(readCertificateFromResultSet(resultSet));
+            return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
             return Optional.empty();
         }
@@ -66,7 +66,7 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
     public List<CertificateType> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TIPOLOGIA_ATTESTATO);
-            return readCertificateFromResultSet(resultSet);
+            return readFromResultSet(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -102,7 +102,8 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
         }
     }
 
-    private List<CertificateType> readCertificateFromResultSet(final ResultSet resultSet) {
+    @Override
+    public List<CertificateType> readFromResultSet(final ResultSet resultSet) {
         final List<CertificateType> list = new ArrayList<>();
         try {
             while (resultSet.next()) {
