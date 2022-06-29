@@ -2,21 +2,19 @@ package db.tables;
 
 import db.Table;
 import model.MedicalRecords;
-import model.Shift;
 
 import java.sql.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class MedicalRecordsTable implements Table<MedicalRecords, String> {
+public class MedicalRecordsTables implements Table<MedicalRecords, String> {
 
     protected static final String CARTELLA = "cartella_clinica";
     private final Connection connection;
 
-    public MedicalRecordsTable(Connection connection) {
+    public MedicalRecordsTables(Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 

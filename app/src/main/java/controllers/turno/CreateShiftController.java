@@ -1,7 +1,7 @@
 package controllers.turno;
 
 import db.ConnectionProvider;
-import db.tables.ShiftsTable;
+import db.tables.ShiftsTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import model.PersonRelated;
@@ -20,7 +20,7 @@ public class CreateShiftController {
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
 
-    private final ShiftsTable shiftsTable = new ShiftsTable(connectionProvider.getMySQLConnection());
+    private final ShiftsTables shiftsTable = new ShiftsTables(connectionProvider.getMySQLConnection());
 
     public void create() {
         if (

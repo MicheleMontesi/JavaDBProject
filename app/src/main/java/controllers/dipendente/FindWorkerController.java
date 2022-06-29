@@ -1,7 +1,7 @@
 package controllers.dipendente;
 
 import db.ConnectionProvider;
-import db.tables.WorkersTable;
+import db.tables.WorkersTables;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -35,7 +35,7 @@ public class FindWorkerController {
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
 
-    private final WorkersTable workersTable = new WorkersTable(connectionProvider.getMySQLConnection());
+    private final WorkersTables workersTable = new WorkersTables(connectionProvider.getMySQLConnection());
 
     public void search() {
         if (lengthChecker(idField, 16, 16)) {

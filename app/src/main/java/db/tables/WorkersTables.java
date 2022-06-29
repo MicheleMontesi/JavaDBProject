@@ -8,11 +8,11 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-public class WorkersTable implements Table<Worker, String> {
+public class WorkersTables implements Table<Worker, String> {
     protected static final String DIPENDENTE = "dipendente";
     private final Connection connection;
 
-    public WorkersTable(final Connection connection) {
+    public WorkersTables(final Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 

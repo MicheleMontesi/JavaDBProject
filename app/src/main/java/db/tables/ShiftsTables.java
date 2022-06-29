@@ -7,12 +7,12 @@ import java.sql.*;
 import java.time.LocalTime;
 import java.util.*;
 
-public class ShiftsTable implements Table<Shift, String> {
+public class ShiftsTables implements Table<Shift, String> {
 
     protected static final String TURNO = "turno";
     private final Connection connection;
 
-    public ShiftsTable(Connection connection) {
+    public ShiftsTables(Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 

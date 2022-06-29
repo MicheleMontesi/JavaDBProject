@@ -1,7 +1,7 @@
 package controllers.dipendente;
 
 import db.ConnectionProvider;
-import db.tables.WorkersTable;
+import db.tables.WorkersTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class WorkersViewController implements Initializable {
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
 
-    private final WorkersTable workersTable = new WorkersTable(connectionProvider.getMySQLConnection());
+    private final WorkersTables workersTable = new WorkersTables(connectionProvider.getMySQLConnection());
 
     private final ObservableList<Worker> list = FXCollections.observableArrayList(workersTable.findAll());
 

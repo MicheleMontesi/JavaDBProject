@@ -2,22 +2,19 @@ package db.tables;
 
 import db.Table;
 import model.OperatingUnit;
-import model.Worker;
-import utilities.DateConverter;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class OperatingUnitTable implements Table<OperatingUnit, String> {
+public class OperatingUnitTables implements Table<OperatingUnit, String> {
 
     protected static final String UNITA_OPERATIVA = "unita_operativa";
     private final Connection connection;
 
-    public OperatingUnitTable(final Connection connection) {
+    public OperatingUnitTables(final Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 

@@ -1,13 +1,11 @@
 package utilities.checkers;
 
 import db.Table;
-import db.tables.WorkersTable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.PersonRelated;
-import model.Worker;
 
 import java.text.Normalizer;
 import java.time.ZoneId;

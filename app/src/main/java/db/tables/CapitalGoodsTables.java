@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CapitalGoodsTable implements Table<CapitalGood, String> {
+public class CapitalGoodsTables implements Table<CapitalGood, String> {
 
     protected static final String BENI = "beni_strumentali";
     private final Connection connection;
 
-    public CapitalGoodsTable(Connection connection) {
+    public CapitalGoodsTables(Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 

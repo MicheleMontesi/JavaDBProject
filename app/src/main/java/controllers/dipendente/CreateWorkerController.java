@@ -1,7 +1,7 @@
 package controllers.dipendente;
 
 import db.ConnectionProvider;
-import db.tables.WorkersTable;
+import db.tables.WorkersTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -28,7 +28,7 @@ public class CreateWorkerController {
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
 
-    private final WorkersTable workersTable = new WorkersTable(connectionProvider.getMySQLConnection());
+    private final WorkersTables workersTable = new WorkersTables(connectionProvider.getMySQLConnection());
 
     public void create() {
         if (

@@ -2,7 +2,6 @@ package db.tables;
 
 import db.Table;
 import model.Patient;
-import model.Worker;
 import utilities.DateConverter;
 
 import java.sql.*;
@@ -12,12 +11,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class PatientsTable implements Table<Patient, String> {
+public class PatientsTables implements Table<Patient, String> {
 
     protected static final String PAZIENTE = "paziente";
     private final Connection connection;
 
-    public PatientsTable(Connection connection) {
+    public PatientsTables(Connection connection) {
         this.connection = Objects.requireNonNull(connection);
     }
 

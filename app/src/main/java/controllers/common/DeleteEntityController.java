@@ -1,7 +1,7 @@
 package controllers.common;
 
 import db.ConnectionProvider;
-import db.tables.WorkersTable;
+import db.tables.WorkersTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -17,7 +17,7 @@ public class DeleteEntityController {
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
 
-    private final WorkersTable workersTable = new WorkersTable(connectionProvider.getMySQLConnection());
+    private final WorkersTables workersTable = new WorkersTables(connectionProvider.getMySQLConnection());
 
     public void delete() {
         if (lengthChecker(idField, 16, 16)) {
