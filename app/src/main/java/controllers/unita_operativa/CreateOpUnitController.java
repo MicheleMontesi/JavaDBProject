@@ -41,7 +41,7 @@ public class CreateOpUnitController {
                 authCheck.isSelected() &
                 accreditCheck.isSelected()
         ) {
-            final String id = idField.getText();
+            final String id = toUpperNormalizer(idField);
             final String type = typeChoice.getValue();
             final String name = nameField.getText();
             final String location = locationField.getText();
