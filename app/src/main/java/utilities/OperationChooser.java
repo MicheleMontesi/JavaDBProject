@@ -42,6 +42,11 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateCertificateType");
                     }
                     break;
+                case "Attestato Acquisito":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreateCertificateAcquired");
+                    }
+                    break;
                 default:
                     this.contentPane.getChildren().clear();
                     break;
