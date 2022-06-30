@@ -15,11 +15,13 @@ public class CreateShiftView {
                               final TableColumn<Shift, String> dayColumn,
                               final TableColumn<Shift, LocalTime> beginColumn,
                               final TableColumn<Shift, LocalTime> endColumn,
+                              final TableColumn<Shift, String> unitIdColumn,
                               final ObservableList<Shift> list) {
 
         dayColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().dayOfTheWeek()));
         beginColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().beginTime()));
         endColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().endTime()));
+        unitIdColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().unitId()));
 
         table.setItems(list);
     }
