@@ -6,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.text.Normalizer;
 
 public class OperationChooser {
 
@@ -31,6 +32,11 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateShift");
                     }
                     break;
+                case "Unita' Operativa":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreateOpUnit");
+                    }
+                    break;
                 default:
                     this.contentPane.getChildren().clear();
                     break;
@@ -43,9 +49,15 @@ public class OperationChooser {
 
     private void loadContent(String file) {
         Parent root = null;
+        var current = Normalizer.normalize(currentEntitySelection, Normalizer.Form.NFD)
+                .toLowerCase()
+                .replaceAll("[^\\p{ASCII}]", "")
+                .replaceAll("'", "")
+                .replaceAll("\\s+", "_");
+        System.out.println(current);
         try {
             root = FXMLLoader.load(ClassLoader.getSystemResource(String.valueOf(Paths.get("scenes",
-                    currentEntitySelection.toLowerCase(), file + ".fxml"))));
+                    current, file + ".fxml"))));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -54,8 +54,8 @@
       <TextField fx:id="beginField" layoutX="180.0" layoutY="95.0" promptText="Enter the shift start time..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Ora FIne" translateY="30.0" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="endField" layoutX="180.0" layoutY="155.0" promptText="Enter the shift end time..." translateY="-30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
-      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#create" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Codice Unita Operativa" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="unitIdField" layoutX="190.0" layoutY="155.0" promptText="Enter the shift end time..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#create" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>

@@ -38,4 +38,8 @@ public record Shift(String fiscalCode, String dayOfTheWeek, LocalTime beginTime,
                 && unitId.equals(shift.unitId);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(fiscalCode, dayOfTheWeek, beginTime, endTime, unitId);
+    }
 }
