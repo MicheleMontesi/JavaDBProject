@@ -57,14 +57,7 @@ public class CreateOpUnitController {
     private boolean unitIsNotAlreadyPresent(TextField field, Table<OperatingUnit, String> table, Function<OperatingUnit, ?> matchString) {
         var list = table.findAll();
         List<?> idList = list.stream().map(matchString).toList();
-        if (idList.contains(field.getText())) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Input not valid");
-            errorAlert.setContentText("The input \"" + field.getId() + "\" already exists");
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
+        return utilities.checkers.CommonCheckers.isAlreadyPresent(idList, field);
     }
 
     public void fillTypology() {
