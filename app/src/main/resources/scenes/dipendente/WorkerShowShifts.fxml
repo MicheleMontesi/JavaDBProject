@@ -56,6 +56,7 @@
             <TableColumn fx:id="dayColumn" editable="false" prefWidth="150.0" text="Giorno Settimana" />
             <TableColumn fx:id="beginColumn" editable="false" prefWidth="150.0" text="Ora Inizio" />
             <TableColumn fx:id="endColumn" editable="false" prefWidth="150.0" text="Ora Fine" />
+            <TableColumn fx:id="unitIdColumn" prefWidth="150.0" text="Unita'  Operativa" />
          </columns>
       </TableView>
    </AnchorPane>

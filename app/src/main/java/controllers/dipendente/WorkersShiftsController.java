@@ -24,7 +24,7 @@ public class WorkersShiftsController {
     @FXML
     private TableView<Shift> table;
     @FXML
-    private TableColumn<Shift,String> dayColumn;
+    private TableColumn<Shift,String> dayColumn, unitIdColumn;
     @FXML
     private TableColumn<Shift, LocalTime> beginColumn, endColumn;
 
@@ -38,7 +38,7 @@ public class WorkersShiftsController {
             var shift = shiftsTable.findByCode(idField.getText());
             if (shift.isPresent()) {
                 final ObservableList<Shift> list = FXCollections.observableArrayList(shift.get());
-                CreateShiftView.create(table, dayColumn, beginColumn, endColumn, list);
+                CreateShiftView.create(table, dayColumn, beginColumn, endColumn, unitIdColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
