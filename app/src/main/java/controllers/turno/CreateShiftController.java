@@ -97,17 +97,14 @@ public class CreateShiftController {
 
     private boolean checkOpUnitExistence() {
         final var ret = operatingUnitTables.findByCode(toUpperNormalizer(unitIdField));
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("The input UnitId doesn't exist");
         if (ret.isEmpty()) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("Input not valid");
-            errorAlert.setContentText("The input UnitId doesn't exist");
             errorAlert.showAndWait();
             return false;
         } else {
             if (ret.get().size() == 0) {
-                final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("The input UnitId doesn't exist");
                 errorAlert.showAndWait();
                 return false;
             }
