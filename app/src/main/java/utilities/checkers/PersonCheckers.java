@@ -18,9 +18,9 @@ import java.util.regex.Pattern;
 
 public class PersonCheckers {
 
+    private static final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
     public static boolean lengthChecker(TextField field, int minLength, int maxLength) {
         if (field.getText().length() < minLength || field.getText().length() > maxLength) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The size of the field \"" + field.getId() + "\" must be between " + minLength +
                     " and " + maxLength + " characters");
@@ -34,7 +34,6 @@ public class PersonCheckers {
         var list = table.findAll();
         List<?> idList = list.stream().map(matchString).toList();
         if (idList.contains(field.getText())) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The input \"" + field.getId() + "\" already exists");
             errorAlert.showAndWait();
@@ -45,7 +44,6 @@ public class PersonCheckers {
 
     public static boolean intCheck(TextField field, int minLength, int maxLength) {
         if (!(field.getText().matches("[0-9]*")) || field.getText().length() < minLength || field.getText().length() > maxLength) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The size of the field \"" + field.getId() + "\" must be between " + minLength +
                     " and " + maxLength + " digits (0-9)");
@@ -57,7 +55,6 @@ public class PersonCheckers {
 
     public static boolean genderCheck(TextField genderField) {
         if (!(genderField.getText().equalsIgnoreCase("M") || genderField.getText().equalsIgnoreCase("F"))) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The size of the field \"Sesso\" must be 1 character, M or F");
             errorAlert.showAndWait();
@@ -67,7 +64,6 @@ public class PersonCheckers {
     }
 
     public static boolean birthAndSuitabilityCheck(DatePicker birthPicker, CheckBox suitabilityCheck) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         if (birthPicker.getValue() != null) {
             final Date birth = Date.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             var differenceInYears = ((new Date().getTime() - birth.getTime())/(1000*3600*24))/365;
@@ -91,10 +87,11 @@ public class PersonCheckers {
     public static boolean dayCheck(TextField dayField) {
         List<String> week = new ArrayList<>(Arrays.asList("LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI", "SABATO", "DOMENICA"));
         final var str = Normalizer.normalize(dayField.getText(), Normalizer.Form.NFD)
-                .replaceAll("[^\\p{ASCII}]", "");
+                .replaceAll("'", "")
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toUpperCase();
         if (week.stream().noneMatch(e->e.equalsIgnoreCase(str))) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("INPUT NOT VALID");
+            errorAlert.setHeaderText("Input Not Valid");
             errorAlert.setContentText("The day of the week must be one of these:\n" + week);
             errorAlert.showAndWait();
             return false;
@@ -105,12 +102,18 @@ public class PersonCheckers {
     public static boolean timeCheck(TextField timeField) {
         Pattern p = Pattern.compile("^([0-1]?\\d|2[0-3]):[0-5]\\d$");
         if (!p.matcher(timeField.getText()).matches()) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setHeaderText("INPUT NOT VALID");
+            errorAlert.setHeaderText("Input Not Valid");
             errorAlert.setContentText("The time must be in the format HH:mm");
             errorAlert.showAndWait();
             return false;
         }
         return true;
+    }
+
+    public static String toUpperNormalizer(TextField field) {
+        return Normalizer.normalize(field.getText(), Normalizer.Form.NFD)
+                .replaceAll("'", "")
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toUpperCase();
     }
 }
