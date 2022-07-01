@@ -64,6 +64,11 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateDrug");
                     }
                     break;
+                case "Farmaco Terapia":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreateTherapyDrugs");
+                    }
+                    break;
                 default:
                     this.contentPane.getChildren().clear();
                     break;
