@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
+import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.*;
 
 public class CreateTherapyDrugsController {
@@ -47,17 +48,6 @@ public class CreateTherapyDrugsController {
 
             tdTable.save(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
         }
-    }
-
-    private boolean dateCheck(DatePicker datePicker) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText("Input not valid");
-        if (datePicker.getValue() == null) {
-            errorAlert.setContentText("The input dates must be filled");
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
     }
 
     private boolean checkParametersExistence() {

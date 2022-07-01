@@ -1,6 +1,7 @@
 package utilities.checkers;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 import java.util.Calendar;
@@ -30,5 +31,16 @@ public class CommonCheckers {
             diff--;
         }
         return diff;
+    }
+
+    public static boolean dateCheck(DatePicker datePicker) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        if (datePicker.getValue() == null) {
+            errorAlert.setContentText("The input date must be filled");
+            errorAlert.showAndWait();
+            return false;
+        }
+        return true;
     }
 }
