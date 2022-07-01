@@ -8,7 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Drug;
-import model.SignedContract;
 import utilities.checkers.CommonCheckers;
 
 import java.time.Instant;
@@ -49,25 +48,31 @@ public class CreateDrugController {
     }
 
     private boolean dateCheck(Table<Drug, String> table, DatePicker purchasePicker, DatePicker expirationPicker) {
-        var list = table.findAll();
-        var purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-        var expirationDate = Date.from(Instant.from(expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
+        if (purchasePicker.getValue() != null & expirationPicker.getValue() != null) {
+            var list = table.findAll();
+            var purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+            var expirationDate = Date.from(Instant.from(expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
-        if (getYearDifference(purchaseDate, expirationDate) <= 0) {
-            errorAlert.setContentText("The input expiration date must be one year bigger than the purchase date");
+            if (getYearDifference(purchaseDate, expirationDate) <= 0) {
+                errorAlert.setContentText("The input expiration date must be one year bigger than the purchase date");
+                errorAlert.showAndWait();
+                return false;
+            }
+
+            for (var drug : list) {
+                if (drug.drugId() == Integer.parseInt(idField.getText())) {
+                    errorAlert.setContentText("The input code already exists, update it instead");
+                    errorAlert.showAndWait();
+                }
+            }
+            return true;
+        } else {
+            errorAlert.setContentText("The input dates must be filled");
             errorAlert.showAndWait();
             return false;
         }
-
-        for (var drug : list) {
-            if (drug.drugId() == Integer.parseInt(idField.getText())) {
-                errorAlert.setContentText("The input code already exists, update it instead");
-                errorAlert.showAndWait();
-            }
-        }
-        return true;
     }
 
     private int getYearDifference(Date purchaseDate, Date expirationDate) {
