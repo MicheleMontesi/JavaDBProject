@@ -138,7 +138,7 @@ public class SignedContractsTables implements Table<SignedContract, String> {
             while (resultSet.next()) {
                 final String workerFiscalCode = resultSet.getString("CodiceFiscale");
                 final Date stipulationDate = DateConverter.sqlDateToDate(resultSet.getDate("DataStipulazione"));
-                final Date endDate = DateConverter.sqlDateToDate(resultSet.getDate("OraInizio"));
+                final Date endDate = DateConverter.sqlDateToDate(resultSet.getDate("DataFine"));
                 final String name = resultSet.getString("Nome");
 
                 final SignedContract signedContract = new SignedContract(workerFiscalCode, stipulationDate, endDate, name);
