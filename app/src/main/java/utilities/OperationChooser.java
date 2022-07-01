@@ -64,6 +64,11 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateDrug");
                     }
                     break;
+                case "Terapia":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreateTherapy");
+                    }
+                    break;
                 case "Farmaco Terapia":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateTherapyDrugs");
@@ -75,7 +80,7 @@ public class OperationChooser {
             }
 
         } catch (NullPointerException e) {
-            System.out.println("Nothing to show here");
+            this.contentPane.getChildren().clear();
         }
     }
 
