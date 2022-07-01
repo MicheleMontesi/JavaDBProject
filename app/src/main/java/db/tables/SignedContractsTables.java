@@ -56,7 +56,14 @@ public class SignedContractsTables implements Table<SignedContract, String> {
 
     @Override
     public Optional<List<SignedContract>> findByCode(String code) {
-        return Optional.empty();
+        final String query = "SELECT * FROM " + STIPULATO + " WHERE CodiceFiscale = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setString(1, code);
+            final ResultSet resultSet = statement.executeQuery();
+            return Optional.of(readFromResultSet(resultSet));
+        } catch (SQLException e) {
+            return Optional.empty();
+        }
     }
 
     public Optional<List<SignedContract>> findByParameters(String code, String name) {
