@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.CertificateAcquired;
+import utilities.checkers.CommonCheckers;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -88,12 +89,7 @@ public class CreateCertificateAcquiredController {
     private int getYearDifference(Date date, CertificateAcquired ca) {
         Calendar newDate = getCalendar(date);
         Calendar oldDate = getCalendar(ca.acquisitionDate());
-        int diff = newDate.get(YEAR) - oldDate.get(YEAR);
-        if (newDate.get(MONTH) > oldDate.get(MONTH) ||
-                (newDate.get(MONTH) == oldDate.get(MONTH) && newDate.get(DATE) > oldDate.get(DATE))) {
-            diff--;
-        }
-        return diff;
+        return CommonCheckers.getYears(newDate, oldDate);
     }
 
     private Calendar getCalendar(Date date) {
