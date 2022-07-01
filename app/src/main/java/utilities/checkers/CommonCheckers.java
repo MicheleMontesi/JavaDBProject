@@ -3,8 +3,11 @@ package utilities.checkers;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
+import java.util.Calendar;
 import java.util.List;
 
+import static java.util.Calendar.*;
+import static java.util.Calendar.DATE;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class CommonCheckers {
@@ -18,5 +21,14 @@ public class CommonCheckers {
             return false;
         }
         return true;
+    }
+
+    public static int getYears(Calendar newDate, Calendar oldDate) {
+        int diff = newDate.get(YEAR) - oldDate.get(YEAR);
+        if (newDate.get(MONTH) > oldDate.get(MONTH) ||
+                (newDate.get(MONTH) == oldDate.get(MONTH) && newDate.get(DATE) > oldDate.get(DATE))) {
+            diff--;
+        }
+        return diff;
     }
 }
