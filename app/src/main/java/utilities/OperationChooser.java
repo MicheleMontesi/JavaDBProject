@@ -24,6 +24,7 @@ public class OperationChooser {
                         case "Visualizza" -> this.loadContent("View");
                         case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByFiscalCode");
                         case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
+                        case "Visualizza Attestati" -> this.loadContent("WorkerShowCertificates");
                         default -> this.contentPane.getChildren().clear();
                     }
                     break;
