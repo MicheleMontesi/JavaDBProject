@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.Worker;
-import utilities.CreateWorkerView;
+import utilities.views.CreateWorkerView;
 
 import java.net.URL;
 import java.util.Date;

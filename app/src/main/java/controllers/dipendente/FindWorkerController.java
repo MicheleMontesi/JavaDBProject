@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Worker;
-import utilities.CreateWorkerView;
+import utilities.views.CreateWorkerView;
 
 import java.util.Date;
 

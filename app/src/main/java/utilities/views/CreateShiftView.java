@@ -1,4 +1,4 @@
-package utilities;
+package utilities.views;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;

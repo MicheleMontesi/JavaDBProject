@@ -1,9 +1,8 @@
-package utilities;
+package utilities.views;
 
 import javafx.beans.property.ReadOnlyBooleanWrapper;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,7 +29,7 @@ public class CreateWorkerView {
         idColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().fiscalCode()));
         nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().name()));
         surnameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().surname()));
-        birthColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(null, "", cellData.getValue().birthDay()));
+        birthColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().birthDay()));
         residenceColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().residence()));
         genderColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().gender()));
         workerIdColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().workerId()));

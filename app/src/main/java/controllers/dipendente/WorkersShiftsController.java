@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Shift;
-import utilities.CreateShiftView;
+import utilities.views.CreateShiftView;
 
 import java.time.LocalTime;
 
