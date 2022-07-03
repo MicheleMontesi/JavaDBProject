@@ -8,14 +8,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Drug;
-import utilities.checkers.CommonCheckers;
 
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
+import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
 
 public class CreateDrugController {
@@ -65,6 +63,7 @@ public class CreateDrugController {
                 if (drug.drugId() == Integer.parseInt(idField.getText())) {
                     errorAlert.setContentText("The input code already exists, update it instead");
                     errorAlert.showAndWait();
+                    return false;
                 }
             }
             return true;
@@ -73,17 +72,5 @@ public class CreateDrugController {
             errorAlert.showAndWait();
             return false;
         }
-    }
-
-    private int getYearDifference(Date purchaseDate, Date expirationDate) {
-        Calendar newDate = getCalendar(expirationDate);
-        Calendar oldDate = getCalendar(purchaseDate);
-        return CommonCheckers.getYears(newDate, oldDate);
-    }
-
-    private Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.ITALY);
-        cal.setTime(date);
-        return cal;
     }
 }

@@ -4,8 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 import static java.util.Calendar.*;
 import static java.util.Calendar.DATE;
@@ -20,6 +19,21 @@ public class CommonCheckers {
             errorAlert.setContentText("The input \"" + field.getText() + "\" already exists");
             errorAlert.showAndWait();
             return false;
+        }
+        return true;
+    }
+
+    public static boolean isOptionalAlreadyPresent(List<Optional<String>> idList, TextField field) {
+        for (var o : idList) {
+            if (o.isPresent()) {
+                if(o.get().equals(toUpperNormalizer(field))) {
+                    final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setHeaderText("Input not valid");
+                    errorAlert.setContentText("The input \"" + field.getText() + "\" already exists");
+                    errorAlert.showAndWait();
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -42,5 +56,17 @@ public class CommonCheckers {
             return false;
         }
         return true;
+    }
+
+    public static int getYearDifference(Date purchaseDate, Date expirationDate) {
+        Calendar newDate = getCalendar(expirationDate);
+        Calendar oldDate = getCalendar(purchaseDate);
+        return CommonCheckers.getYears(newDate, oldDate);
+    }
+
+    public static Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.ITALY);
+        cal.setTime(date);
+        return cal;
     }
 }
