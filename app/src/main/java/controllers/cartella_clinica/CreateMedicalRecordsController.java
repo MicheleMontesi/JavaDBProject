@@ -1,6 +1,7 @@
 package controllers.cartella_clinica;
 
 import db.ConnectionProvider;
+import db.Table;
 import db.tables.MedicalRecordsTables;
 import db.tables.PatientsTables;
 import javafx.fxml.FXML;
@@ -8,6 +9,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.MedicalRecords;
+import model.PersonRelated;
+
+import java.util.List;
+import java.util.function.Function;
 
 import static utilities.checkers.PersonCheckers.*;
 
@@ -27,6 +32,7 @@ public class CreateMedicalRecordsController {
     public void create() {
         if (
                 intCheck(idField, 1, 5) &
+                isNotAlreadyPresent() &
                 lengthChecker(fiscalCodeField, 16, 16) &
                 checkPatientExistence() &
                 lengthChecker(anamnesisArea, 1, 255) &
@@ -54,6 +60,19 @@ public class CreateMedicalRecordsController {
             errorAlert.showAndWait();
             return false;
         } else if (retPatient.get().size() == 0) {
+            errorAlert.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isNotAlreadyPresent() {
+        var list = mrTables.findAll();
+        List<?> idList = list.stream().map(MedicalRecords::medicalRecordId).toList();
+        if (idList.contains(Integer.parseInt(idField.getText()))) {
+            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("The input \"" + idField.getId() + "\" already exists");
             errorAlert.showAndWait();
             return false;
         }
