@@ -11,8 +11,6 @@ public class DeleteWorkerController {
 
     @FXML
     private TextField idField;
-    @FXML
-    private Button deleteButton;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");

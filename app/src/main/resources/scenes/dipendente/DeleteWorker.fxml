@@ -48,6 +48,6 @@
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
       <TextField fx:id="idField" layoutX="180.0" layoutY="35.0" promptText="Enter the fiscal code..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
-      <Button fx:id="deleteButton" layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>
