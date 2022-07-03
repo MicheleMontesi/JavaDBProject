@@ -107,19 +107,7 @@ public class CreateCapitalGoodController implements Initializable {
 
     private boolean checkUnitExistence() {
         final var retUnit = operatingUnitTables.findByCode(toUpperNormalizer(unitField));
-
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText("Input not valid");
-        errorAlert.setContentText("The input unit Id doesn't exist");
-
-        if (retUnit.isEmpty()) {
-            errorAlert.showAndWait();
-            return false;
-        } else if (retUnit.get().size() == 0) {
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
+        return CommonCheckers.fieldChecker(List.of(retUnit));
     }
 
     public  void setFields() {
