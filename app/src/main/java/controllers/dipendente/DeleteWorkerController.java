@@ -1,4 +1,4 @@
-package controllers.common;
+package controllers.dipendente;
 
 import db.ConnectionProvider;
 import db.tables.WorkersTables;
@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import static utilities.checkers.PersonCheckers.lengthChecker;
 
-public class DeleteEntityController {
+public class DeleteWorkerController {
 
     @FXML
     private TextField idField;
