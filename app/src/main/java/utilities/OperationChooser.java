@@ -97,6 +97,8 @@ public class OperationChooser {
                 case "Assumere Terapia":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateTakeTherapy");
+                        case "Elimina" -> this.loadContent("DeleteTakeTherapy");
+                        case "Visualizza" -> this.loadContent("TakeTherapyView");
                     }
                     break;
                 default:
