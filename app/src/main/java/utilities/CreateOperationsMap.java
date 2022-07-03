@@ -9,7 +9,7 @@ public class CreateOperationsMap {
             "Terapia", "Cartella Clinica", "Ospitazione",
             "Tipologia Contratto", "Contratto Stipulato",
             "Attestato Acquisito", "Tipologia Attestato",
-            "Turno"));
+            "Turno", "Assumere Terapia"));
     private static final List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Elimina", "Visualizza",
             "Ricerca Tramite Parametro"));
 

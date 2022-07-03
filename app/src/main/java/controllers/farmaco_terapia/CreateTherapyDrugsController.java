@@ -8,10 +8,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.TherapyDrug;
 import model.Worker;
+import utilities.checkers.CommonCheckers;
 
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.*;
@@ -54,19 +56,7 @@ public class CreateTherapyDrugsController {
         final var retTherapy = therapiesTable.findByCode(toUpperNormalizer(therapyField));
         final var retWorker = workersTables.findByCode(toUpperNormalizer(fiscalCodeField));
         final var retDrug = drugsTables.findByCode(toUpperNormalizer(drugIdField));
-
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText("Input not valid");
-        errorAlert.setContentText("The input TherapyId or FiscalCode or DrugId don't exist");
-
-        if (retTherapy.isEmpty() || retWorker.isEmpty() || retDrug.isEmpty()) {
-            errorAlert.showAndWait();
-            return false;
-        } else if (retTherapy.get().size() == 0 || retWorker.get().size() == 0 || retDrug.get().size() == 0) {
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
+        return CommonCheckers.fieldChecker(List.of(retTherapy, retDrug, retWorker));
     }
 
     public void setConsumptionField() {
