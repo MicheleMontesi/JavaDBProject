@@ -29,6 +29,11 @@ public class OperationChooser {
                         default -> this.contentPane.getChildren().clear();
                     }
                     break;
+                case "Paziente":
+                    switch (currentOperationSelection) {
+                        case "Crea" -> this.loadContent("CreatePatient");
+                    }
+                    break;
                 case "Turno":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateShift");

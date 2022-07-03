@@ -87,7 +87,7 @@ public class PatientsTables implements Table<Patient, String> {
     @Override
     public void save(Patient patient) {
         final String query = "INSERT INTO " + PAZIENTE + "(CodiceFiscale, Nome, Cognome, Compleanno, Residenza, " +
-                "Sesso, CodicePaziente, DocumentazionePrivacy, ConsensoInformatoAlTrattamento, AccettazioneRegolamento ) " +
+                "Sesso, CodicePaziente, DocumentazionePrivacy, ConsensoInformatoAlTrattamento, AccettazioneRegolamento) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, patient.fiscalCode());
@@ -162,7 +162,7 @@ public class PatientsTables implements Table<Patient, String> {
                 final String gender = resultSet.getString("Sesso");
                 final int patientId = resultSet.getInt("CodicePaziente");
                 final boolean privacyDocumentation = resultSet.getString("DocumentazionePrivacy").equals("Y");
-                final boolean consentTreatment = resultSet.getString("ConsensoInformativoAlTrattamento").equals("Y");
+                final boolean consentTreatment = resultSet.getString("ConsensoInformatoAlTrattamento").equals("Y");
                 final boolean acceptRules = resultSet.getString("AccettazioneRegolamento").equals("Y");
 
                 final Patient patient = new Patient(fiscalCode, name, surname, birthDay, residence, gender, patientId,

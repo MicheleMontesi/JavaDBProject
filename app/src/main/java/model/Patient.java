@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public record Patient(String fiscalCode, String name, String surname, Date birthday, String residence, String gender,
-                      int patientId, boolean privacyDocumentation, boolean consentTreatment, boolean acceptRules) {
+                      int patientId, boolean privacyDocumentation, boolean consentTreatment, boolean acceptRules)
+        implements PersonRelated {
 
     public Patient(String fiscalCode, String name, String surname, Date birthday, String residence, String gender,
                    int patientId, boolean privacyDocumentation, boolean consentTreatment, boolean acceptRules) {
