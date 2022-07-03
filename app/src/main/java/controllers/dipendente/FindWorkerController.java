@@ -2,20 +2,22 @@ package controllers.dipendente;
 
 import db.ConnectionProvider;
 import db.tables.WorkersTables;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Worker;
 import utilities.views.CreateWorkerView;
 
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
+import static utilities.FXUtils.disableOnWrite;
 import static utilities.checkers.PersonCheckers.lengthChecker;
 
-public class FindWorkerController {
+public class FindWorkerController implements Initializable {
 
     @FXML
     private TextField idField;
@@ -53,9 +55,8 @@ public class FindWorkerController {
         }
     }
 
-    public void disableOnWrite() {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() -> idField.getText().isEmpty(), idField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        disableOnWrite(searchButton, idField);
     }
 }
