@@ -3,19 +3,23 @@ package controllers.dipendente;
 import db.ConnectionProvider;
 import db.tables.WorkersTables;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.PersonRelated;
 import model.Worker;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import static utilities.checkers.PersonCheckers.*;
 
-public class CreateWorkerController {
+public class CreateWorkerController implements Initializable {
 
     @FXML
     private TextField idField, nameField, surnameField, residenceField,
@@ -36,7 +40,7 @@ public class CreateWorkerController {
             isNotAlreadyPresent(idField, workersTable, PersonRelated::fiscalCode) &
             lengthChecker(nameField, 2, 15) &
             lengthChecker(surnameField, 2, 15) &
-            birthAndSuitabilityCheck(birthPicker, suitabilityCheck) &
+            birthAndCheck(birthPicker, List.of(suitabilityCheck)) &
             lengthChecker(residenceField, 10, 50) &
             genderCheck(genderField) &
             intCheck(workerIdField, 1, 10) &
@@ -60,7 +64,8 @@ public class CreateWorkerController {
         }
     }
 
-    public void setWorkerIdField() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         var max = workersTable.findAll()
                 .stream()
                 .map(Worker::workerId)
@@ -70,6 +75,5 @@ public class CreateWorkerController {
                 .max()
                 .orElse(0);
         workerIdField.setText(Integer.toString(max + 1));
-
     }
 }

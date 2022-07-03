@@ -60,22 +60,26 @@ public class PersonCheckers {
         return true;
     }
 
-    public static boolean birthAndSuitabilityCheck(DatePicker birthPicker, CheckBox suitabilityCheck) {
+    public static boolean birthAndCheck(DatePicker birthPicker, List<CheckBox> checkList) {
+        errorAlert.setHeaderText("Input not valid");
         if (birthPicker.getValue() != null) {
             final Date birth = Date.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             var differenceInYears = ((new Date().getTime() - birth.getTime())/(1000*3600*24))/365;
-            if (((differenceInYears > 80 || differenceInYears < 18) || !suitabilityCheck.isSelected())) {
-                errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("The date must be between 80 years ago and 18 years ago\n" +
-                        "and the field \"IdonitaAllaMansione\" must be checked");
+            if (differenceInYears > 80 || differenceInYears < 18) {
+                errorAlert.setContentText("The date must be between 80 years ago and 18 years ago");
                 errorAlert.showAndWait();
                 return false;
             }
+            for (var check : checkList) {
+                if (!check.isSelected()) {
+                    errorAlert.setContentText("The field \"" + check.getId() + "\" must be checked");
+                    errorAlert.showAndWait();
+                    return false;
+                }
+            }
             return true;
         } else {
-            errorAlert.setHeaderText("Input not valid");
-            errorAlert.setContentText("The data must be between 80 years ago and 18 years ago\n" +
-                    "and the field \"IdonitaAllaMansione\" must be checked");
+            errorAlert.setContentText("The data must be between 80 years ago and 18 years ago");
             errorAlert.showAndWait();
             return false;
         }
