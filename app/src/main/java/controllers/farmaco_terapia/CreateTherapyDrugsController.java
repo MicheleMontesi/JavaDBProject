@@ -3,6 +3,7 @@ package controllers.farmaco_terapia;
 import db.ConnectionProvider;
 import db.tables.*;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -10,15 +11,17 @@ import model.TherapyDrug;
 import model.Worker;
 import utilities.checkers.CommonCheckers;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.*;
 
-public class CreateTherapyDrugsController {
+public class CreateTherapyDrugsController implements Initializable {
     @FXML
     public TextField therapyField, consumptionField, quantityField, fiscalCodeField, drugIdField;
     @FXML
@@ -59,7 +62,8 @@ public class CreateTherapyDrugsController {
         return CommonCheckers.fieldChecker(List.of(retTherapy, retDrug, retWorker));
     }
 
-    public void setConsumptionField() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         var max = tdTable.findAll()
                 .stream()
                 .map(TherapyDrug::consumptionId)
