@@ -22,11 +22,11 @@ import static utilities.checkers.PersonCheckers.*;
 public class CreatePatientController implements Initializable {
     
     @FXML
-    public TextField idField, nameField, surnameField, residenceField, genderField, patientIdField;
+    private TextField idField, nameField, surnameField, residenceField, genderField, patientIdField;
     @FXML
-    public DatePicker birthPicker;
+    private DatePicker birthPicker;
     @FXML
-    public CheckBox privacyCheck, consentCheck, acceptanceCheck;
+    private CheckBox privacyCheck, consentCheck, acceptanceCheck;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
