@@ -1,10 +1,7 @@
 package utilities.checkers;
 
 import db.Table;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.PersonRelated;
 
 import java.text.Normalizer;
@@ -19,7 +16,7 @@ import java.util.regex.Pattern;
 public class PersonCheckers {
 
     private static final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-    public static boolean lengthChecker(TextField field, int minLength, int maxLength) {
+    public static boolean lengthChecker(TextInputControl field, int minLength, int maxLength) {
         if (field.getText().length() < minLength || field.getText().length() > maxLength) {
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The size of the field \"" + field.getId() + "\" must be between " + minLength +

@@ -4,6 +4,7 @@ import db.ConnectionProvider;
 import db.Table;
 import db.tables.CapitalGoodsTables;
 import db.tables.OperatingUnitTables;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CapitalGood;
@@ -18,9 +19,13 @@ import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
 
 public class CreateCapitalGoodController implements Initializable {
+    @FXML
     public TextField unitField, goodField, toolField, plateField;
+    @FXML
     public DatePicker purchasePicker, maintenancePicker, expirationPicker;
+    @FXML
     public CheckBox vehicleCheck;
+    @FXML
     public ChoiceBox<String> typeChoice;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
@@ -78,7 +83,7 @@ public class CreateCapitalGoodController implements Initializable {
             final var purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             final var maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
-            if (getYearDifference(purchaseDate, maintenanceDate) <= 0) {
+            if (getYearDifference(purchaseDate, maintenanceDate) < 0) {
                 errorAlert.setContentText("The input maintenance date must be one year bigger than the purchase date");
                 errorAlert.showAndWait();
                 return false;
