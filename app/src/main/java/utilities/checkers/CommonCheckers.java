@@ -3,6 +3,8 @@ package utilities.checkers;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import model.OperatingUnit;
+import model.Patient;
 
 import java.util.*;
 
@@ -68,5 +70,22 @@ public class CommonCheckers {
         Calendar cal = Calendar.getInstance(Locale.ITALY);
         cal.setTime(date);
         return cal;
+    }
+
+    public static boolean fieldChecker(List<Optional<? extends List<? extends Record>>> list) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("The input unit Id or patient's fiscal code don't exist");
+
+        for (var e : list) {
+            if (e.isEmpty()) {
+                errorAlert.showAndWait();
+                return false;
+            } else if (e.get().size() == 0) {
+                errorAlert.showAndWait();
+                return false;
+            }
+        }
+        return true;
     }
 }

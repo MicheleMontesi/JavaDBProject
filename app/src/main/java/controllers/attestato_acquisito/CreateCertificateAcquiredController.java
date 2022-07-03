@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static java.util.Calendar.*;
@@ -74,16 +75,7 @@ public class CreateCertificateAcquiredController {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The input id or name doesn't exist");
-        if (idCheck.isEmpty() || nameCheck.isEmpty()) {
-            errorAlert.showAndWait();
-            return false;
-        } else {
-            if (idCheck.get().size() == 0 || nameCheck.get().size() == 0) {
-                errorAlert.showAndWait();
-                return false;
-            }
-        }
-        return true;
+        return CommonCheckers.fieldChecker(List.of(idCheck, nameCheck));
     }
 
     private int getYearDifference(Date date, CertificateAcquired ca) {
