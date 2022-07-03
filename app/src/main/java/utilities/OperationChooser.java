@@ -22,7 +22,7 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateWorker");
                         case "Elimina" -> this.loadContent("DeleteWorker");
                         case "Visualizza" -> this.loadContent("View");
-                        case "Ricerca Tramite Parametro" -> this.loadContent("WorkerSearchByFiscalCode");
+                        case "Ricerca Tramite Codice" -> this.loadContent("WorkerSearchByFiscalCode");
                         case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
                         case "Visualizza Attestati" -> this.loadContent("WorkerShowCertificates");
                         case "Visualizza Contratto" -> this.loadContent("WorkerShowContracts");
@@ -99,6 +99,7 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateTakeTherapy");
                         case "Elimina" -> this.loadContent("DeleteTakeTherapy");
                         case "Visualizza" -> this.loadContent("TakeTherapyView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("TakeTherapySearchCode");
                     }
                     break;
                 default:

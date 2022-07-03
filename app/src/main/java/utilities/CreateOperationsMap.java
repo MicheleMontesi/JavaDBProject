@@ -11,7 +11,7 @@ public class CreateOperationsMap {
             "Attestato Acquisito", "Tipologia Attestato",
             "Turno", "Assumere Terapia"));
     private static final List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Elimina", "Visualizza",
-            "Ricerca Tramite Parametro"));
+            "Ricerca Tramite Codice"));
 
     public static Map<String, List<String>> initOperationMap() {
         final Map<String, List<String>> permittedOp = new TreeMap<>();
