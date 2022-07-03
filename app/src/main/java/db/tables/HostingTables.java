@@ -87,7 +87,7 @@ public class HostingTables implements Table<Hosting, String> {
             statement.setString(1, hosting.fiscalCode());
             statement.setDate(2, DateConverter.dateToSqlDate(hosting.beginDate()));
             statement.setDate(3, hosting.endDate().map(DateConverter::dateToSqlDate).orElse(null));
-            statement.setString(5, hosting.unitId());
+            statement.setString(4, hosting.unitId());
             statement.executeUpdate();
         }catch (final SQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
