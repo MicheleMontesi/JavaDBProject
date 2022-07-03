@@ -43,7 +43,7 @@
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.beni_strumentali.CreateCapitalGoodController">
-   <AnchorPane onMouseEntered="#setWorkerIdField" HBox.hgrow="ALWAYS">
+   <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
@@ -58,9 +58,9 @@
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="130.0" prefWidth="165.0" text="Prossima Manutenzione" AnchorPane.leftAnchor="9.0" />
       <DatePicker fx:id="maintenancePicker" editable="false" layoutX="180.0" layoutY="125.0" promptText="Choose a date..." showWeekNumbers="true" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="130.0" prefWidth="165.0" text="Automezzo" translateY="30.0" AnchorPane.leftAnchor="9.0" />
-      <CheckBox fx:id="vehicleCheck" layoutX="180.0" layoutY="160.0" mnemonicParsing="false" />
+      <CheckBox fx:id="vehicleCheck" layoutX="180.0" layoutY="160.0" mnemonicParsing="false" onMouseClicked="#setFields" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Nome Attrezzo" translateY="30.0" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="toolField" editable="false" layoutX="180.0" layoutY="155.0" promptText="Enter the tool name..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <TextField fx:id="toolField" layoutX="180.0" layoutY="155.0" promptText="Enter the tool name..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="190.0" prefWidth="165.0" text="Targa" translateY="30.0" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="plateField" layoutX="180.0" layoutY="185.0" promptText="Enter the license plate..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="280.0" prefWidth="165.0" text="Tipologia" translateY="-30.0" AnchorPane.leftAnchor="9.0" />

@@ -60,10 +60,10 @@ public class CapitalGoodsTables implements Table<CapitalGood, String> {
     }
 
     @Override
-    public Optional<List<CapitalGood>> findByCode(String code) {
+    public Optional<List<CapitalGood>> findByCode(String unitId) {
         final String query = "SELECT * FROM " + BENI + " WHERE CodiceUnita = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, code);
+            statement.setString(1, unitId);
             final ResultSet resultSet = statement.executeQuery();
             return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
