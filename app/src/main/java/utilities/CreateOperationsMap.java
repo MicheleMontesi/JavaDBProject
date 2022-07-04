@@ -10,8 +10,8 @@ public class CreateOperationsMap {
             "Tipologia Contratto", "Contratto Stipulato",
             "Attestato Acquisito", "Tipologia Attestato",
             "Turno", "Assumere Terapia"));
-    private static final List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Elimina", "Visualizza",
-            "Ricerca Tramite Codice"));
+    private static final List<String> defaultOperations = new ArrayList<>(Arrays.asList("Crea", "Aggiorna", "Elimina",
+            "Visualizza", "Ricerca Tramite Codice"));
 
     public static Map<String, List<String>> initOperationMap() {
         final Map<String, List<String>> permittedOp = new TreeMap<>();
