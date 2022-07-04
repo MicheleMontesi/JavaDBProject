@@ -82,6 +82,9 @@ public class OperationChooser {
                 case "Terapia":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateTherapy");
+                        case "Elimina" -> this.loadContent("DeleteTherapy");
+                        case "Visualizza" -> this.loadContent("TherapyView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("TherapySearchCode");
                     }
                     break;
                 case "Farmaco Terapia":
@@ -89,7 +92,7 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateTherapyDrugs");
                         case "Elimina" -> this.loadContent("DeleteTherapyDrug");
                         case "Visualizza" -> this.loadContent("TherapyDrugView");
-                        case "Ricerca Tramite Codice" -> this.loadContent("SearchDeleteSignedContract.fxmlTherapyDrugByCode");
+                        case "Ricerca Tramite Codice" -> this.loadContent("TherapyDrugByCode");
                     }
                     break;
                 case "Beni Strumentali":
