@@ -84,6 +84,9 @@ public class OperationChooser {
                 case "Beni Strumentali":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateCapitalGood");
+                        case "Elimina" -> this.loadContent("DeleteCapitalGood");
+                        case "Visualizza" -> this.loadContent("CapitalGoodsView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("SearchGoodByCode");
                     }
                     break;
                 case "Cartella Clinica":
