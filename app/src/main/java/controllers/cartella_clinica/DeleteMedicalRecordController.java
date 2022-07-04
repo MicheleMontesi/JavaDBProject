@@ -1,12 +1,12 @@
 package controllers.cartella_clinica;
 
 import db.ConnectionProvider;
-import db.tables.CapitalGoodsTables;
 import db.tables.MedicalRecordsTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.PersonCheckers.lengthChecker;
+import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class DeleteMedicalRecordController {
     @FXML

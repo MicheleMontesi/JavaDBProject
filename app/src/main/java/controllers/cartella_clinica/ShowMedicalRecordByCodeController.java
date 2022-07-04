@@ -1,7 +1,6 @@
 package controllers.cartella_clinica;
 
 import db.ConnectionProvider;
-import db.tables.CapitalGoodsTables;
 import db.tables.MedicalRecordsTables;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -10,16 +9,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import model.CapitalGood;
 import model.MedicalRecords;
-import utilities.views.CreateCapitalGoodsView;
 import utilities.views.CreateMedicalRecordsView;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.PersonCheckers.lengthChecker;
+import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class ShowMedicalRecordByCodeController implements Initializable {
     @FXML
