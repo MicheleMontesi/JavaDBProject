@@ -11,11 +11,11 @@ public class CreateTakeTherapyView {
 
     public static void create(final TableView<TakeTherapy> table,
                        final TableColumn<TakeTherapy, String> fiscalCodeColumn,
-                       final TableColumn<TakeTherapy, Integer> thearapyColummn,
+                       final TableColumn<TakeTherapy, Integer> therapyColumn,
                        final ObservableList<TakeTherapy> list) {
 
         fiscalCodeColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().fiscalCode()));
-        thearapyColummn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().therapyId()));
+        therapyColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().therapyId()));
 
         table.setItems(list);
     }
