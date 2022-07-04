@@ -1,4 +1,4 @@
-package controllers.dipendente;
+package controllers.attestato_acquisito;
 
 import db.ConnectionProvider;
 import db.tables.CertificateAcquiredTables;
@@ -7,16 +7,18 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CertificateAcquired;
 import utilities.views.CreateCertificateAcquiredView;
 
 import static utilities.checkers.PersonCheckers.*;
 
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 
-public class WorkerShowCertificatesController {
-
+public class WorkerShowCertificatesController  implements Initializable {
     @FXML
     private TextField idField;
     @FXML
@@ -24,7 +26,7 @@ public class WorkerShowCertificatesController {
     @FXML
     private TableView<CertificateAcquired> table;
     @FXML
-    private TableColumn<CertificateAcquired, String> nameColumn;
+    private TableColumn<CertificateAcquired, String> fiscalCodeColumn, nameColumn;
     @FXML
     private TableColumn<CertificateAcquired, Date> dateColumn;
 
@@ -37,7 +39,7 @@ public class WorkerShowCertificatesController {
             var certificate = caTables.findByCode(toUpperNormalizer(idField));
             if (certificate.isPresent()) {
                 final ObservableList<CertificateAcquired> list = FXCollections.observableArrayList(certificate.get());
-                CreateCertificateAcquiredView.create(table, nameColumn, dateColumn, list);
+                CreateCertificateAcquiredView.create(table, fiscalCodeColumn, nameColumn, dateColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
@@ -47,7 +49,8 @@ public class WorkerShowCertificatesController {
         }
     }
 
-    public void disableOnWrite() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         BooleanBinding idFieldValid = Bindings.createBooleanBinding(() -> idField.getText().isEmpty(), idField.textProperty());
 
         searchButton.disableProperty().bind(idFieldValid);

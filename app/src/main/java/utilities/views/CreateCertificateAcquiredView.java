@@ -13,10 +13,12 @@ import java.util.Date;
 public class CreateCertificateAcquiredView {
 
     public static void create(final TableView<CertificateAcquired> table,
+                       final TableColumn<CertificateAcquired, String> fiscalCodeColumn,
                        final TableColumn<CertificateAcquired, String> nameColumn,
                        final TableColumn<CertificateAcquired, Date> dateColumn,
                        final ObservableList<CertificateAcquired> list) {
 
+        fiscalCodeColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().fiscalCode()));
         nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().certificateName()));
         dateColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().acquisitionDate()));
 

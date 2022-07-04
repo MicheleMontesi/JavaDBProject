@@ -21,10 +21,9 @@ public class OperationChooser {
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateWorker");
                         case "Elimina" -> this.loadContent("DeleteWorker");
-                        case "Visualizza" -> this.loadContent("View");
+                        case "Visualizza" -> this.loadContent("WorkersView");
                         case "Ricerca Tramite Codice" -> this.loadContent("WorkerSearchByFiscalCode");
                         case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
-                        case "Visualizza Attestati" -> this.loadContent("WorkerShowCertificates");
                         case "Visualizza Contratto" -> this.loadContent("WorkerShowContracts");
                         default -> this.contentPane.getChildren().clear();
                     }
@@ -52,6 +51,9 @@ public class OperationChooser {
                 case "Attestato Acquisito":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateCertificateAcquired");
+                        case "Elimina" -> this.loadContent("DeleteCertificateAcquired");
+                        case "Visualizza" -> this.loadContent("CertificateAcquiredView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("SearchCertificatesAcquiredByCode");
                     }
                     break;
                 case "Tipologia Contratto":
