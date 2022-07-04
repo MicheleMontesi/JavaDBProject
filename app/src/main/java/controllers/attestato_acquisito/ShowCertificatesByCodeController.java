@@ -2,8 +2,6 @@ package controllers.attestato_acquisito;
 
 import db.ConnectionProvider;
 import db.tables.CertificateAcquiredTables;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,11 +10,13 @@ import javafx.scene.control.*;
 import model.CertificateAcquired;
 import utilities.views.CreateCertificateAcquiredView;
 
-import static utilities.checkers.PersonCheckers.*;
-
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
+
+import static utilities.FXUtils.disableOnWrite;
+import static utilities.checkers.PersonCheckers.lengthChecker;
+import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class ShowCertificatesByCodeController implements Initializable {
     @FXML
@@ -51,8 +51,6 @@ public class ShowCertificatesByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() -> idField.getText().isEmpty(), idField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+        disableOnWrite(searchButton, idField);
     }
 }

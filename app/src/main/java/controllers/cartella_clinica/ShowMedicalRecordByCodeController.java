@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 
 import static utilities.checkers.PersonCheckers.lengthChecker;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
+import static utilities.FXUtils.disableOnWrite;
 
 public class ShowMedicalRecordByCodeController implements Initializable {
     @FXML
@@ -52,8 +53,6 @@ public class ShowMedicalRecordByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() -> idField.getText().isEmpty(), idField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+        disableOnWrite(searchButton, idField);
     }
 }
