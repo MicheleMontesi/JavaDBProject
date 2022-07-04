@@ -8,9 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.CertificateAcquired;
 import model.SignedContract;
-import org.checkerframework.checker.optional.qual.Present;
 import utilities.views.CreateSignedContractView;
 
 import java.util.Date;
@@ -51,7 +49,6 @@ public class WorkerShowContractsController {
                     CreateSignedContractView.create(table, beginColumn, endColumn, nameColumn, list);
                 }
             } else {
-                System.out.println(contract.get());
                 errorAlert.showAndWait();
             }
         }

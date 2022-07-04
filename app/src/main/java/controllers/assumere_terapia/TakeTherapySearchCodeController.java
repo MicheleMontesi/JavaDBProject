@@ -8,9 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.TakeTherapy;
-import model.Worker;
 import utilities.FXUtils;
-import utilities.checkers.CommonCheckers;
 import utilities.views.CreateTakeTherapyView;
 
 import java.net.URL;

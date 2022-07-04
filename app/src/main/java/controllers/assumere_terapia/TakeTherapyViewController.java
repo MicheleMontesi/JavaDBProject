@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.TakeTherapy;
-import model.Worker;
 import utilities.views.CreateTakeTherapyView;
 
 import java.net.URL;

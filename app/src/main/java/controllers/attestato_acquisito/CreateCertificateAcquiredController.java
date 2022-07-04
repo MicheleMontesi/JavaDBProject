@@ -19,8 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static java.util.Calendar.*;
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.PersonCheckers.lengthChecker;
+import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class CreateCertificateAcquiredController {
 

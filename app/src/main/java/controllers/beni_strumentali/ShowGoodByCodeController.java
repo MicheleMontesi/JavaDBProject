@@ -2,7 +2,6 @@ package controllers.beni_strumentali;
 
 import db.ConnectionProvider;
 import db.tables.CapitalGoodsTables;
-import db.tables.CertificateAcquiredTables;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
@@ -11,9 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CapitalGood;
-import model.CertificateAcquired;
 import utilities.views.CreateCapitalGoodsView;
-import utilities.views.CreateCertificateAcquiredView;
 
 import java.net.URL;
 import java.util.Date;
