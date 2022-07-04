@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class WorkerShowCertificatesController  implements Initializable {
+public class ShowCertificatesByCodeController implements Initializable {
     @FXML
     private TextField idField;
     @FXML
