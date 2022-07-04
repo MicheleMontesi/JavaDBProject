@@ -87,7 +87,7 @@ public class OperationChooser {
                         case "Crea" -> this.loadContent("CreateTherapyDrugs");
                         case "Elimina" -> this.loadContent("DeleteTherapyDrug");
                         case "Visualizza" -> this.loadContent("TherapyDrugView");
-                        case "Ricerca Tramite Codice" -> this.loadContent("SearchTherapyDrugByCode");
+                        case "Ricerca Tramite Codice" -> this.loadContent("SearchDeleteSignedContract.fxmlTherapyDrugByCode");
                     }
                     break;
                 case "Beni Strumentali":
@@ -109,6 +109,9 @@ public class OperationChooser {
                 case "Ospitazione":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateHosting");
+                        case "Elimina" -> this.loadContent("DeleteHosting");
+                        case "Visualizza" -> this.loadContent("HostingView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("SearchHostingByCode");
                     }
                     break;
                 case "Assumere Terapia":

@@ -58,10 +58,16 @@ public class HostingTables implements Table<Hosting, String> {
 
     @Override
     public Optional<List<Hosting>> findByCode(String code) {
+        return Optional.empty();
+    }
+
+    public Optional<List<Hosting>> findByParameters(String code, java.util.Date signedDate, String name) {
         final String query = "SELECT * FROM " +
-                OSPITAZIONE + " WHERE CodiceFiscale = ?";
+                OSPITAZIONE + " WHERE CodiceFiscale = ? AND DataInizio = ? AND CodiceUnita = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
+            statement.setDate(2, DateConverter.dateToSqlDate(signedDate));
+            statement.setString(3, name);
             final ResultSet resultSet = statement.executeQuery();
             return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {
@@ -117,12 +123,12 @@ public class HostingTables implements Table<Hosting, String> {
 
     }
 
-    public void deleteByParameters(String CodiceFiscale, Date beginDate, String unitId) {
+    public void deleteByParameters(String CodiceFiscale, java.util.Date beginDate, String unitId) {
         final String query = "DELETE FROM " + OSPITAZIONE + " WHERE CodiceFiscale = ? " +
                 "AND DataInizio = ? AND CodiceUnita = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)){
             statement.setString(1, CodiceFiscale);
-            statement.setDate(2, beginDate);
+            statement.setDate(2, DateConverter.dateToSqlDate(beginDate));
             statement.setString(3, unitId);
             statement.executeUpdate();
         } catch (SQLException e) {
