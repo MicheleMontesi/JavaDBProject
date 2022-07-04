@@ -24,13 +24,15 @@ public class OperationChooser {
                         case "Visualizza" -> this.loadContent("WorkersView");
                         case "Ricerca Tramite Codice" -> this.loadContent("WorkerSearchByFiscalCode");
                         case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
-                        case "Visualizza Contratto" -> this.loadContent("WorkerShowContracts");
                         default -> this.contentPane.getChildren().clear();
                     }
                     break;
                 case "Paziente":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreatePatient");
+                        case "Elimina" -> this.loadContent("DeletePatient");
+                        case "Visualizza" -> this.loadContent("PatientsView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("PatientSearchByFiscalCode");
                     }
                     break;
                 case "Turno":

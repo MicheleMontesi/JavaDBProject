@@ -18,8 +18,6 @@ public class CreateOperationsMap {
         entities.forEach(e -> permittedOp.put(e, new ArrayList<>(defaultOperations)));
 
         permittedOp.get("Dipendente").addAll(Arrays.asList("Visualizza Turni", "Visualizza Farmaci Somministrati"));
-        permittedOp.get("Paziente").addAll(Arrays.asList("Visualizza Cartella Clinica",
-                "Visualizza Inizio/Fine Ospitazione", "Visualizza Terapia"));
         permittedOp.get("Unita' Operativa").addAll(Arrays.asList("Visualizza Turni", "Visualizza Beni Strumentali",
                 "Visualizza Ospitazioni"));
         permittedOp.get("Beni Strumentali").addAll(Arrays.asList("Visualizza Automezzi", "Visualizza Attrezzature"));
