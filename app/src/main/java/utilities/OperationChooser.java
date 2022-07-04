@@ -48,6 +48,9 @@ public class OperationChooser {
                 case "Tipologia Attestato":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateCertificateType");
+                        case "Elimina" -> this.loadContent("DeleteCertificateType");
+                        case "Visualizza" -> this.loadContent("CertificateTypeView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("CertificateTypeSearchCode");
                     }
                     break;
                 case "Attestato Acquisito":
