@@ -13,11 +13,13 @@ import java.util.Date;
 public class CreateSignedContractView {
 
     public static void create(final TableView<SignedContract> table,
+                       final TableColumn<SignedContract, String> fiscalCodeColumn,
                        final TableColumn<SignedContract, Date> beginColumn,
                        final TableColumn<SignedContract, Date> endColumn,
                        final TableColumn<SignedContract, String> nameColumn,
                        final ObservableList<SignedContract> list) {
 
+        fiscalCodeColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().fiscalCode()));
         beginColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().stipulationDate()));
         endColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().endDate()));
         nameColumn.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().contractName()));
