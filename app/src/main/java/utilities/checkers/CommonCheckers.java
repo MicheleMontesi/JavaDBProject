@@ -75,7 +75,7 @@ public class CommonCheckers {
     public static boolean fieldChecker(List<Optional<? extends List<? extends Record>>> list) {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
-        errorAlert.setContentText("The input don't exist");
+        errorAlert.setContentText("The input doesn't exist");
 
         for (var e : list) {
             if (e.isEmpty()) {
