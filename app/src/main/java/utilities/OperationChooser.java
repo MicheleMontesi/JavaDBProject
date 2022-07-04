@@ -92,6 +92,9 @@ public class OperationChooser {
                 case "Cartella Clinica":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateMedicalRecords");
+                        case "Elimina" -> this.loadContent("DeleteMedicalRecord");
+                        case "Visualizza" -> this.loadContent("MedicalRecordsView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("MedicalRecordSearchByCode");
                     }
                     break;
                 case "Ospitazione":
