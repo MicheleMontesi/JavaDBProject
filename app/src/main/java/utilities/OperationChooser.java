@@ -23,7 +23,6 @@ public class OperationChooser {
                         case "Elimina" -> this.loadContent("DeleteWorker");
                         case "Visualizza" -> this.loadContent("WorkersView");
                         case "Ricerca Tramite Codice" -> this.loadContent("WorkerSearchByFiscalCode");
-                        case "Visualizza Turni" -> this.loadContent("WorkerShowShifts");
                         default -> this.contentPane.getChildren().clear();
                     }
                     break;
@@ -38,6 +37,9 @@ public class OperationChooser {
                 case "Turno":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateShift");
+                        case "Elimina" -> this.loadContent("DeleteShift");
+                        case "Visualizza" -> this.loadContent("ShiftsView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("ShiftSearchByCode");
                     }
                     break;
                 case "Unita' Operativa":
