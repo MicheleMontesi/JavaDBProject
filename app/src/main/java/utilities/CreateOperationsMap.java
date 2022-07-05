@@ -17,9 +17,6 @@ public class CreateOperationsMap {
         final Map<String, List<String>> permittedOp = new TreeMap<>();
         entities.forEach(e -> permittedOp.put(e, new ArrayList<>(defaultOperations)));
 
-        permittedOp.get("Dipendente").add("Visualizza Farmaci Somministrati");
-        permittedOp.get("Unita' Operativa").addAll(Arrays.asList("Visualizza Turni", "Visualizza Beni Strumentali",
-                "Visualizza Ospitazioni"));
         permittedOp.get("Beni Strumentali").addAll(Arrays.asList("Visualizza Automezzi", "Visualizza Attrezzature"));
 
         return permittedOp;

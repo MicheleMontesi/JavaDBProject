@@ -45,6 +45,9 @@ public class OperationChooser {
                 case "Unita' Operativa":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateOpUnit");
+                        case "Elimina" -> this.loadContent("DeleteOpUnit");
+                        case "Visualizza" -> this.loadContent("OpUnitView");
+                        case "Ricerca Tramite Codice" -> this.loadContent("OpUnitSearchByCode");
                     }
                     break;
                 case "Tipologia Attestato":
