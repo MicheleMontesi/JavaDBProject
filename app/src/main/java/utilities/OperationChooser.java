@@ -20,6 +20,7 @@ public class OperationChooser {
                 case "Dipendente":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateWorker");
+                        case "Aggiorna" -> this.loadContent("UpdateWorker");
                         case "Elimina" -> this.loadContent("DeleteWorker");
                         case "Visualizza" -> this.loadContent("WorkersView");
                         case "Ricerca Tramite Codice" -> this.loadContent("WorkerSearchByFiscalCode");
