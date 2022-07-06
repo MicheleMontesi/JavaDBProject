@@ -75,6 +75,6 @@
       <CheckBox fx:id="suitabilityCheck" layoutX="178.0" layoutY="310.0" mnemonicParsing="false" translateY="30.0" AnchorPane.leftAnchor="178.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="340.0" prefWidth="165.0" text="Socio" translateY="30.0" AnchorPane.leftAnchor="7.0" />
       <CheckBox fx:id="partnerCheck" layoutX="178.0" layoutY="340.0" mnemonicParsing="false" translateY="30.0" AnchorPane.leftAnchor="178.0" />
-      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#update" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#update" text="Update" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>
