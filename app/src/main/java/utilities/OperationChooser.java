@@ -61,6 +61,7 @@ public class OperationChooser {
                 case "Attestato Acquisito":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateCertificateAcquired");
+                        case "Aggiorna" -> this.loadContent("UpdateCertificateAcquired");
                         case "Elimina" -> this.loadContent("DeleteCertificateAcquired");
                         case "Visualizza" -> this.loadContent("CertificateAcquiredView");
                         case "Ricerca Tramite Codice" -> this.loadContent("SearchCertificatesAcquiredByCode");
@@ -109,6 +110,7 @@ public class OperationChooser {
                 case "Beni Strumentali":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateCapitalGood");
+                        case "Aggiorna" -> this.loadContent("UpdateCapitalGood");
                         case "Elimina" -> this.loadContent("DeleteCapitalGood");
                         case "Visualizza" -> this.loadContent("CapitalGoodsView");
                         case "Ricerca Tramite Codice" -> this.loadContent("SearchGoodByCode");
@@ -133,6 +135,7 @@ public class OperationChooser {
                 case "Assumere Terapia":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateTakeTherapy");
+                        case "Aggiorna" -> this.loadContent("UpdateTakeTherapy");
                         case "Elimina" -> this.loadContent("DeleteTakeTherapy");
                         case "Visualizza" -> this.loadContent("TakeTherapyView");
                         case "Ricerca Tramite Codice" -> this.loadContent("TakeTherapySearchCode");

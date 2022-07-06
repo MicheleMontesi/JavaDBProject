@@ -24,16 +24,27 @@ public class CreateTakeTherapyController {
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
 
     public void create() {
-        if (
-                lengthChecker(fiscalCodeField, 16, 16) &
-                intCheck(therapyIdField, 1, 10) &
-                checkParametersExistence()
-        ) {
+        if (check()) {
             final var fiscalCode = toUpperNormalizer(fiscalCodeField);
             final var therapyId = Integer.parseInt(therapyIdField.getText());
 
             ttTable.save(new TakeTherapy(fiscalCode, therapyId));
         }
+    }
+
+    public void update() {
+        if (check()) {
+            final var fiscalCode = toUpperNormalizer(fiscalCodeField);
+            final var therapyId = Integer.parseInt(therapyIdField.getText());
+
+            ttTable.update(new TakeTherapy(fiscalCode, therapyId));
+        }
+    }
+
+    private boolean check() {
+        return lengthChecker(fiscalCodeField, 16, 16) &
+                intCheck(therapyIdField, 1, 10) &
+                checkParametersExistence();
     }
 
     private boolean checkParametersExistence() {

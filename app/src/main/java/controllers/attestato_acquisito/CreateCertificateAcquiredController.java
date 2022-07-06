@@ -36,18 +36,30 @@ public class CreateCertificateAcquiredController {
     private final CertificateTypeTables ctTable = new CertificateTypeTables(connectionProvider.getMySQLConnection());
 
     public void create() {
-        if (
-                lengthChecker(idField, 16, 16) &
-                caCheck(caTables, idField, nameField, acquisitionPicker) &
-                lengthChecker(nameField, 2, 30) &
-                checkOpUnitExistence()
-        ) {
+        if (check()) {
             var id = toUpperNormalizer(idField);
             var date = Date.from(Instant.from(acquisitionPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             var name = toUpperNormalizer(nameField);
 
             caTables.save(new CertificateAcquired(id, date, name));
         }
+    }
+
+    public void update() {
+        if (check()) {
+            var id = toUpperNormalizer(idField);
+            var date = Date.from(Instant.from(acquisitionPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+            var name = toUpperNormalizer(nameField);
+
+            caTables.update(new CertificateAcquired(id, date, name));
+        }
+    }
+
+    private boolean check() {
+        return lengthChecker(idField, 16, 16) &
+                caCheck(caTables, idField, nameField, acquisitionPicker) &
+                lengthChecker(nameField, 2, 30) &
+                CommonCheckers.checkOpUnitExistence(workersTables, idField, ctTable, nameField);
     }
 
     private boolean caCheck(Table<CertificateAcquired, String> table, TextField idField, TextField nameField, DatePicker acquisitionPicker) {
@@ -59,7 +71,7 @@ public class CreateCertificateAcquiredController {
         for (var ca : list) {
             if (ca.fiscalCode().equals(toUpperNormalizer(idField)) &&
                     ca.certificateName().equals(toUpperNormalizer(nameField))) {
-                if (getYearDifference(date, ca) < 3) {
+                if (CommonCheckers.getYearDifference(date, ca.acquisitionDate()) < 3) {
                     errorAlert.setContentText("The input date must be 3 years after the last certificate with the same name");
                     errorAlert.showAndWait();
                     return false;
@@ -67,26 +79,5 @@ public class CreateCertificateAcquiredController {
             }
         }
         return true;
-    }
-
-    private boolean checkOpUnitExistence() {
-        final var idCheck = workersTables.findByCode(toUpperNormalizer(idField));
-        final var nameCheck = ctTable.findByCode(toUpperNormalizer(nameField));
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setHeaderText("Input not valid");
-        errorAlert.setContentText("The input id or name doesn't exist");
-        return CommonCheckers.fieldChecker(List.of(idCheck, nameCheck));
-    }
-
-    private int getYearDifference(Date date, CertificateAcquired ca) {
-        Calendar newDate = getCalendar(date);
-        Calendar oldDate = getCalendar(ca.acquisitionDate());
-        return CommonCheckers.getYears(newDate, oldDate);
-    }
-
-    private Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.ITALY);
-        cal.setTime(date);
-        return cal;
     }
 }

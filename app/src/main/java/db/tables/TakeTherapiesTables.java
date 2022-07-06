@@ -2,6 +2,7 @@ package db.tables;
 
 import db.Table;
 import model.TakeTherapy;
+import utilities.DateConverter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -93,7 +94,16 @@ public class TakeTherapiesTables implements Table<TakeTherapy, String> {
 
     @Override
     public boolean update(TakeTherapy updatedValue) {
-        return false;
+        final String query = "UPDATE " + ASSUMERE + " SET " +
+                "CodiceTerapia = ? " +
+                "WHERE CodiceFiscale = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setInt(1, updatedValue.therapyId());
+            statement.setString(2, updatedValue.fiscalCode());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override

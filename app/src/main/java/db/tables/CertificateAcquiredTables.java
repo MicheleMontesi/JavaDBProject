@@ -93,8 +93,18 @@ public class CertificateAcquiredTables implements Table<CertificateAcquired, Str
     }
 
     @Override
-    public boolean update(CertificateAcquired updatedValue) {
-        return false;
+    public boolean update(CertificateAcquired certificateAcquired) {
+        final String query = "UPDATE " + ACQUISITO + " SET " +
+                "Nome = ? " +
+                "WHERE CodiceFiscale = ? AND DataAcquisizione = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setString(1, certificateAcquired.certificateName());
+            statement.setString(2, certificateAcquired.fiscalCode());
+            statement.setDate(3, DateConverter.dateToSqlDate(certificateAcquired.acquisitionDate()));
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override

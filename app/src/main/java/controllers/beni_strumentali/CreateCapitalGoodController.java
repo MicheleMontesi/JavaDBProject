@@ -33,44 +33,69 @@ public class CreateCapitalGoodController implements Initializable {
     private final CapitalGoodsTables capitalGoodsTables = new CapitalGoodsTables(connectionProvider.getMySQLConnection());
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
 
+    private String unitId;
+    private int goodId;
+    private Date purchaseDate;
+    private Date maintenanceDate;
+    private boolean vehicle;
+    private Optional<String> plate;
+    private Optional<String> type;
+    private Optional<Date> expirationDate;
+    private Optional<String> toolName;
+
     public void create() {
-        if (
-                lengthChecker(unitField, 1, 5) &
+        if (check()) {
+            this.init();
+            this.vehicleOrToolCheck();
+            capitalGoodsTables.save(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
+                    toolName, plate, type, expirationDate));
+        }
+    }
+
+    public void update() {
+        if (check()) {
+            this.init();
+            this.vehicleOrToolCheck();
+            capitalGoodsTables.update(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
+                    toolName, plate, type, expirationDate));
+        }
+    }
+
+    private boolean check() {
+        return lengthChecker(unitField, 1, 5) &
                 intCheck(goodField, 1, 5) &
                 checkUnitExistence() &
-                dateCheck(capitalGoodsTables, purchasePicker, maintenancePicker)
-        ) {
-            final var unitId = toUpperNormalizer(unitField);
-            final var goodId = Integer.parseInt(goodField.getText());
-            final var purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            final var maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            final var vehicle = vehicleCheck.isSelected();
-            Optional<String> plate = Optional.empty();
-            Optional<String> type = Optional.empty();
-            Optional<Date> expirationDate = Optional.empty();
-            Optional<String> toolName = Optional.empty();
+                dateCheck(capitalGoodsTables, purchasePicker, maintenancePicker);
+    }
 
-            if (vehicleCheck.isSelected()) {
-                if (
-                        lengthChecker(plateField, 4, 10) &
-                        plateNotAlreadyExists() &
-                        CommonCheckers.getYearDifference(purchaseDate, Date.from(Instant.from(
-                                expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())))) > 0
-                ) {
-                    plate = Optional.of(toUpperNormalizer(plateField));
-                    type = Optional.of(typeChoice.getValue());
-                    expirationDate = Optional.of(Date.from(
-                            Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault()))));
+    private void init() {
+        unitId = toUpperNormalizer(unitField);
+        goodId = Integer.parseInt(goodField.getText());
+        purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        vehicleCheck.isSelected();
+        plate = Optional.empty();
+        type = Optional.empty();
+        expirationDate = Optional.empty();
+        toolName = Optional.empty();
+    }
 
-                    capitalGoodsTables.save(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
-                            toolName, plate, type, expirationDate));
-                }
-            } else {
-                if (lengthChecker(toolField, 2, 20)) {
-                    toolName = Optional.of(toUpperNormalizer(toolField));
-                    capitalGoodsTables.save(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
-                            toolName, plate, type, expirationDate));
-                }
+    private void vehicleOrToolCheck() {
+        if (vehicleCheck.isSelected()) {
+            if (
+                    lengthChecker(plateField, 4, 10) &
+                            plateNotAlreadyExists() &
+                            CommonCheckers.getYearDifference(purchaseDate, Date.from(Instant.from(
+                                    expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())))) > 0
+            ) {
+                plate = Optional.of(toUpperNormalizer(plateField));
+                type = Optional.of(typeChoice.getValue());
+                expirationDate = Optional.of(Date.from(
+                        Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault()))));
+            }
+        } else {
+            if (lengthChecker(toolField, 2, 20)) {
+                toolName = Optional.of(toUpperNormalizer(toolField));
             }
         }
     }

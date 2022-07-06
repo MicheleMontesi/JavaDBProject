@@ -1,5 +1,9 @@
 package utilities.checkers;
 
+import db.Table;
+import db.tables.CertificateTypeTables;
+import db.tables.ContractTypeTables;
+import db.tables.WorkersTables;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -87,5 +91,14 @@ public class CommonCheckers {
             }
         }
         return true;
+    }
+
+    public static boolean checkOpUnitExistence(WorkersTables workersTables, TextField idField, Table<? extends Record, String> ctTable, TextField nameField) {
+        final var idCheck = workersTables.findByCode(toUpperNormalizer(idField));
+        final var nameCheck = ctTable.findByCode(toUpperNormalizer(nameField));
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("The input id or name doesn't exist");
+        return CommonCheckers.fieldChecker(List.of(idCheck, nameCheck));
     }
 }
