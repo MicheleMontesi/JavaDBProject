@@ -34,25 +34,44 @@ public class CreateTherapyDrugsController implements Initializable {
     private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());
     private final DrugsTables drugsTables = new DrugsTables(connectionProvider.getMySQLConnection());
 
+    private int therapyId;
+    private int consumptionId;
+    private Date date;
+    private int quantity;
+    private String fiscalCode;
+    private int drugId;
+
     public void create() {
-        if (
-                intCheck(therapyField, 1, 10) &
+        if (check()) {
+            this.init();
+            tdTable.save(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
+        }
+    }
+
+    public void update() {
+        if (check()) {
+            this.init();
+            tdTable.update(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
+        }
+    }
+
+    private boolean check() {
+        return intCheck(therapyField, 1, 10) &
                 intCheck(consumptionField, 1, 6) &
                 dateCheck(datePicker) &
                 intCheck(quantityField, 1, 6) &
                 lengthChecker(fiscalCodeField, 16, 16) &
                 intCheck(drugIdField, 1, 10) &
-                checkParametersExistence()
-        ) {
-            var therapyId = Integer.parseInt(therapyField.getText());
-            var consumptionId = Integer.parseInt(consumptionField.getText());
-            var date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            var quantity = Integer.parseInt(quantityField.getText());
-            var fiscalCode = toUpperNormalizer(fiscalCodeField);
-            var drugId = Integer.parseInt(drugIdField.getText());
+                checkParametersExistence();
+    }
 
-            tdTable.save(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
-        }
+    private void init() {
+        therapyId = Integer.parseInt(therapyField.getText());
+        consumptionId = Integer.parseInt(consumptionField.getText());
+        date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        quantity = Integer.parseInt(quantityField.getText());
+        fiscalCode = toUpperNormalizer(fiscalCodeField);
+        drugId = Integer.parseInt(drugIdField.getText());
     }
 
     private boolean checkParametersExistence() {

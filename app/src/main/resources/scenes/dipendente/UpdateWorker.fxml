@@ -66,7 +66,7 @@
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="160.0" prefWidth="165.0" text="Sesso" translateY="60.0" AnchorPane.leftAnchor="7.0" />
       <TextField fx:id="genderField" layoutX="178.0" layoutY="155.0" promptText="Enter M or F..." translateY="60.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="190.0" prefWidth="165.0" text="Codice Dipendente" translateY="60.0" AnchorPane.leftAnchor="7.0" />
-      <TextField fx:id="workerIdField" editable="false" layoutX="178.0" layoutY="185.0" promptText="Enter the worker id..." translateY="60.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
+      <TextField fx:id="workerIdField" layoutX="178.0" layoutY="185.0" promptText="Enter the worker id..." translateY="60.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="220.0" prefWidth="165.0" text="Titolo Di Studio" translateY="60.0" AnchorPane.leftAnchor="7.0" />
       <TextField fx:id="edField" layoutX="178.0" layoutY="215.0" promptText="Enter the educational qualification..." translateY="60.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="310.0" prefWidth="165.0" text="Crediti ECM" AnchorPane.leftAnchor="7.0" />
