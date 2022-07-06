@@ -78,6 +78,7 @@ public class OperationChooser {
                 case "Contratto Stipulato":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateSignedContract");
+                        case "Aggiorna" -> this.loadContent("UpdateSignedContract");
                         case "Elimina" -> this.loadContent("DeleteSignedContract");
                         case "Visualizza" -> this.loadContent("SignedContractsView");
                         case "Ricerca Tramite Codice" -> this.loadContent("SearchSignedContractByCode");
@@ -119,6 +120,7 @@ public class OperationChooser {
                 case "Cartella Clinica":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateMedicalRecords");
+                        case "Aggiorna" -> this.loadContent("UpdateMedicalRecords");
                         case "Elimina" -> this.loadContent("DeleteMedicalRecord");
                         case "Visualizza" -> this.loadContent("MedicalRecordsView");
                         case "Ricerca Tramite Codice" -> this.loadContent("MedicalRecordSearchByCode");

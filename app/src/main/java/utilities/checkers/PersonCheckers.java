@@ -27,7 +27,7 @@ public class PersonCheckers {
         return true;
     }
 
-    public static boolean isNotAlreadyPresent(TextField field, Table<? extends PersonRelated, String> table, Function<PersonRelated, ?> matchString) {
+    public static boolean isNotAlreadyPresent(TextField field, Table<? extends PersonRelated, ?> table, Function<PersonRelated, ?> matchString) {
         var list = table.findAll();
         List<?> idList = list.stream().map(matchString).toList();
         if (idList.contains(field.getText())) {

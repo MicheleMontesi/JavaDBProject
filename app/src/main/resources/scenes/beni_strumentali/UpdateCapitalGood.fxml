@@ -72,6 +72,6 @@
       <ChoiceBox fx:id="typeChoice" layoutX="178.0" layoutY="275.0" prefWidth="150.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="130.0" prefWidth="165.0" text="Scadenza Assicurazione" translateY="180.0" AnchorPane.leftAnchor="7.0" />
       <DatePicker fx:id="expirationPicker" editable="false" layoutX="178.0" layoutY="305.0" promptText="Choose a date..." showWeekNumbers="true" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
-      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#update" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#update" text="Update" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>

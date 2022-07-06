@@ -110,11 +110,12 @@ public class SignedContractsTables implements Table<SignedContract, String> {
     public boolean update(SignedContract signedContract) {
         final String query = "UPDATE " + STIPULATO + " SET " +
                 "DataFine = ? " +
-                "WHERE CodiceFiscale = ? AND DataStipulazione = ?";
+                "WHERE CodiceFiscale = ? AND DataStipulazione = ? AND Nome = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setDate(1, DateConverter.dateToSqlDate(signedContract.endDate()));
             statement.setString(2, signedContract.fiscalCode());
             statement.setDate(3, DateConverter.dateToSqlDate(signedContract.stipulationDate()));
+            statement.setString(4, signedContract.contractName());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new IllegalStateException(e);

@@ -32,21 +32,36 @@ public class CreateSignedContractController {
     private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());
     private final ContractTypeTables ctTable = new ContractTypeTables(connectionProvider.getMySQLConnection());
 
+    private String id;
+    private Date signedDate;
+    private Date endDate;
+    private String name;
+
     public void create() {
-        if (
-                lengthChecker(idField, 16, 16) &
-                caCheck(scTables, idField, nameField, signedPicker, endPicker) &
-                lengthChecker(nameField, 2, 30) &
-                checkOpUnitExistence(workersTables, idField, ctTable, nameField)
-
-        ) {
-            var id = toUpperNormalizer(idField);
-            var signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            var endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            var name = toUpperNormalizer(nameField);
-
+        if (check() & caCheck(scTables, idField, nameField, signedPicker, endPicker)) {
+            this.init();
             scTables.save(new SignedContract(id, signedDate, endDate, name));
         }
+    }
+
+    public void update() {
+        if (check()) {
+            this.init();
+            scTables.update(new SignedContract(id, signedDate, endDate, name));
+        }
+    }
+
+    private boolean check() {
+        return lengthChecker(idField, 16, 16) &
+                lengthChecker(nameField, 2, 30) &
+                checkOpUnitExistence(workersTables, idField, ctTable, nameField);
+    }
+
+    private void init() {
+        id = toUpperNormalizer(idField);
+        signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        name = toUpperNormalizer(nameField);
     }
 
     private boolean caCheck(Table<SignedContract, String> table, TextField idField, TextField nameField, DatePicker signedPicker, DatePicker endPicker) {

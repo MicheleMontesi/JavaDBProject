@@ -1,7 +1,6 @@
 package controllers.cartella_clinica;
 
 import db.ConnectionProvider;
-import db.Table;
 import db.tables.MedicalRecordsTables;
 import db.tables.PatientsTables;
 import javafx.fxml.FXML;
@@ -9,10 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.MedicalRecords;
-import model.PersonRelated;
 
 import java.util.List;
-import java.util.function.Function;
 
 import static utilities.checkers.PersonCheckers.*;
 
@@ -28,25 +25,41 @@ public class CreateMedicalRecordsController {
     private final MedicalRecordsTables mrTables = new MedicalRecordsTables(connectionProvider.getMySQLConnection());
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
 
+    private int id;
+    private String fiscalCode;
+    private String anamnesis;
+    private String diagnosis;
+    private String rehabProject;
 
     public void create() {
-        if (
-                intCheck(idField, 1, 5) &
-                isNotAlreadyPresent() &
+        if (check() & isNotAlreadyPresent()) {
+            this.init();
+            mrTables.save(new MedicalRecords(id, fiscalCode, anamnesis, diagnosis, rehabProject));
+        }
+    }
+
+    public void update() {
+        if (check()) {
+            this.init();
+            mrTables.update(new MedicalRecords(id, fiscalCode, anamnesis, diagnosis, rehabProject));
+        }
+    }
+
+    private boolean check() {
+        return intCheck(idField, 1, 5) &
                 lengthChecker(fiscalCodeField, 16, 16) &
                 checkPatientExistence() &
                 lengthChecker(anamnesisArea, 1, 255) &
                 lengthChecker(diagnosisArea, 1, 255) &
-                lengthChecker(rehabArea, 1, 255)
-        ) {
-            var id = Integer.parseInt(idField.getText());
-            var fiscalCode = fiscalCodeField.getText();
-            var anamnesis = anamnesisArea.getText();
-            var diagnosis = diagnosisArea.getText();
-            var rehabProject = rehabArea.getText();
+                lengthChecker(rehabArea, 1, 255);
+    }
 
-            mrTables.save(new MedicalRecords(id, fiscalCode, anamnesis, diagnosis, rehabProject));
-        }
+    private void init() {
+        id = Integer.parseInt(idField.getText());
+        fiscalCode = fiscalCodeField.getText();
+        anamnesis = anamnesisArea.getText();
+        diagnosis = diagnosisArea.getText();
+        rehabProject = rehabArea.getText();
     }
 
     private boolean checkPatientExistence() {
