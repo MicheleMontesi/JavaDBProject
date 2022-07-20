@@ -39,6 +39,7 @@ public class OperationChooser {
                 case "Turno":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateShift");
+                        case "Aggiorna" -> this.loadContent("UpdateShift");
                         case "Elimina" -> this.loadContent("DeleteShift");
                         case "Visualizza" -> this.loadContent("ShiftsView");
                         case "Ricerca Tramite Codice" -> this.loadContent("ShiftSearchByCode");

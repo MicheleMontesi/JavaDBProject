@@ -53,10 +53,15 @@
       <ChoiceBox fx:id="dayBox" layoutX="180.0" layoutY="65.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Ora Inizio" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="beginField" layoutX="180.0" layoutY="95.0" promptText="Enter the shift start time..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Ora FIne" translateY="30.0" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="endField" layoutX="180.0" layoutY="155.0" promptText="Enter the shift end time..." translateY="-30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Codice Unita Operativa" AnchorPane.leftAnchor="9.0" />
-      <ChoiceBox fx:id="ouBox" layoutX="180.0" layoutY="155.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
-      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#create" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Codice Unita Operativa" translateY="-30.0" AnchorPane.leftAnchor="9.0" />
+      <ChoiceBox fx:id="ouBox" layoutX="180.0" layoutY="155.0" prefWidth="150.0" translateY="-30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <Label alignment="CENTER" layoutX="131.0" layoutY="155.0" style="-fx-border-color: black;" text="Enter the new value" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Ora Fine" translateY="90.0" AnchorPane.leftAnchor="9.0" />
+      <TextField fx:id="endField" layoutX="180.0" layoutY="155.0" promptText="Enter the shift end time..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#update" text="Update" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>

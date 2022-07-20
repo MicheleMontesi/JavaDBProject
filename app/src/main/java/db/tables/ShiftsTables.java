@@ -98,15 +98,13 @@ public class ShiftsTables implements Table<Shift, String> {
     @Override
     public boolean update(Shift shift) {
         final String query = "UPDATE " + TURNO + " SET " +
-                "OraInizio = ?, " +
-                "OraFine = ?, " +
-                "CodiceUnita = ? " +
-                "WHERE CodiceFiscale = ? AND GiornoSettimana = ?";
+                "OraFine = ? " +
+                "WHERE CodiceFiscale = ? AND OraInizio = ? AND CodiceUnita = ? AND GiornoSettimana = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setTime(1, Time.valueOf(shift.beginTime()));
-            statement.setTime(2, Time.valueOf(shift.endTime()));
-            statement.setString(3, shift.unitId());
-            statement.setString(4, shift.fiscalCode());
+            statement.setTime(1, Time.valueOf(shift.endTime()));
+            statement.setString(2, shift.fiscalCode());
+            statement.setTime(3, Time.valueOf(shift.beginTime()));
+            statement.setString(4, shift.unitId());
             statement.setString(5, shift.dayOfTheWeek());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
