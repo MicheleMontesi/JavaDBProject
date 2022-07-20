@@ -41,28 +41,25 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.beni_strumentali.ShowGoodByCodeController">
+<HBox alignment="CENTER" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.farmaco_terapia.ShowTherapyDrugByCodeController">
    <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the search parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Unita'" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <TextField fx:id="unitIdField" layoutX="180.0" layoutY="35.0" promptText="Enter the id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="70.0" prefWidth="165.0" text="Codice Bene" />
-      <TextField fx:id="goodIdField" layoutX="180.0" layoutY="65.0" promptText="Enter the id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Farmaco Terapia" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
+      <TextField fx:id="therapyIdField" layoutX="180.0" layoutY="35.0" promptText="Enter the therapy drug id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="70.0" prefWidth="165.0" text="Codice Consumazione" />
+      <TextField fx:id="consumptionIdField" layoutX="180.0" layoutY="65.0" promptText="Enter the consumption id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <TableView fx:id="table" layoutX="5.0" layoutY="76.0" prefHeight="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="100.0">
          <columns>
-            <TableColumn fx:id="unitIdColumn" editable="false" prefWidth="150.0" text="Codice Unita'" />
-            <TableColumn fx:id="goodIdColumn" editable="false" prefWidth="150.0" text="Codice Bene" />
-            <TableColumn fx:id="purchaseColumn" editable="false" prefWidth="150.0" text="Data Acquisto" />
-            <TableColumn fx:id="maintenanceColumn" editable="false" prefWidth="200.0" text="Prossima Manutenzione" />
-            <TableColumn fx:id="vehicleColumn" editable="false" prefWidth="150.0" text="Automezzo" />
-            <TableColumn fx:id="toolColumn" editable="false" prefWidth="150.0" text="Nome Attrezzo" />
-            <TableColumn fx:id="plateColumn" editable="false" prefWidth="120.0" text="Targa" />
-            <TableColumn fx:id="typeColumn" editable="false" prefWidth="200.0" text="Tipologia" />
-            <TableColumn fx:id="expirationColumn" editable="false" prefWidth="180.0" text="Scadenza Assicurazione" />
+            <TableColumn fx:id="therapyColumn" editable="false" prefWidth="150.0" text="Codice Terapia" />
+            <TableColumn fx:id="consumptionColumn" editable="false" prefWidth="150.0" text="Codice Consumazione" />
+            <TableColumn fx:id="dateColumn" editable="false" prefWidth="150.0" text="Data Assunzione" />
+            <TableColumn fx:id="quantityColumn" editable="false" prefWidth="200.0" text="Quantita'" />
+            <TableColumn fx:id="fiscalCodeColumn" editable="false" prefWidth="150.0" text="Codice Fiscale" />
+            <TableColumn fx:id="drugIdColumn" editable="false" prefWidth="150.0" text="Codice Farmaco" />
          </columns>
       </TableView>
       <Button fx:id="searchButton" layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#search" text="Search" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
