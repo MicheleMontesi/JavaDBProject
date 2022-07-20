@@ -49,9 +49,11 @@ public class CreatePatientController implements Initializable {
     public void create() {
         if (
                 check() &
+                lengthChecker(idField, 16, 16) &
                 isNotAlreadyPresent(idField, patientsTables, PersonRelated::fiscalCode)
         ) {
             this.init();
+            id = toUpperNormalizer(idField);
             patientsTables.save(new Patient(id, name, surname, birth, residence, gender,
                     patientId, privacy, consent, acceptance));
         }
@@ -60,14 +62,14 @@ public class CreatePatientController implements Initializable {
     public void update() {
         if (check()) {
             this.init();
-            patientsTables.save(new Patient(id, name, surname, birth, residence, gender,
+            id = fiscalCodeBox.getValue();
+            patientsTables.update(new Patient(id, name, surname, birth, residence, gender,
                     patientId, privacy, consent, acceptance));
         }
     }
 
     private boolean check() {
-        return lengthChecker(idField, 16, 16) &
-                lengthChecker(nameField, 2, 15) &
+        return lengthChecker(nameField, 2, 15) &
                 lengthChecker(surnameField, 2, 15) &
                 birthAndCheck(birthPicker, List.of(privacyCheck, consentCheck, acceptanceCheck)) &
                 lengthChecker(residenceField, 10, 50) &
@@ -75,7 +77,6 @@ public class CreatePatientController implements Initializable {
     }
 
     private void init() {
-        id = toUpperNormalizer(idField);
         name = nameField.getText();
         surname = surnameField.getText();
         residence = residenceField.getText();

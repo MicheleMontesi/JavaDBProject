@@ -56,6 +56,6 @@
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Data Inizio" AnchorPane.leftAnchor="9.0" />
       <DatePicker fx:id="datePicker" editable="false" layoutX="180.0" layoutY="95.0" promptText="Choose a date..." showWeekNumbers="true" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
-      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#create" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#update" text="Update" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>

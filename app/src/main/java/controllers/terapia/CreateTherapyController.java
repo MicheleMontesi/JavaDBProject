@@ -34,27 +34,25 @@ public class CreateTherapyController implements Initializable {
     private Date date;
 
     public void create() {
-        if (check()) {
-            this.init();
+        if (
+                intCheck(therapyField, 1, 10) &
+                dateCheck(datePicker)
+        ) {
+            therapyId = Integer.parseInt(therapyField.getText());
+            date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             therapiesTable.save(new Therapy(therapyId, date));
         }
     }
 
     public void update() {
-        if (check()) {
-            this.init();
+        if (
+                !idBox.getSelectionModel().isEmpty() &
+                dateCheck(datePicker)
+        ) {
+            therapyId = Integer.parseInt(idBox.getValue());
+            date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             therapiesTable.update(new Therapy(therapyId, date));
         }
-    }
-
-    private boolean check() {
-        return intCheck(therapyField, 1, 10) &
-                dateCheck(datePicker);
-    }
-
-    private void init() {
-        therapyId = Integer.parseInt(therapyField.getText());
-        date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
     }
 
     public void fillFields() {
