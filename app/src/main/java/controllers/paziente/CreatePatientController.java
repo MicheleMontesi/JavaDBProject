@@ -12,12 +12,11 @@ import model.Patient;
 import model.PersonRelated;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import static utilities.checkers.PersonCheckers.*;
 
