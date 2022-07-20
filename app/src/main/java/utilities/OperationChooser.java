@@ -73,6 +73,7 @@ public class OperationChooser {
                 case "Tipologia Contratto":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateContractType");
+                        case "Aggiorna" -> this.loadContent("UpdateContractType");
                         case "Elimina" -> this.loadContent("DeleteContractType");
                         case "Visualizza" -> this.loadContent("ContractTypeView");
                         case "Ricerca Tramite Codice" -> this.loadContent("ContractTypeSearchCode");
