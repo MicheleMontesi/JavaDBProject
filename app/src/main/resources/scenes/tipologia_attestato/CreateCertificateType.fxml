@@ -48,6 +48,8 @@
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Nome" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
       <TextField fx:id="nameField" layoutX="180.0" layoutY="35.0" promptText="Enter the fiscal code..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="70.0" prefWidth="165.0" text="Crediti ECM" AnchorPane.leftAnchor="9.0" />
+      <TextField fx:id="ecmField" layoutX="180.0" layoutY="65.0" promptText="Enter the ECM credits..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#create" text="Create" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>

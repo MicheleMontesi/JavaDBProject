@@ -27,11 +27,12 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
     public boolean createTable() {
         try (final Statement statement = this.connection.createStatement()) {
             statement.executeUpdate(
-                    "CREATE TABLE tipologia_attestato (" +
-                            "   Nome char(30) NOT NULL," +
-                            "   PRIMARY KEY (Nome)," +
-                            "   UNIQUE KEY ID_TIPOLOGIA_ATTESTATO_IND (Nome)" +
-                            " ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
+                    "CREATE TABLE tipologia_contratto (" +
+                            "  Nome char(20) NOT NULL," +
+                            "  OreContrattuali int NOT NULL," +
+                            "  PRIMARY KEY (Nome)," +
+                            "  UNIQUE KEY ID_TIPOLOGIA_CONTRATTO_IND (Nome)" +
+                            ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             );
             return true;
         } catch (SQLException e) {
@@ -74,10 +75,11 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
 
     @Override
     public void save(CertificateType certificateType) {
-        final String query = "INSERT INTO " + TIPOLOGIA_ATTESTATO + "(nome) " +
-                "VALUES (?)";
+        final String query = "INSERT INTO " + TIPOLOGIA_ATTESTATO + "(Nome, CreditiECM) " +
+                "VALUES (?, ?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, certificateType.name());
+            statement.setInt(2, certificateType.ecmCredits());
             statement.executeUpdate();
         }catch (final SQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
@@ -87,8 +89,17 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
     }
 
     @Override
-    public boolean update(CertificateType updatedValue) {
-        return false;
+    public boolean update(CertificateType certificateType) {
+        final String query = "UPDATE " + TIPOLOGIA_ATTESTATO + " SET " +
+                "CreditiECM = ? " +
+                "WHERE Nome = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setInt(1, certificateType.ecmCredits());
+            statement.setString(2, certificateType.name());
+            return statement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     @Override
@@ -108,8 +119,9 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
         try {
             while (resultSet.next()) {
                 final String name = resultSet.getString("Nome");
+                final int ecmCredits = resultSet.getInt("CreditiECM");
 
-                final CertificateType contractType = new CertificateType(name);
+                final CertificateType contractType = new CertificateType(name, ecmCredits);
                 list.add(contractType);
             }
         } catch (SQLException e) {

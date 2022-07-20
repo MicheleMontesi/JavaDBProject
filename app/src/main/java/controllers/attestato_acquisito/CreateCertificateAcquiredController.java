@@ -10,14 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.CertificateAcquired;
+import model.Worker;
 import utilities.checkers.CommonCheckers;
 
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 import static utilities.checkers.PersonCheckers.lengthChecker;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
@@ -40,7 +38,21 @@ public class CreateCertificateAcquiredController {
             var id = toUpperNormalizer(idField);
             var date = Date.from(Instant.from(acquisitionPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             var name = toUpperNormalizer(nameField);
-
+            var worker = workersTables.findByCode(id).isPresent() ?
+                    workersTables.findByCode(id).get().stream().findFirst().isPresent() ?
+                            workersTables.findByCode(id).get().stream().findFirst().get() : null
+                    : null;
+            var cert = ctTable.findByCode(name).isPresent() ?
+                    ctTable.findByCode(name).get().stream().findFirst().isPresent() ?
+                            ctTable.findByCode(name).get().stream().findFirst().get() : null
+                    : null;
+            if (worker != null && cert != null) {
+                var credits = worker.ECMCredits() + cert.ecmCredits();
+                var newWorker = new Worker(worker.fiscalCode(), worker.name(), worker.surname(), worker.birthDay(),
+                        worker.residence(), worker.gender(), worker.workerId(), worker.edQualification(),
+                        worker.suitability(), worker.partner(), credits);
+                workersTables.update(newWorker);
+            }
             caTables.save(new CertificateAcquired(id, date, name));
         }
     }

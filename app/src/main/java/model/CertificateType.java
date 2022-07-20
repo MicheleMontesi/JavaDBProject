@@ -2,16 +2,18 @@ package model;
 
 import java.util.Objects;
 
-public record CertificateType(String name) {
+public record CertificateType(String name, int ecmCredits) {
 
-    public CertificateType(String name) {
+    public CertificateType(String name, int ecmCredits) {
         this.name = Objects.requireNonNull(name);
+        this.ecmCredits = ecmCredits;
     }
 
     @Override
     public String toString() {
         return "CertificateType{" +
                 "name='" + name + '\'' +
+                ", ecmCredits=" + ecmCredits +
                 '}';
     }
 
@@ -20,11 +22,11 @@ public record CertificateType(String name) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CertificateType that = (CertificateType) o;
-        return name.equals(that.name);
+        return ecmCredits == that.ecmCredits && name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, ecmCredits);
     }
 }

@@ -24,6 +24,8 @@ public class CertificateTypeViewController implements Initializable {
     private TableView<CertificateType> table;
     @FXML
     private TableColumn<CertificateType, String> nameColumn;
+    @FXML
+    private TableColumn<CertificateType, Integer> ecmColumn;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
@@ -33,6 +35,6 @@ public class CertificateTypeViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CreateCertificateTypeView.create(table, nameColumn, list);
+        CreateCertificateTypeView.create(table, nameColumn, ecmColumn, list);
     }
 }

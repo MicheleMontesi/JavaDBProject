@@ -27,6 +27,8 @@ public class CertificateTypeSearchCodeController implements Initializable {
     private TableView<CertificateType> table;
     @FXML
     private TableColumn<CertificateType, String> nameColumn;
+    @FXML
+    private TableColumn<CertificateType, Integer> ecmColumn;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
@@ -37,7 +39,7 @@ public class CertificateTypeSearchCodeController implements Initializable {
             var certificate = ctTable.findByCode(toUpperNormalizer(nameField));
             if (certificate.isPresent()) {
                 final ObservableList<CertificateType> list = FXCollections.observableArrayList(certificate.get());
-                CreateCertificateTypeView.create(table, nameColumn, list);
+                CreateCertificateTypeView.create(table, nameColumn, ecmColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");

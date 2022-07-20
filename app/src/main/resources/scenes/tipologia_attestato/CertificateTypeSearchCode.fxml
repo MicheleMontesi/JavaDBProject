@@ -54,6 +54,7 @@
       <TableView fx:id="table" layoutX="5.0" layoutY="76.0" prefHeight="200.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="75.0">
          <columns>
             <TableColumn fx:id="nameColumn" editable="false" prefWidth="150.0" text="Nome" />
+            <TableColumn fx:id="ecmColumn" editable="false" prefWidth="150.0" text="Crediti ECM" />
          </columns>
       </TableView>
    </AnchorPane>
