@@ -41,7 +41,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.paziente.CreatePatientController">
+<HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.paziente.CreatePatientController">
    <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -61,7 +61,7 @@
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="130.0" prefWidth="165.0" text="Sesso" translateY="60.0" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="genderField" layoutX="180.0" layoutY="125.0" promptText="Enter M or F..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Codice Paziente" translateY="60.0" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="patientIdField" editable="false" layoutX="180.0" layoutY="155.0" promptText="Enter the worker id..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <TextField fx:id="patientIdField" editable="false" layoutX="180.0" layoutY="155.0" promptText="Enter the patient id..." translateY="60.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="190.0" prefWidth="165.0" text="Documentazione Privacy" translateY="60.0" AnchorPane.leftAnchor="9.0" />
       <CheckBox fx:id="privacyCheck" layoutX="180.0" layoutY="250.0" mnemonicParsing="false" AnchorPane.leftAnchor="180.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="280.0" prefWidth="165.0" text="Consenso Informativo Al Trattamento" AnchorPane.leftAnchor="9.0" />
