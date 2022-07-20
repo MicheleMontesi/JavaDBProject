@@ -132,6 +132,7 @@ public class OperationChooser {
                 case "Ospitazione":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateHosting");
+                        case "Aggiorna" -> this.loadContent("UpdateHosting");
                         case "Elimina" -> this.loadContent("DeleteHosting");
                         case "Visualizza" -> this.loadContent("HostingView");
                         case "Ricerca Tramite Codice" -> this.loadContent("SearchHostingByCode");

@@ -34,19 +34,37 @@ public class CreateHostingController {
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
 
+    private Hosting hosting;
+
     public void create() {
-        if (
-                lengthChecker(idField, 16, 16) &
-                CommonCheckers.dateCheck(beginPicker) &
-                lengthChecker(unitIdField, 1, 5) &
-                checkFieldsExistence()
-        ) {
+        if (check()) {
             var id = toUpperNormalizer(idField);
             var begin = Date.from(Instant.from(beginPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             var unitId = toUpperNormalizer(unitIdField);
             Optional<Date> endDate = Optional.empty();
-            dateChecker(id, begin, unitId, endDate);
+            if (dateChecker(id, begin, unitId, endDate)) {
+                hostingTables.save(hosting);
+            }
         }
+    }
+
+    public void update() {
+        if (check()) {
+            var id = toUpperNormalizer(idField);
+            var begin = Date.from(Instant.from(beginPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+            var unitId = toUpperNormalizer(unitIdField);
+            Optional<Date> endDate = Optional.empty();
+            if (endDateChecker(id, begin, endDate, unitId)) {
+                hostingTables.update(hosting);
+            }
+        }
+    }
+
+    private boolean check() {
+        return lengthChecker(idField, 16, 16) &
+                CommonCheckers.dateCheck(beginPicker) &
+                lengthChecker(unitIdField, 1, 5) &
+                checkFieldsExistence();
     }
 
     private boolean checkFieldsExistence() {
@@ -55,7 +73,22 @@ public class CreateHostingController {
         return CommonCheckers.fieldChecker(List.of(retUnit, retPatient));
     }
 
-    private void dateChecker(String id, Date begin, String unitId, Optional<Date> endDate) {
+    private boolean endDateChecker(String id, Date begin, Optional<Date> endDate, String unitId) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        if (endPicker.getValue() != null) {
+            endDate = Optional.of(Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault()))));
+            if (CommonCheckers.getYearDifference(begin, endDate.get()) <= 0) {
+                errorAlert.setContentText("The input end date must be one year bigger than the begin date");
+                errorAlert.showAndWait();
+                return false;
+            }
+        }
+        hosting = new Hosting(id, begin, endDate, unitId);
+        return true;
+    }
+
+    private boolean dateChecker(String id, Date begin, String unitId, Optional<Date> endDate) {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
 
@@ -68,27 +101,17 @@ public class CreateHostingController {
                         if (CommonCheckers.getYearDifference(host.endDate().get(), begin) <= 0) {
                             errorAlert.setContentText("The input begin date must be one year bigger than the previous end date");
                             errorAlert.showAndWait();
-                            return;
+                            return false;
                         }
                     } else {
                         errorAlert.setContentText("The previous hosting must be ended before");
                         errorAlert.showAndWait();
-                        return;
+                        return false;
                     }
                 }
             }
-
-            if (endPicker.getValue() != null) {
-                endDate = Optional.of(Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault()))));
-                if (CommonCheckers.getYearDifference(begin, endDate.get()) < 0) {
-                    errorAlert.setContentText("The input end date must be one year bigger than the begin date");
-                    errorAlert.showAndWait();
-                    return;
-                }
-                hostingTables.save(new Hosting(id, begin, endDate, unitId));
-            } else {
-                hostingTables.save(new Hosting(id, begin, endDate, unitId));
-            }
+            endDateChecker(id, begin, endDate, unitId);
         }
+        return true;
     }
 }
