@@ -3,36 +3,77 @@ package controllers.terapia;
 import db.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Therapy;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.intCheck;
 
-public class CreateTherapyController {
+public class CreateTherapyController implements Initializable {
     @FXML
     public TextField therapyField;
     @FXML
     public DatePicker datePicker;
+    @FXML
+    private ChoiceBox<String> idBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
             "o6*&GstbGajcf&x5", "cooperativasanitaria");
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
 
-    public void create() {
-        if(
-            intCheck(therapyField, 1, 10) &
-            dateCheck(datePicker)
-        ) {
-            var therapyId = Integer.parseInt(therapyField.getText());
-            var date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+    private int therapyId;
+    private Date date;
 
+    public void create() {
+        if (check()) {
+            this.init();
             therapiesTable.save(new Therapy(therapyId, date));
+        }
+    }
+
+    public void update() {
+        if (check()) {
+            this.init();
+            therapiesTable.update(new Therapy(therapyId, date));
+        }
+    }
+
+    private boolean check() {
+        return intCheck(therapyField, 1, 10) &
+                dateCheck(datePicker);
+    }
+
+    private void init() {
+        therapyId = Integer.parseInt(therapyField.getText());
+        date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+    }
+
+    public void fillFields() {
+        if (!idBox.getSelectionModel().isEmpty()) {
+            var selected = idBox.getSelectionModel().getSelectedItem();
+            var therapyList = therapiesTable.findByCode(selected);
+            if (therapyList.isPresent()) {
+                var therapy = therapyList.get().stream().findFirst().isPresent() ? therapyList.get().stream().findFirst().get() : null;
+                if (therapy != null) {
+                    datePicker.getEditor().setText(therapy.creationDate().toString());
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (idBox != null) {
+            idBox.getItems().addAll(therapiesTable.findAll().stream().map(Therapy::therapyId).map(Object::toString).toList());
         }
     }
 }

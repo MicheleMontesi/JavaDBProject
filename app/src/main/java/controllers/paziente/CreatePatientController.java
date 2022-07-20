@@ -93,7 +93,7 @@ public class CreatePatientController implements Initializable {
             var patientList = patientsTables.findByCode(selected);
             if (patientList.isPresent()) {
                 var patient = patientList.get().stream().findFirst().isPresent() ? patientList.get().stream().findFirst().get() : null;
-                if (patient != null && nameField.getText().isEmpty()) {
+                if (patient != null) {
                     nameField.setText(patient.name());
                     surnameField.setText(patient.surname());
                     residenceField.setText(patient.residence());

@@ -98,6 +98,7 @@ public class OperationChooser {
                 case "Terapia":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreateTherapy");
+                        case "Aggiorna" -> this.loadContent("UpdateTherapy");
                         case "Elimina" -> this.loadContent("DeleteTherapy");
                         case "Visualizza" -> this.loadContent("TherapyView");
                         case "Ricerca Tramite Codice" -> this.loadContent("TherapySearchCode");

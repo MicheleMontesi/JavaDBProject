@@ -49,7 +49,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="fiscalCodeBox" layoutX="178.0" layoutY="35.0" prefWidth="150.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
+      <ChoiceBox fx:id="fiscalCodeBox"  onAction="#fillFields" layoutX="178.0" layoutY="35.0" prefWidth="150.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Fiscale" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
       <Label alignment="CENTER" layoutX="90.0" layoutY="65.0" style="-fx-border-color: black;" text="Enter the new values" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
@@ -57,7 +57,7 @@
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="100.0" prefWidth="165.0" text="Nome" AnchorPane.leftAnchor="7.0" />
-      <TextField fx:id="nameField" layoutX="178.0" layoutY="95.0" onMouseMoved="#fillFields" promptText="Enter the name..." AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
+      <TextField fx:id="nameField" layoutX="178.0" layoutY="95.0" promptText="Enter the name..." AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="130.0" prefWidth="165.0" text="Cognome" AnchorPane.leftAnchor="7.0" />
       <TextField fx:id="surnameField" layoutX="178.0" layoutY="125.0" promptText="Enter the surname..." AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="7.0" />
       <Label alignment="CENTER_RIGHT" layoutX="7.0" layoutY="130.0" prefWidth="165.0" text="Data Di Nascita" translateY="30.0" AnchorPane.leftAnchor="7.0" />
