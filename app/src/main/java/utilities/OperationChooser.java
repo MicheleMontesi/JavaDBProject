@@ -30,6 +30,7 @@ public class OperationChooser {
                 case "Paziente":
                     switch (currentOperationSelection) {
                         case "Crea" -> this.loadContent("CreatePatient");
+                        case "Aggiorna" -> this.loadContent("UpdatePatient");
                         case "Elimina" -> this.loadContent("DeletePatient");
                         case "Visualizza" -> this.loadContent("PatientsView");
                         case "Ricerca Tramite Codice" -> this.loadContent("PatientSearchByFiscalCode");
