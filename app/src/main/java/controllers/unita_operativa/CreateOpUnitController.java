@@ -9,7 +9,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import model.OperatingUnit;
-import model.Patient;
 
 import java.net.URL;
 import java.util.List;
