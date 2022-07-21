@@ -1,5 +1,10 @@
 package controllers.assumere_terapia;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import model.Patient;
+import model.Therapy;
+import model.Worker;
 import utilities.ConnectionProvider;
 import db.tables.PatientsTables;
 import db.tables.TakeTherapiesTables;
@@ -7,15 +12,18 @@ import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import model.TakeTherapy;
-import utilities.checkers.CommonCheckers;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
+import java.net.URL;
 import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 import static utilities.checkers.PersonCheckers.*;
 
-public class CreateTakeTherapyController {
+public class CreateTakeTherapyController implements Initializable {
     @FXML
-    private TextField fiscalCodeField, therapyIdField;
+    private ChoiceBox<String> fiscalCodeBox, therapyIdBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TakeTherapiesTables ttTable = new TakeTherapiesTables(connectionProvider.getMySQLConnection());
@@ -24,8 +32,8 @@ public class CreateTakeTherapyController {
 
     public void create() {
         if (check()) {
-            final var fiscalCode = toUpperNormalizer(fiscalCodeField);
-            final var therapyId = Integer.parseInt(therapyIdField.getText());
+            final var fiscalCode = fiscalCodeBox.getValue();
+            final var therapyId = Integer.parseInt(therapyIdBox.getValue());
 
             ttTable.save(new TakeTherapy(fiscalCode, therapyId));
         }
@@ -33,22 +41,25 @@ public class CreateTakeTherapyController {
 
     public void update() {
         if (check()) {
-            final var fiscalCode = toUpperNormalizer(fiscalCodeField);
-            final var therapyId = Integer.parseInt(therapyIdField.getText());
+            final var fiscalCode = fiscalCodeBox.getValue();
+            final var therapyId = Integer.parseInt(therapyIdBox.getValue());
 
             ttTable.update(new TakeTherapy(fiscalCode, therapyId));
         }
     }
 
     private boolean check() {
-        return lengthChecker(fiscalCodeField, 16, 16) &
-                intCheck(therapyIdField, 1, 10) &
-                checkParametersExistence();
+        return choiceBoxChecker(fiscalCodeBox) &
+                choiceBoxChecker(therapyIdBox);
     }
 
-    private boolean checkParametersExistence() {
-        final var retTherapy = therapiesTable.findByCode(toUpperNormalizer(therapyIdField));
-        final var retPatient = patientsTables.findByCode(toUpperNormalizer(fiscalCodeField));
-        return CommonCheckers.fieldChecker(List.of(retTherapy, retPatient));
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (fiscalCodeBox != null) {
+            fiscalCodeBox.getItems().addAll(patientsTables.findAll().stream().map(Patient::fiscalCode).toList());
+        }
+        if (therapyIdBox != null) {
+            therapyIdBox.getItems().addAll(therapiesTable.findAll().stream().map(Therapy::therapyId).map(Objects::toString).toList());
+        }
     }
 }
