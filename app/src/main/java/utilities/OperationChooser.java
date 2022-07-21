@@ -42,7 +42,6 @@ public class OperationChooser {
                 .replaceAll("[^\\p{ASCII}]", "")
                 .replaceAll("'", "")
                 .replaceAll("\\s+", "_");
-        System.out.println(current);
         try {
             root = FXMLLoader.load(ClassLoader.getSystemResource(String.valueOf(Paths.get("scenes",
                     current, file + ".fxml"))));
