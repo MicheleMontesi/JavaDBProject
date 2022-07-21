@@ -28,7 +28,7 @@ public class TherapiesTable implements Table<Therapy, String> {
             statement.executeUpdate(
                     "CREATE TABLE terapia (" +
                             "  CodiceTerapia int NOT NULL," +
-                            "  Data date NOT NULL," +
+                            "  DataInizio date NOT NULL," +
                             "  PRIMARY KEY (CodiceTerapia)," +
                             "  UNIQUE KEY ID_TERAPIA_IND (CodiceTerapia)" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
