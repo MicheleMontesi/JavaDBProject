@@ -23,8 +23,7 @@ public class CreateContractTypeController implements Initializable {
     @FXML
     private ChoiceBox<String> nameChoiceBox;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final ContractTypeTables ctTables = new ContractTypeTables(connectionProvider.getMySQLConnection());
 
     private String name;

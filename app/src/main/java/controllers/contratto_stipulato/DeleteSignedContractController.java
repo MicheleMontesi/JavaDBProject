@@ -21,8 +21,7 @@ public class DeleteSignedContractController {
     @FXML
     private DatePicker datePicker;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final SignedContractsTables scTable = new SignedContractsTables(connectionProvider.getMySQLConnection());
 

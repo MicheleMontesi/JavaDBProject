@@ -28,8 +28,7 @@ public class CreateCapitalGoodController implements Initializable {
     @FXML
     public ChoiceBox<String> typeChoice;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final CapitalGoodsTables capitalGoodsTables = new CapitalGoodsTables(connectionProvider.getMySQLConnection());
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
 

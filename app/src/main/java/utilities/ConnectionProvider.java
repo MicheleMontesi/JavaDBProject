@@ -9,10 +9,10 @@ public class ConnectionProvider {
     private final String password;
     private final String dbName;
 
-    public ConnectionProvider(final String username, final String password, final String dbName) {
-        this.username = username;
-        this.password = password;
-        this.dbName = dbName;
+    public ConnectionProvider() {
+        this.username = "root";
+        this.password = "o6*&GstbGajcf&x5";
+        this.dbName = "cooperativasanitaria";
     }
 
     public Connection getMySQLConnection() {

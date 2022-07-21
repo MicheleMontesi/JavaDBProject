@@ -26,8 +26,7 @@ public class CreateTherapyController implements Initializable {
     @FXML
     private ChoiceBox<String> idBox;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
 
     private int therapyId;

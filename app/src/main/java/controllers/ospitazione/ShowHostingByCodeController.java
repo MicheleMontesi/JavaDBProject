@@ -35,8 +35,7 @@ public class ShowHostingByCodeController implements Initializable {
     @FXML
     private TableColumn<Hosting, Date> endColumn, signedColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final HostingTables hostingTables = new HostingTables(connectionProvider.getMySQLConnection());
 

@@ -24,8 +24,7 @@ public class TherapyViewController implements Initializable {
     @FXML
     private TableColumn<Therapy, Integer> therapyColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
 
     private final ObservableList<Therapy> list = FXCollections.observableArrayList(therapiesTable.findAll());

@@ -26,8 +26,7 @@ public class CreateSignedContractController {
     @FXML
     private DatePicker signedPicker, endPicker;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final SignedContractsTables scTables = new SignedContractsTables(connectionProvider.getMySQLConnection());
     private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());
     private final ContractTypeTables ctTable = new ContractTypeTables(connectionProvider.getMySQLConnection());

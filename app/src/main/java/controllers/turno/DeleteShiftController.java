@@ -12,8 +12,7 @@ public class DeleteShiftController {
     @FXML
     private TextField idField, dayField, timeField, unitIdField;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final ShiftsTables shiftsTables = new ShiftsTables(connectionProvider.getMySQLConnection());
 

@@ -31,8 +31,7 @@ public class TherapySearchCodeController implements Initializable {
     @FXML
     private TableColumn<Therapy, Date> dateColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
 
     public void search() {

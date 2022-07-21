@@ -16,8 +16,7 @@ import static utilities.CreateOperationsMap.entities;
 
 public class TablesInitializer {
 
-    private static final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private static final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private static final Connection connection = connectionProvider.getMySQLConnection();
 

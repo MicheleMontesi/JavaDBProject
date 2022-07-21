@@ -32,8 +32,7 @@ public class ShowTherapyDrugByCodeController implements Initializable {
     @FXML
     private TableColumn<TherapyDrug, Date> dateColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final TherapyDrugsTable tdTable = new TherapyDrugsTable(connectionProvider.getMySQLConnection());
 

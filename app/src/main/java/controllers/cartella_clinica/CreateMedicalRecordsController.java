@@ -20,8 +20,7 @@ public class CreateMedicalRecordsController {
     @FXML
     public TextArea anamnesisArea, diagnosisArea, rehabArea;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final MedicalRecordsTables mrTables = new MedicalRecordsTables(connectionProvider.getMySQLConnection());
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
 

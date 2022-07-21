@@ -24,8 +24,7 @@ public class CertificateAcquiredViewController implements Initializable {
     @FXML
     private TableColumn<CertificateAcquired, Date> dateColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final CertificateAcquiredTables caTable = new CertificateAcquiredTables(connectionProvider.getMySQLConnection());
 
     private final ObservableList<CertificateAcquired> list = FXCollections.observableArrayList(caTable.findAll());

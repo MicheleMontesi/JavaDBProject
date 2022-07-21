@@ -31,8 +31,7 @@ public class ShowSignedContractByCodeController implements Initializable {
     @FXML
     private TableColumn<SignedContract, Date> stipulationColumn, endColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final SignedContractsTables scTables = new SignedContractsTables(connectionProvider.getMySQLConnection());
 
     public void search() {

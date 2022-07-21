@@ -23,8 +23,7 @@ public class SignedContractViewController implements Initializable {
     @FXML
     private TableColumn<SignedContract, Date> endColumn, stipulationColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final SignedContractsTables scTable = new SignedContractsTables(connectionProvider.getMySQLConnection());
 

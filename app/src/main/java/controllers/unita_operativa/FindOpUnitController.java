@@ -31,8 +31,7 @@ public class FindOpUnitController implements Initializable {
     @FXML
     private TableColumn<OperatingUnit, Boolean> accreditColumn, authColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
 

@@ -29,8 +29,7 @@ public class CreateWorkerController implements Initializable {
     @FXML
     private DatePicker birthPicker;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final WorkersTables workersTable = new WorkersTables(connectionProvider.getMySQLConnection());
 

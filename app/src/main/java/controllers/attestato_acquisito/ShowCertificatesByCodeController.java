@@ -30,8 +30,7 @@ public class ShowCertificatesByCodeController implements Initializable {
     @FXML
     private TableColumn<CertificateAcquired, Date> dateColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final CertificateAcquiredTables caTables = new CertificateAcquiredTables(connectionProvider.getMySQLConnection());
 
     public void search() {

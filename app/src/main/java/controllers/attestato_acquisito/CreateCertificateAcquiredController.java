@@ -27,8 +27,7 @@ public class CreateCertificateAcquiredController {
     @FXML
     private DatePicker acquisitionPicker;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final CertificateAcquiredTables caTables = new CertificateAcquiredTables(connectionProvider.getMySQLConnection());
     private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());
     private final CertificateTypeTables ctTable = new CertificateTypeTables(connectionProvider.getMySQLConnection());

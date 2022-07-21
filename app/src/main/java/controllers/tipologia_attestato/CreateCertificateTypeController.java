@@ -23,8 +23,7 @@ public class CreateCertificateTypeController implements Initializable {
     @FXML
     private ChoiceBox<String> nameChoiceBox;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final CertificateTypeTables ctTables = new CertificateTypeTables(connectionProvider.getMySQLConnection());
 
     private String name;

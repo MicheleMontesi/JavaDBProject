@@ -23,8 +23,7 @@ public class ContractTypeViewController implements Initializable {
     @FXML
     private TableColumn<ContractType, String> nameColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final ContractTypeTables ctTable = new ContractTypeTables(connectionProvider.getMySQLConnection());
 

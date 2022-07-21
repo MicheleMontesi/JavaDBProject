@@ -25,8 +25,7 @@ public class CreateTherapyDrugsController implements Initializable {
     @FXML
     public DatePicker datePicker;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TherapyDrugsTable tdTable = new TherapyDrugsTable(connectionProvider.getMySQLConnection());
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
     private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());

@@ -32,8 +32,7 @@ public class FindDrugController implements Initializable {
     @FXML
     private TableColumn<Drug, Integer> idColumn, quantityColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final DrugsTables drugsTables = new DrugsTables(connectionProvider.getMySQLConnection());
 

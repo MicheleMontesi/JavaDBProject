@@ -23,8 +23,7 @@ public class ShiftsViewController implements Initializable {
     @FXML
     private TableColumn<Shift, LocalTime> beginColumn, endColumn;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final ShiftsTables shiftsTables = new ShiftsTables(connectionProvider.getMySQLConnection());
 

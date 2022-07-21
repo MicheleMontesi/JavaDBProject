@@ -27,9 +27,7 @@ public class CreateOpUnitController implements Initializable {
     @FXML
     private CheckBox authCheck, accreditCheck;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider("root",
-            "o6*&GstbGajcf&x5", "cooperativasanitaria");
-
+    private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
 
     private String type;
