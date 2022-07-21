@@ -2,10 +2,7 @@ package utilities.checkers;
 
 import db.Table;
 import db.tables.WorkersTables;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.*;
 
@@ -94,6 +91,18 @@ public class CommonCheckers {
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The check box " + check.getId() + " must be selected");
         if (!check.isSelected()) {
+            errorAlert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static boolean choiceBoxChecker(ChoiceBox<String> box) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("The choice box " + box.getId() + " must be selected");
+        if (box.getSelectionModel().isEmpty()) {
             errorAlert.showAndWait();
             return false;
         } else {

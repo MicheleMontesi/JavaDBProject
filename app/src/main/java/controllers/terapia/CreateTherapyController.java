@@ -15,6 +15,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.intCheck;
 
@@ -45,7 +46,7 @@ public class CreateTherapyController implements Initializable {
 
     public void update() {
         if (
-                !idBox.getSelectionModel().isEmpty() &
+                choiceBoxChecker(idBox) &
                 dateCheck(datePicker)
         ) {
             therapyId = Integer.parseInt(idBox.getValue());
