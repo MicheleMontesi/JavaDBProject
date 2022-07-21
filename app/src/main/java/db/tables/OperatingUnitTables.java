@@ -29,7 +29,7 @@ public class OperatingUnitTables implements Table<OperatingUnit, String> {
             statement.executeUpdate(
                     "CREATE TABLE " + UNITA_OPERATIVA + " (" +
                             "CodiceUnita CHAR(5) NOT NULL, " +
-                            "Tipologia CHAR(20) NOT NULL, " +
+                            "Tipologia CHAR(40) NOT NULL, " +
                             "Denominazione CHAR(20) NOT NULL, " +
                             "Ubicazione CHAR(50) NOT NULL, " +
                             "PostiLetto INT NOT NULL, " +

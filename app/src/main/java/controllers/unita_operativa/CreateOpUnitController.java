@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import java.util.function.Function;
 
 import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.CommonCheckers.checkChecker;
 
 public class CreateOpUnitController implements Initializable {
 
@@ -65,8 +66,8 @@ public class CreateOpUnitController implements Initializable {
                 lengthChecker(locationField, 5, 50) &
                 intCheck(bedsField, 1, 5) &
                 intCheck(patientsField, 1, 5) &
-                authCheck.isSelected() &
-                accreditCheck.isSelected();
+                checkChecker(authCheck) &
+                checkChecker(accreditCheck);
     }
 
     private void init() {
