@@ -49,6 +49,7 @@ public class CreateOperationsMap {
         entities.forEach(e -> permittedOp.put(e, new ArrayList<>(defaultOperations)));
 
         permittedOp.get("Beni Strumentali").addAll(Arrays.asList("Visualizza Automezzi", "Visualizza Attrezzature"));
+        permittedOp.get("Assumere Terapia").remove("Aggiorna");
 
         return permittedOp;
     }

@@ -1,25 +1,22 @@
 package controllers.assumere_terapia;
 
-import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import model.Patient;
-import model.Therapy;
-import model.Worker;
-import utilities.ConnectionProvider;
 import db.tables.PatientsTables;
 import db.tables.TakeTherapiesTables;
 import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import model.Patient;
 import model.TakeTherapy;
-import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+import model.Therapy;
+import utilities.ConnectionProvider;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class CreateTakeTherapyController implements Initializable {
     @FXML
@@ -39,18 +36,27 @@ public class CreateTakeTherapyController implements Initializable {
         }
     }
 
-    public void update() {
-        if (check()) {
-            final var fiscalCode = fiscalCodeBox.getValue();
-            final var therapyId = Integer.parseInt(therapyIdBox.getValue());
-
-            ttTable.update(new TakeTherapy(fiscalCode, therapyId));
-        }
-    }
-
     private boolean check() {
         return choiceBoxChecker(fiscalCodeBox) &
-                choiceBoxChecker(therapyIdBox);
+                choiceBoxChecker(therapyIdBox) &
+                !ttAlreadyExists();
+    }
+
+    private boolean ttAlreadyExists() {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("The input already exists");
+        for (var patient : ttTable.findAll().stream().map(TakeTherapy::fiscalCode).toList()) {
+            if (patient.equals(fiscalCodeBox.getValue())) {
+                for (var therapy : ttTable.findAll().stream().map(TakeTherapy::therapyId).map(Objects::toString).toList()) {
+                    if (therapy.equals(therapyIdBox.getValue())) {
+                        errorAlert.showAndWait();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     @Override
