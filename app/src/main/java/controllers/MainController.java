@@ -32,7 +32,6 @@ public class MainController implements Initializable {
         myEntityList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             currentEntitySelection = myEntityList.getSelectionModel().getSelectedItem();
             chooser.setCurrentEntitySelection(this.currentEntitySelection);
-            System.out.println(currentEntitySelection);
             myOperationList.getItems().clear();
             myOperationList.getItems().addAll(permittedOp.get(currentEntitySelection));
             });

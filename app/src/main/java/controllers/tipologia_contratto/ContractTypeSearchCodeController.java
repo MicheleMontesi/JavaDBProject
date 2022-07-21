@@ -1,6 +1,6 @@
 package controllers.tipologia_contratto;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.ContractTypeTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,10 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.ContractType;
-import model.Therapy;
 import utilities.FXUtils;
 import utilities.views.CreateContractTypeView;
-import utilities.views.CreateTherapyView;
 
 import java.net.URL;
 import java.util.ResourceBundle;

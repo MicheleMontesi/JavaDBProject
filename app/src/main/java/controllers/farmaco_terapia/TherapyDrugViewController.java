@@ -1,6 +1,6 @@
 package controllers.farmaco_terapia;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.TherapyDrugsTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

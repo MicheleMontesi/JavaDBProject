@@ -1,8 +1,7 @@
 package controllers.tipologia_attestato;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.CertificateTypeTables;
-import db.tables.TherapiesTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,12 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import model.CertificateType;
-import model.Therapy;
 import utilities.views.CreateCertificateTypeView;
-import utilities.views.CreateTherapyView;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class CertificateTypeViewController implements Initializable {

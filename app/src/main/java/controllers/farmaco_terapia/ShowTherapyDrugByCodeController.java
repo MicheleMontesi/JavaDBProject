@@ -1,7 +1,6 @@
 package controllers.farmaco_terapia;
 
-import db.ConnectionProvider;
-import db.tables.CapitalGoodsTables;
+import utilities.ConnectionProvider;
 import db.tables.TherapyDrugsTable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
@@ -10,9 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import model.CapitalGood;
 import model.TherapyDrug;
-import utilities.views.CreateCapitalGoodsView;
 import utilities.views.CreateTherapyDrugView;
 
 import java.net.URL;

@@ -1,6 +1,6 @@
 package controllers.contratto_stipulato;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.ContractTypeTables;
 import db.tables.SignedContractsTables;

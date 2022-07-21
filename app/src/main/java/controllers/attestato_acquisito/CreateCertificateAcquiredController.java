@@ -1,6 +1,6 @@
 package controllers.attestato_acquisito;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.CertificateAcquiredTables;
 import db.tables.CertificateTypeTables;

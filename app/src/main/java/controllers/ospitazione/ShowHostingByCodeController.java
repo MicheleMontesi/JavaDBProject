@@ -1,6 +1,6 @@
 package controllers.ospitazione;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.HostingTables;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;

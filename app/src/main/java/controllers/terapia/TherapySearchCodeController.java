@@ -1,6 +1,6 @@
 package controllers.terapia;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

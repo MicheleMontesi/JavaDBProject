@@ -1,6 +1,6 @@
 package controllers.attestato_acquisito;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.CertificateAcquiredTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;

@@ -1,6 +1,6 @@
 package controllers.beni_strumentali;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.CapitalGoodsTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

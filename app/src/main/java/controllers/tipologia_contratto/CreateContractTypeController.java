@@ -1,6 +1,6 @@
 package controllers.tipologia_contratto;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.ContractTypeTables;
 import javafx.fxml.FXML;

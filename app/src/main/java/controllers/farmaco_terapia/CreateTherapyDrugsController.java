@@ -1,14 +1,12 @@
 package controllers.farmaco_terapia;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.TherapyDrug;
-import model.Worker;
 import utilities.checkers.CommonCheckers;
 
 import java.net.URL;

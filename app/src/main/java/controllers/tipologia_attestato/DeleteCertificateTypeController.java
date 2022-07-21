@@ -1,6 +1,6 @@
 package controllers.tipologia_attestato;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

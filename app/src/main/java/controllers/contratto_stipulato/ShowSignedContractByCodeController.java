@@ -1,6 +1,6 @@
 package controllers.contratto_stipulato;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.SignedContractsTables;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;

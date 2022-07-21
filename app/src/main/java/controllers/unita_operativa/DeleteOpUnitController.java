@@ -1,6 +1,6 @@
 package controllers.unita_operativa;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.OperatingUnitTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

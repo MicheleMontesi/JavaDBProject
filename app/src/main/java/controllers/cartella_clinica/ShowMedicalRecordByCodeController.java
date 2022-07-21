@@ -1,9 +1,7 @@
 package controllers.cartella_clinica;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.MedicalRecordsTables;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

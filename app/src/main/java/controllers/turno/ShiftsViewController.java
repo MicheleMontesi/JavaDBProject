@@ -1,6 +1,6 @@
 package controllers.turno;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.ShiftsTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

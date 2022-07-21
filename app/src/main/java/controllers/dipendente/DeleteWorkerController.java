@@ -1,6 +1,6 @@
 package controllers.dipendente;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.WorkersTables;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

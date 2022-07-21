@@ -1,6 +1,6 @@
 package controllers.beni_strumentali;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.CapitalGoodsTables;
 import db.tables.OperatingUnitTables;

@@ -1,6 +1,6 @@
 package controllers.paziente;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.PatientsTables;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

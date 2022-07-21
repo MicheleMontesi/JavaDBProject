@@ -1,6 +1,6 @@
 package controllers.terapia;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

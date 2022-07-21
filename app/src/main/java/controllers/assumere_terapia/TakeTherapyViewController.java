@@ -1,6 +1,6 @@
 package controllers.assumere_terapia;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.TakeTherapiesTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

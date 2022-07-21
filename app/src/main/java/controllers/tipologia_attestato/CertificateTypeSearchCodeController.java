@@ -1,6 +1,6 @@
 package controllers.tipologia_attestato;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.tables.CertificateTypeTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

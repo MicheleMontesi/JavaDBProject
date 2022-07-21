@@ -1,6 +1,6 @@
 package controllers.farmaco;
 
-import db.ConnectionProvider;
+import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.DrugsTables;
 import javafx.fxml.FXML;
