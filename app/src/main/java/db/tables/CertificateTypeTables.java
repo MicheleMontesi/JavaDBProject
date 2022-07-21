@@ -27,11 +27,11 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
     public boolean createTable() {
         try (final Statement statement = this.connection.createStatement()) {
             statement.executeUpdate(
-                    "CREATE TABLE tipologia_contratto (" +
-                            "  Nome char(20) NOT NULL," +
-                            "  OreContrattuali int NOT NULL," +
+                    "CREATE TABLE tipologia_attestato (" +
+                            "  Nome char(30) NOT NULL," +
+                            "  CreditiECM int NOT NULL," +
                             "  PRIMARY KEY (Nome)," +
-                            "  UNIQUE KEY ID_TIPOLOGIA_CONTRATTO_IND (Nome)" +
+                            "  UNIQUE KEY ID_TIPOLOGIA_ATTESTATO_IND (Nome)" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
             );
             return true;
