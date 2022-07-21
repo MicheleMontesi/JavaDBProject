@@ -3,10 +3,7 @@ package utilities;
 import db.Table;
 import db.tables.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,15 +13,40 @@ import static utilities.CreateOperationsMap.entities;
 
 public class TablesInitializer {
 
-    private static final ConnectionProvider connectionProvider = new ConnectionProvider();
+    public static void createDB() {
+        final String username = "root";
+        final String password = "o6*&GstbGajcf&x5";
+        final String dbName = "cooperativasanitaria";
 
-    private static final Connection connection = connectionProvider.getMySQLConnection();
+        final String uri = "jdbc:mysql://localhost:3306/";
+        try {
+            var con = DriverManager.getConnection(uri, username, password);
+            if (con != null) {
+                var rs = con.getMetaData().getCatalogs();
+                while(rs.next()){
+                    String catalogs = rs.getString(1);
+                    if(dbName.equals(catalogs)){
+                        System.out.println("DB " + dbName + " already exists");
+                        return;
+                    }
+                }
+
+                Statement statement = con.createStatement();
+                statement.executeUpdate("CREATE DATABASE " + dbName);
+                System.out.println("Created DB: " + dbName);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void init() {
-        var list = initTables();
+        final ConnectionProvider connectionProvider = new ConnectionProvider();
+        final Connection connection = connectionProvider.getMySQLConnection();
+        var list = initTables(connection);
         var i = 0;
         for (var entity : entities) {
-            if (!check(replaceString(entity))) {
+            if (!check(replaceString(entity), connection)) {
                 list.get(i).createTable();
                 System.out.println("Creazione: " + entity);
             } else {
@@ -34,7 +56,7 @@ public class TablesInitializer {
         }
     }
 
-    private static boolean check(String entity) {
+    private static boolean check(String entity, Connection connection) {
         final String query = "SHOW TABLES LIKE ?";
         try (final PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, entity);
@@ -53,7 +75,7 @@ public class TablesInitializer {
                 .replaceAll("\\s+", "_");
     }
 
-    private static List<Table<?, String>> initTables() {
+    private static List<Table<?, String>> initTables(Connection connection) {
         return new ArrayList<>(Arrays.asList(
                 new WorkersTables(connection),
                 new DrugsTables(connection),

@@ -27,6 +27,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        TablesInitializer.createDB();
         TablesInitializer.init();
         myEntityList.getItems().addAll(permittedOp.keySet());
         chooser.setContentPane(contentPane);
