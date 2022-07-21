@@ -3,6 +3,7 @@ package utilities.checkers;
 import db.Table;
 import db.tables.WorkersTables;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -86,6 +87,18 @@ public class CommonCheckers {
             }
         }
         return true;
+    }
+
+    public static boolean checkChecker(CheckBox check) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("The check box " + check.getId() + " must be selected");
+        if (!check.isSelected()) {
+            errorAlert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static boolean checkOpUnitExistence(WorkersTables workersTables, TextField idField, Table<? extends Record, String> ctTable, TextField nameField) {

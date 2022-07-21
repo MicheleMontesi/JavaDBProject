@@ -6,24 +6,34 @@ import static java.util.Map.entry;
 
 public class CreateOperationsMap {
 
-    protected static final List<String> entities = new ArrayList<>(Arrays.asList("Dipendente", "Paziente", "Unita' Operativa",
-            "Farmaco", "Beni Strumentali", "Farmaco Terapia",
-            "Terapia", "Cartella Clinica", "Ospitazione",
-            "Tipologia Contratto", "Contratto Stipulato",
-            "Attestato Acquisito", "Tipologia Attestato",
-            "Turno", "Assumere Terapia"));
+    protected static final List<String> entities = new ArrayList<>(Arrays.asList(
+            "Dipendente",
+            "Farmaco",
+            "Paziente",
+            "Terapia",
+            "Tipologia Contratto",
+            "Unita' Operativa",
+            "Beni Strumentali",
+            "Farmaco Terapia",
+            "Cartella Clinica",
+            "Ospitazione",
+            "Contratto Stipulato",
+            "Tipologia Attestato",
+            "Attestato Acquisito",
+            "Turno",
+            "Assumere Terapia"));
 
     protected static final Map<String, String> entitiesMap = Map.ofEntries(
             entry("Dipendente", "Worker"),
-            entry("Paziente", "Patient"),
-            entry("Unita' Operativa", "OpUnit"),
             entry("Farmaco", "Drug"),
+            entry("Paziente", "Patient"),
+            entry("Terapia", "Therapy"),
+            entry("Tipologia Contratto", "ContractType"),
+            entry("Unita' Operativa", "OpUnit"),
             entry("Beni Strumentali", "CapitalGood"),
             entry("Farmaco Terapia", "TherapyDrug"),
-            entry("Terapia", "Therapy"),
             entry("Cartella Clinica", "MedicalRecords"),
             entry("Ospitazione", "Hosting"),
-            entry("Tipologia Contratto", "ContractType"),
             entry("Contratto Stipulato", "SignedContract"),
             entry("Attestato Acquisito", "CertificateAcquired"),
             entry("Tipologia Attestato", "CertificateType"),

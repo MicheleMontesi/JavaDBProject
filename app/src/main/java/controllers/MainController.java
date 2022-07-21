@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import utilities.CreateOperationsMap;
 import utilities.OperationChooser;
+import utilities.TablesInitializer;
 
 import java.net.URL;
 import java.util.*;
@@ -26,6 +27,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        TablesInitializer.init();
         myEntityList.getItems().addAll(permittedOp.keySet());
         chooser.setContentPane(contentPane);
 
