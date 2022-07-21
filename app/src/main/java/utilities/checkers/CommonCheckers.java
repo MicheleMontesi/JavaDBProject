@@ -1,19 +1,14 @@
 package utilities.checkers;
 
 import db.Table;
-import db.tables.CertificateTypeTables;
-import db.tables.ContractTypeTables;
 import db.tables.WorkersTables;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import model.OperatingUnit;
-import model.Patient;
 
 import java.util.*;
 
 import static java.util.Calendar.*;
-import static java.util.Calendar.DATE;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class CommonCheckers {
