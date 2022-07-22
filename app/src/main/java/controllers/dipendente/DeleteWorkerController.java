@@ -1,26 +1,38 @@
 package controllers.dipendente;
 
-import utilities.ConnectionProvider;
 import db.tables.WorkersTables;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import model.Worker;
+import utilities.ConnectionProvider;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class DeleteWorkerController {
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+
+public class DeleteWorkerController implements Initializable {
 
     @FXML
-    private TextField idField;
+    private ChoiceBox<String> idBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final WorkersTables workersTable = new WorkersTables(connectionProvider.getMySQLConnection());
 
     public void delete() {
-        if (lengthChecker(idField, 16, 16)) {
-            final String id = idField.getText();
-
+        if (choiceBoxChecker(idBox)) {
+            final String id = idBox.getValue();
             workersTable.delete(id);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (idBox != null) {
+            idBox.getItems().addAll(workersTable.findAll().stream().map(Worker::fiscalCode).map(Objects::toString).distinct().toList());
         }
     }
 }
