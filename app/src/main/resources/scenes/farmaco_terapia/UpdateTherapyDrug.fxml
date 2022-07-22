@@ -40,6 +40,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.farmaco_terapia.CreateTherapyDrugsController">
    <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -48,13 +49,13 @@
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Terapia" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <TextField fx:id="therapyField" layoutX="180.0" layoutY="35.0" promptText="Enter the therapy id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+      <ChoiceBox fx:id="therapyIdBox" layoutX="180.0" layoutY="35.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="70.0" prefWidth="165.0" text="Codice Consumazione" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="consumptionField" layoutX="180.0" layoutY="65.0" promptText="Enter the consumption id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="consumptionIdBox" layoutX="180.0" layoutY="65.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Codice Fiscale" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="fiscalCodeField" layoutX="180.0" layoutY="95.0" promptText="Enter the fiscal code..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="fiscalCodeBox" layoutX="180.0" layoutY="95.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="130.0" prefWidth="165.0" text="Codice Farmaco" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="drugIdField" layoutX="180.0" layoutY="125.0" promptText="Enter the worker id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="drugIdBox" layoutX="180.0" layoutY="125.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Data Assunzione" translateY="90.0" AnchorPane.leftAnchor="9.0" />
       <DatePicker fx:id="datePicker" editable="false" layoutX="180.0" layoutY="95.0" promptText="Choose a date..." showWeekNumbers="true" translateY="90.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="130.0" prefWidth="165.0" text="Quantita' " translateY="90.0" AnchorPane.leftAnchor="9.0" />

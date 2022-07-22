@@ -1,28 +1,29 @@
 package controllers.farmaco_terapia;
 
-import utilities.ConnectionProvider;
+import db.tables.TherapiesTable;
 import db.tables.TherapyDrugsTable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import model.TherapyDrug;
+import utilities.ConnectionProvider;
 import utilities.views.CreateTherapyDrugView;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ShowTherapyDrugByCodeController implements Initializable {
     @FXML
-    private TextField therapyIdField, consumptionIdField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> therapyIdBox, consumptionIdBox;
     @FXML
     private TableView<TherapyDrug> table;
     @FXML
@@ -38,12 +39,12 @@ public class ShowTherapyDrugByCodeController implements Initializable {
 
     public void search() {
         if (
-                intCheck(therapyIdField, 1, 10) &
-                intCheck(consumptionIdField, 1, 6)
+                choiceBoxChecker(therapyIdBox) &&
+                choiceBoxChecker(consumptionIdBox)
 
         ) {
-            var td = tdTable.findByParameters(Integer.parseInt(therapyIdField.getText()),
-                    Integer.parseInt(consumptionIdField.getText()));
+            var td = tdTable.findByParameters(Integer.parseInt(therapyIdBox.getValue()),
+                    Integer.parseInt(consumptionIdBox.getValue()));
             if (td.isPresent()) {
                 final ObservableList<TherapyDrug> list = FXCollections.observableArrayList(td.get());
                 CreateTherapyDrugView.create(table, therapyColumn, consumptionColumn, dateColumn, quantityColumn,
@@ -59,10 +60,11 @@ public class ShowTherapyDrugByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() ->
-                therapyIdField.getText().isEmpty() || consumptionIdField.getText().isEmpty(),
-                therapyIdField.textProperty(), consumptionIdField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+        if (therapyIdBox != null) {
+            therapyIdBox.getItems().addAll(tdTable.findAll().stream().map(TherapyDrug::therapyId).map(Objects::toString).toList());
+        }
+        if (consumptionIdBox != null) {
+            consumptionIdBox.getItems().addAll(tdTable.findAll().stream().map(TherapyDrug::consumptionId).map(Objects::toString).toList());
+        }
     }
 }
