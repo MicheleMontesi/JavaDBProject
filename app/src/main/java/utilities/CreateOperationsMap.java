@@ -50,6 +50,7 @@ public class CreateOperationsMap {
 
         permittedOp.get("Beni Strumentali").addAll(Arrays.asList("Visualizza Automezzi", "Visualizza Attrezzature"));
         permittedOp.get("Assumere Terapia").remove("Aggiorna");
+        permittedOp.get("Attestato Acquisito").remove("Aggiorna");
 
         return permittedOp;
     }
