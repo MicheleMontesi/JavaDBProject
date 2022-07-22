@@ -46,13 +46,11 @@ public class CreateTakeTherapyController implements Initializable {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The input already exists");
-        for (var patient : ttTable.findAll().stream().map(TakeTherapy::fiscalCode).toList()) {
-            if (patient.equals(fiscalCodeBox.getValue())) {
-                for (var therapy : ttTable.findAll().stream().map(TakeTherapy::therapyId).map(Objects::toString).toList()) {
-                    if (therapy.equals(therapyIdBox.getValue())) {
-                        errorAlert.showAndWait();
-                        return true;
-                    }
+        for (var patient : ttTable.findAll()) {
+            if (patient.fiscalCode().equals(fiscalCodeBox.getValue())) {
+                if (patient.therapyId() == Integer.parseInt(therapyIdBox.getValue())) {
+                    errorAlert.showAndWait();
+                    return true;
                 }
             }
         }
