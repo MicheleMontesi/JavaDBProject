@@ -59,7 +59,7 @@ public class MedicalRecordsTables implements Table<MedicalRecords, String> {
     @Override
     public Optional<List<MedicalRecords>> findByCode(String code) {
         final String query = "SELECT * FROM " +
-                CARTELLA + " WHERE CodiceFiscale = ?";
+                CARTELLA + " WHERE CodCartellaClinica = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
             final ResultSet resultSet = statement.executeQuery();
@@ -117,10 +117,10 @@ public class MedicalRecordsTables implements Table<MedicalRecords, String> {
     }
 
     @Override
-    public void delete(String fiscalCode) {
-        final String query = "DELETE FROM " + CARTELLA + " WHERE CodiceFiscale = ?";
+    public void delete(String id) {
+        final String query = "DELETE FROM " + CARTELLA + " WHERE CodCartellaClinica = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, fiscalCode);
+            statement.setInt(1, Integer.parseInt(id));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalStateException(e);

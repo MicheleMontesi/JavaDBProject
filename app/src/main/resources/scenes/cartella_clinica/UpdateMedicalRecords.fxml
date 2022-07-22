@@ -32,14 +32,9 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.cartella_clinica.CreateMedicalRecordsController">
    <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -48,14 +43,14 @@
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Cartella Clinica" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <TextField fx:id="idField" layoutX="180.0" layoutY="35.0" promptText="Enter the fiscal code..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
-      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="70.0" prefWidth="165.0" text="Codice Fiscale" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="fiscalCodeField" layoutX="180.0" layoutY="65.0" promptText="Enter the name..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
-      <Label alignment="CENTER" layoutX="114.0" layoutY="95.0" style="-fx-border-color: black;" text="Enter the new values" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ChoiceBox fx:id="idBox" onAction="#fillFields" layoutX="180.0" layoutY="35.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <Label alignment="CENTER" layoutX="114.0" layoutY="65.0" style="-fx-border-color: black;" text="Enter the new values" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Codice Fiscale" AnchorPane.leftAnchor="9.0" />
+      <ChoiceBox fx:id="fiscalCodeBox" layoutX="180.0" layoutY="95.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <TextArea fx:id="anamnesisArea" layoutX="180.0" layoutY="95.0" prefHeight="100.0" promptText="Enter the anamnesis..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="137.0" prefWidth="165.0" text="Anamnesi" translateY="30.0" AnchorPane.leftAnchor="9.0" />
       <TextArea fx:id="diagnosisArea" layoutX="180.0" layoutY="201.0" prefHeight="100.0" promptText="Enter the diagnosis..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />

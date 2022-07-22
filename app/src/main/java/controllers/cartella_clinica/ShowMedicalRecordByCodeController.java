@@ -1,6 +1,5 @@
 package controllers.cartella_clinica;
 
-import utilities.ConnectionProvider;
 import db.tables.MedicalRecordsTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,20 +7,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.MedicalRecords;
+import utilities.ConnectionProvider;
 import utilities.views.CreateMedicalRecordsView;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
-import static utilities.FXUtils.disableOnWrite;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ShowMedicalRecordByCodeController implements Initializable {
     @FXML
-    private TextField idField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> idBox;
     @FXML
     private TableView<MedicalRecords> table;
     @FXML
@@ -33,8 +30,8 @@ public class ShowMedicalRecordByCodeController implements Initializable {
     private final MedicalRecordsTables mrTable = new MedicalRecordsTables(connectionProvider.getMySQLConnection());
 
     public void search() {
-        if (lengthChecker(idField, 16, 16)) {
-            var mr = mrTable.findByCode(toUpperNormalizer(idField));
+        if (choiceBoxChecker(idBox)) {
+            var mr = mrTable.findByCode(idBox.getValue());
             if (mr.isPresent()) {
                 final ObservableList<MedicalRecords> list = FXCollections.observableArrayList(mr.get());
                 CreateMedicalRecordsView.create(table, medicalIdColumn, fiscalCodeColumn, anamnesisColumn, diagnosisColumn,
@@ -50,6 +47,8 @@ public class ShowMedicalRecordByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        disableOnWrite(searchButton, idField);
+        if (idBox != null) {
+            idBox.getItems().addAll(mrTable.findAll().stream().map(MedicalRecords::medicalRecordId).map(Objects::toString).distinct().toList());
+        }
     }
 }

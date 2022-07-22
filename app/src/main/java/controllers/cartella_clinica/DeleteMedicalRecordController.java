@@ -1,26 +1,38 @@
 package controllers.cartella_clinica;
 
-import utilities.ConnectionProvider;
 import db.tables.MedicalRecordsTables;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import model.MedicalRecords;
+import utilities.ConnectionProvider;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class DeleteMedicalRecordController {
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+
+public class DeleteMedicalRecordController implements Initializable {
     @FXML
-    private TextField idField;
+    private ChoiceBox<String> idBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final MedicalRecordsTables mrTable = new MedicalRecordsTables(connectionProvider.getMySQLConnection());
 
     public void delete() {
-        if (lengthChecker(idField, 16, 16)) {
-            final var id = toUpperNormalizer(idField);
+        if (choiceBoxChecker(idBox)) {
+            final var id = idBox.getValue();
 
             mrTable.delete(id);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (idBox != null) {
+            idBox.getItems().addAll(mrTable.findAll().stream().map(MedicalRecords::medicalRecordId).map(Objects::toString).distinct().toList());
         }
     }
 }
