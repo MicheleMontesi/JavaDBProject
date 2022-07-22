@@ -1,5 +1,8 @@
 package controllers.farmaco;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import model.Worker;
 import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.DrugsTables;
@@ -9,33 +12,36 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Drug;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
 
-public class CreateDrugController {
+public class CreateDrugController implements Initializable {
     @FXML
     public TextField idField, nameField, companyField, quantityField;
     @FXML
     public DatePicker purchasePicker, expirationPicker;
-
+    @FXML
+    private ChoiceBox<String> idBox;
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final DrugsTables drugsTables = new DrugsTables(connectionProvider.getMySQLConnection());
 
-    private int id;
-    private String name;
-    private String company;
-    private Date purchase;
-    private Date expiration;
-    private int quantity;
+    private int id, quantity;
+    private String name, company;
+    private Date purchase, expiration;
 
     public void create() {
-        if (check() & isNotAlreadyPresent(drugsTables)) {
+        if (check() &&
+            isNotAlreadyPresent(drugsTables) &&
+            intCheck(idField, 1, 10)) {
             this.init();
-
+            id = Integer.parseInt(idField.getText());
             drugsTables.save(new Drug(id, name, company, purchase, expiration, quantity));
         }
     }
@@ -43,21 +49,20 @@ public class CreateDrugController {
     public void update() {
         if (check()) {
             this.init();
-
+            id = Integer.parseInt(idBox.getValue());
             drugsTables.update(new Drug(id, name, company, purchase, expiration, quantity));
         }
     }
 
     private boolean check() {
-        return intCheck(idField, 1, 10) &
-                lengthChecker(nameField, 2, 20) &
+        return lengthChecker(nameField, 2, 20) &
                 lengthChecker(companyField, 2, 50) &
                 dateCheck(purchasePicker, expirationPicker) &
                 intCheck(quantityField, 1, 5);
     }
 
     private void init() {
-        id = Integer.parseInt(idField.getText());
+
         name = toUpperNormalizer(nameField);
         company = toUpperNormalizer(companyField);
         purchase = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
@@ -96,5 +101,29 @@ public class CreateDrugController {
             }
         }
         return true;
+    }
+
+    public void fillFields() {
+        if (!idBox.getSelectionModel().isEmpty()) {
+            var selected = idBox.getSelectionModel().getSelectedItem();
+            var drugList = drugsTables.findByCode(selected);
+            if (drugList.isPresent()) {
+                var drug = drugList.get().stream().findFirst().orElse(null);
+                if (drug != null) {
+                    nameField.setText(drug.name());
+                    companyField.setText(drug.pharmaCompany());
+                    purchasePicker.getEditor().setText(drug.purchaseDate().toString());
+                    expirationPicker.getEditor().setText(drug.expirationDate().toString());
+                    quantityField.setText(Objects.toString(drug.quantity()));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (idBox != null) {
+            idBox.getItems().addAll(drugsTables.findAll().stream().map(Drug::drugId).map(Objects::toString).distinct().toList());
+        }
     }
 }
