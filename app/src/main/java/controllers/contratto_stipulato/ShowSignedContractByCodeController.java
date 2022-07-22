@@ -14,16 +14,15 @@ import utilities.views.CreateSignedContractView;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class ShowSignedContractByCodeController implements Initializable {
     @FXML
-    private TextField fiscalCodeField, nameField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> idBox, nameBox;
     @FXML
     private TableView<SignedContract> table;
     @FXML
@@ -36,12 +35,11 @@ public class ShowSignedContractByCodeController implements Initializable {
 
     public void search() {
         if (
-                lengthChecker(fiscalCodeField, 16, 16) &
-                lengthChecker(nameField, 2, 20)
+                choiceBoxChecker(idBox) &&
+                choiceBoxChecker(nameBox)
 
         ) {
-            var sc = scTables.findByParameters(toUpperNormalizer(fiscalCodeField),
-                    toUpperNormalizer(nameField));
+            var sc = scTables.findByParameters(idBox.getValue(), nameBox.getValue());
             if (sc.isPresent()) {
                 final ObservableList<SignedContract> list = FXCollections.observableArrayList(sc.get());
                 CreateSignedContractView.create(table, fiscalCodeColumn, stipulationColumn, endColumn, nameColumn, list);
@@ -56,10 +54,11 @@ public class ShowSignedContractByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() ->
-                fiscalCodeField.getText().isEmpty() || nameField.getText().isEmpty(),
-                fiscalCodeField.textProperty(), nameField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+        if (idBox != null) {
+            idBox.getItems().addAll(scTables.findAll().stream().map(SignedContract::fiscalCode).distinct().toList());
+        }
+        if (nameBox != null) {
+            nameBox.getItems().addAll(scTables.findAll().stream().map(SignedContract::contractName).distinct().toList());
+        }
     }
 }

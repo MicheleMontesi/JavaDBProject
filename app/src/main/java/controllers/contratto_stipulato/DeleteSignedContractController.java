@@ -1,23 +1,26 @@
 package controllers.contratto_stipulato;
 
-import utilities.ConnectionProvider;
 import db.tables.SignedContractsTables;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import model.SignedContract;
+import utilities.ConnectionProvider;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.ResourceBundle;
 
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.dateCheck;
-import static utilities.checkers.PersonCheckers.lengthChecker;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
-public class DeleteSignedContractController {
+public class DeleteSignedContractController implements Initializable {
 
     @FXML
-    private TextField fiscalCodeField;
+    private ChoiceBox<String> idBox;
     @FXML
     private DatePicker datePicker;
 
@@ -27,13 +30,20 @@ public class DeleteSignedContractController {
 
     public void delete() {
         if (
-                lengthChecker(fiscalCodeField, 16, 16) &
+                choiceBoxChecker(idBox) &&
                 dateCheck(datePicker)
         ) {
-            final var fiscalCode = toUpperNormalizer(fiscalCodeField);
+            final var fiscalCode = idBox.getValue();
             final var date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
             scTable.deleteByParameters(fiscalCode, date);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (idBox != null) {
+            idBox.getItems().addAll(scTable.findAll().stream().map(SignedContract::fiscalCode).distinct().toList());
         }
     }
 }

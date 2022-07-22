@@ -1,28 +1,32 @@
 package controllers.contratto_stipulato;
 
-import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.ContractTypeTables;
 import db.tables.SignedContractsTables;
 import db.tables.WorkersTables;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import model.ContractType;
 import model.SignedContract;
-import static utilities.checkers.CommonCheckers.*;
+import model.Worker;
+import utilities.ConnectionProvider;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
+import static utilities.checkers.CommonCheckers.*;
 
-public class CreateSignedContractController {
+public class CreateSignedContractController implements Initializable {
 
     @FXML
-    private TextField idField, nameField;
+    private ChoiceBox<String> idBox, nameBox;
     @FXML
     private DatePicker signedPicker, endPicker;
 
@@ -37,7 +41,7 @@ public class CreateSignedContractController {
     private String name;
 
     public void create() {
-        if (check() & caCheck(scTables, idField, nameField, signedPicker, endPicker)) {
+        if (check() & caCheck(scTables, idBox, nameBox, signedPicker, endPicker)) {
             this.init();
             scTables.save(new SignedContract(id, signedDate, endDate, name));
         }
@@ -51,19 +55,20 @@ public class CreateSignedContractController {
     }
 
     private boolean check() {
-        return lengthChecker(idField, 16, 16) &
-                lengthChecker(nameField, 2, 30) &
-                checkExistence(workersTables, toUpperNormalizer(idField), ctTable, toUpperNormalizer(nameField));
+        return choiceBoxChecker(idBox) &&
+                choiceBoxChecker(nameBox) &&
+                checkExistence(workersTables, idBox.getValue(), ctTable, nameBox.getValue());
     }
 
     private void init() {
-        id = toUpperNormalizer(idField);
+        id = idBox.getValue();
         signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-        name = toUpperNormalizer(nameField);
+        name = nameBox.getValue();
     }
 
-    private boolean caCheck(Table<SignedContract, String> table, TextField idField, TextField nameField, DatePicker signedPicker, DatePicker endPicker) {
+    private boolean caCheck(Table<SignedContract, String> table, ChoiceBox<String> idBox, ChoiceBox<String> nameBox,
+                            DatePicker signedPicker, DatePicker endPicker) {
         var list = table.findAll();
         var signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         var endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
@@ -71,8 +76,8 @@ public class CreateSignedContractController {
         errorAlert.setHeaderText("Input not valid");
 
         for (var cs : list) {
-            if (cs.fiscalCode().equals(toUpperNormalizer(idField)) &&
-                    cs.contractName().equals(toUpperNormalizer(nameField))) {
+            if (cs.fiscalCode().equals(idBox.getValue()) &&
+                    cs.contractName().equals(nameBox.getValue())) {
                 if (getYearDifference(signedDate, cs.endDate()) < 0 || getYearDifference(endDate, cs.stipulationDate()) > 0) {
                     errorAlert.setContentText("The input date must be bigger than the end of the last contract with the same name");
                     errorAlert.showAndWait();
@@ -81,5 +86,15 @@ public class CreateSignedContractController {
             }
         }
         return true;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (idBox != null) {
+            idBox.getItems().addAll(workersTables.findAll().stream().map(Worker::fiscalCode).map(Objects::toString).distinct().toList());
+        }
+        if (nameBox != null) {
+            nameBox.getItems().addAll(ctTable.findAll().stream().map(ContractType::name).map(Objects::toString).distinct().toList());
+        }
     }
 }
