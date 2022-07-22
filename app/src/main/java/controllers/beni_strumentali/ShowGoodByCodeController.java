@@ -1,28 +1,24 @@
 package controllers.beni_strumentali;
 
-import utilities.ConnectionProvider;
 import db.tables.CapitalGoodsTables;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CapitalGood;
+import utilities.ConnectionProvider;
 import utilities.views.CreateCapitalGoodsView;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ShowGoodByCodeController implements Initializable {
     @FXML
-    private TextField unitIdField, goodIdField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> unitBox, goodBox;
     @FXML
     private TableView<CapitalGood> table;
     @FXML
@@ -39,12 +35,12 @@ public class ShowGoodByCodeController implements Initializable {
 
     public void search() {
         if (
-                lengthChecker(unitIdField, 1, 5) &
-                intCheck(goodIdField, 1, 5)
+                choiceBoxChecker(unitBox) &&
+                choiceBoxChecker(goodBox)
 
         ) {
-            var good = cgTables.findByParameters(toUpperNormalizer(unitIdField),
-                    Integer.parseInt(goodIdField.getText()));
+            var good = cgTables.findByParameters(unitBox.getValue(),
+                    Integer.parseInt(goodBox.getValue()));
             if (good.isPresent()) {
                 final ObservableList<CapitalGood> list = FXCollections.observableArrayList(good.get());
                 CreateCapitalGoodsView.create(table, unitIdColumn, goodIdColumn, purchaseColumn, maintenanceColumn,
@@ -58,12 +54,14 @@ public class ShowGoodByCodeController implements Initializable {
         }
     }
 
+    public void fillGoodField() {
+        FillUtils.fillGoodField(unitBox, goodBox, cgTables);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() ->
-                unitIdField.getText().isEmpty() || goodIdField.getText().isEmpty(),
-                unitIdField.textProperty(), goodIdField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+        if (unitBox != null) {
+            unitBox.getItems().addAll(cgTables.findAll().stream().map(CapitalGood::unitId).distinct().toList());
+        }
     }
 }

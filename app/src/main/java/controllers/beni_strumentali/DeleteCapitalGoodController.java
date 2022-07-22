@@ -1,16 +1,22 @@
 package controllers.beni_strumentali;
 
-import utilities.ConnectionProvider;
 import db.tables.CapitalGoodsTables;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import model.CapitalGood;
+import utilities.ConnectionProvider;
 
-import static utilities.checkers.PersonCheckers.*;
+import java.net.URL;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class DeleteCapitalGoodController {
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+
+public class DeleteCapitalGoodController implements Initializable {
 
     @FXML
-    private TextField unitIdField, goodIdField;
+    private ChoiceBox<String> unitBox, goodBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
@@ -18,13 +24,24 @@ public class DeleteCapitalGoodController {
 
     public void delete() {
         if (
-                lengthChecker(unitIdField, 1, 5) &
-                intCheck(goodIdField, 2, 5)
+                choiceBoxChecker(unitBox) &&
+                choiceBoxChecker(goodBox)
         ) {
-            final var unitId = toUpperNormalizer(unitIdField);
-            final var goodId = Integer.parseInt(goodIdField.getText());
+            final var unitId = unitBox.getValue();
+            final var goodId = Integer.parseInt(goodBox.getValue());
 
             cgTable.deleteByParameters(unitId, goodId);
+        }
+    }
+
+    public void fillGoodField() {
+        FillUtils.fillGoodField(unitBox, goodBox, cgTable);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (unitBox != null) {
+            unitBox.getItems().addAll(cgTable.findAll().stream().map(CapitalGood::unitId).distinct().toList());
         }
     }
 }

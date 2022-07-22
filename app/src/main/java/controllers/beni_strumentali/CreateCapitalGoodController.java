@@ -162,14 +162,7 @@ public class CreateCapitalGoodController implements Initializable {
     }
 
     public void fillGoodField() {
-        if (!unitBox.getSelectionModel().isEmpty()) {
-            if (goodBox != null) {
-                goodBox.getItems().removeAll(goodBox.getItems());
-                goodBox.getItems().addAll(capitalGoodsTables.findAll().stream()
-                        .filter(e -> e.unitId().equals(unitBox.getValue()))
-                        .map(CapitalGood::goodId).map(Objects::toString).toList());
-            }
-        }
+        FillUtils.fillGoodField(unitBox, goodBox, capitalGoodsTables);
     }
 
     public void fillFields() {

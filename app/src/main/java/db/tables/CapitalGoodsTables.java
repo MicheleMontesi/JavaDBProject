@@ -139,11 +139,11 @@ public class CapitalGoodsTables implements Table<CapitalGood, String> {
     public void delete(String codBene){
     }
 
-    public void deleteByParameters(String codBene, int codUnita) {
-        final String query = "DELETE FROM " + BENI + " WHERE CodBene = ? AND CodiceUnita = ?";
+    public void deleteByParameters(String codUnita, int codBene) {
+        final String query = "DELETE FROM " + BENI + " WHERE CodiceUnita = ? AND CodBene = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)){
-            statement.setString(1, codBene);
-            statement.setInt(2, codUnita);
+            statement.setString(1, codUnita);
+            statement.setInt(2, codBene);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

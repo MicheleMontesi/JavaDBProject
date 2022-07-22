@@ -32,24 +32,20 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.beni_strumentali.DeleteCapitalGoodController">
    <AnchorPane HBox.hgrow="ALWAYS">
-      <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the code of the worker you want to delete" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the code you want to delete" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Unita'" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <TextField fx:id="unitIdField" layoutX="180.0" layoutY="35.0" promptText="Enter the unit id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+      <ChoiceBox fx:id="unitBox" layoutX="180.0" layoutY="35.0" onAction="#fillGoodField" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="100.0" prefWidth="165.0" text="Codice Bene" translateY="-30.0" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="goodIdField" layoutX="180.0" layoutY="95.0" promptText="Enter the good id..." translateY="-30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="goodBox" layoutX="180.0" layoutY="65.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>
