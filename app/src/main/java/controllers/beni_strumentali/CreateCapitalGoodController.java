@@ -1,6 +1,5 @@
 package controllers.beni_strumentali;
 
-import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.CapitalGoodsTables;
 import db.tables.OperatingUnitTables;
@@ -8,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CapitalGood;
+import utilities.ConnectionProvider;
 import utilities.checkers.CommonCheckers;
 
 import java.net.URL;
@@ -15,12 +15,16 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.*;
 
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
 
 public class CreateCapitalGoodController implements Initializable {
+
     @FXML
-    public TextField unitField, goodField, toolField, plateField;
+    private ChoiceBox<String> unitBox, goodBox;
+    @FXML
+    public TextField goodField, toolField, plateField;
     @FXML
     public DatePicker purchasePicker, maintenancePicker, expirationPicker;
     @FXML
@@ -43,9 +47,14 @@ public class CreateCapitalGoodController implements Initializable {
     private Optional<String> toolName;
 
     public void create() {
-        if (check()) {
+        if (
+            check() &&
+            intCheck(goodField, 1, 5) &&
+            alreadyExists(Integer.parseInt(goodField.getText()))
+        ) {
             this.init();
             this.vehicleOrToolCheck();
+            goodId = Integer.parseInt(goodField.getText());
             capitalGoodsTables.save(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
                     toolName, plate, type, expirationDate));
         }
@@ -55,24 +64,23 @@ public class CreateCapitalGoodController implements Initializable {
         if (check()) {
             this.init();
             this.vehicleOrToolCheck();
+            goodId = Integer.parseInt(goodBox.getValue());
             capitalGoodsTables.update(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
                     toolName, plate, type, expirationDate));
         }
     }
 
     private boolean check() {
-        return lengthChecker(unitField, 1, 5) &
-                intCheck(goodField, 1, 5) &
-                checkUnitExistence() &
-                dateCheck(capitalGoodsTables, purchasePicker, maintenancePicker);
+        return choiceBoxChecker(unitBox) &&
+        checkUnitExistence() &&
+        dateCheck();
     }
 
     private void init() {
-        unitId = toUpperNormalizer(unitField);
-        goodId = Integer.parseInt(goodField.getText());
+        unitId = unitBox.getValue();
         purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-        vehicleCheck.isSelected();
+        vehicle = vehicleCheck.isSelected();
         plate = Optional.empty();
         type = Optional.empty();
         expirationDate = Optional.empty();
@@ -99,11 +107,10 @@ public class CreateCapitalGoodController implements Initializable {
         }
     }
 
-    private boolean dateCheck(Table<CapitalGood, String> table, DatePicker purchasePicker, DatePicker maintenancePicker) {
+    private boolean dateCheck() {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         if (purchasePicker.getValue() != null || maintenancePicker != null) {
-            final var list = table.findAll();
             final var purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             final var maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
@@ -111,15 +118,6 @@ public class CreateCapitalGoodController implements Initializable {
                 errorAlert.setContentText("The input maintenance date must be one year bigger than the purchase date");
                 errorAlert.showAndWait();
                 return false;
-            }
-
-            for (var good : list) {
-                if (good.goodId() == Integer.parseInt(goodField.getText()) &
-                        Objects.equals(good.unitId(), unitField.getText())) {
-                    errorAlert.setContentText("The input code already exists, update it instead");
-                    errorAlert.showAndWait();
-                    return false;
-                }
             }
             return true;
         } else {
@@ -129,8 +127,23 @@ public class CreateCapitalGoodController implements Initializable {
         }
     }
 
+    private boolean alreadyExists(int goodId) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        final var list = capitalGoodsTables.findAll();
+        for (var good : list) {
+            if (good.goodId() == goodId &
+                    Objects.equals(good.unitId(), unitBox.getValue())) {
+                errorAlert.setContentText("The input code already exists, update it instead");
+                errorAlert.showAndWait();
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean checkUnitExistence() {
-        final var retUnit = operatingUnitTables.findByCode(toUpperNormalizer(unitField));
+        final var retUnit = operatingUnitTables.findByCode(unitBox.getValue());
         return CommonCheckers.fieldChecker(List.of(retUnit));
     }
 
@@ -148,6 +161,37 @@ public class CreateCapitalGoodController implements Initializable {
         }
     }
 
+    public void fillGoodField() {
+        if (!unitBox.getSelectionModel().isEmpty()) {
+            if (goodBox != null) {
+                goodBox.getItems().removeAll(goodBox.getItems());
+                goodBox.getItems().addAll(capitalGoodsTables.findAll().stream()
+                        .filter(e -> e.unitId().equals(unitBox.getValue()))
+                        .map(CapitalGood::goodId).map(Objects::toString).toList());
+            }
+        }
+    }
+
+    public void fillFields() {
+        if (!goodBox.getSelectionModel().isEmpty()) {
+            var selectedUnit = unitBox.getSelectionModel().getSelectedItem();
+            var selectedGood = Integer.parseInt(goodBox.getSelectionModel().getSelectedItem());
+            var goodList = capitalGoodsTables.findByParameters(selectedUnit, selectedGood);
+            if (goodList.isPresent()) {
+                var good = goodList.get().stream().findFirst().orElse(null);
+                if (good != null) {
+                    toolField.setText(good.toolName().orElse(null));
+                    plateField.setText(good.licencePlate().orElse(null));
+                    purchasePicker.getEditor().setText(good.purchaseDate().toString());
+                    maintenancePicker.getEditor().setText(good.nextMaintenance().toString());
+                    expirationPicker.getEditor().setText(good.insuranceExpiration().isPresent() ? good.insuranceExpiration().get().toString() : null);
+                    vehicleCheck.setSelected(good.vehicle());
+                    typeChoice.setValue(good.typology().orElse(null));
+                }
+            }
+        }
+    }
+
     private boolean plateNotAlreadyExists() {
         var list = capitalGoodsTables.findAll();
         List<Optional<String>> idList = list.stream().map(CapitalGood::licencePlate).toList();
@@ -159,11 +203,16 @@ public class CreateCapitalGoodController implements Initializable {
         expirationPicker.setDisable(true);
         typeChoice.setDisable(true);
         plateField.setDisable(true);
-        typeChoice.getItems().addAll("BENZINA",
-                "DIESEL",
-                "METANO",
-                "GPL",
-                "ELETTRICA");
-        typeChoice.setValue("BENZINA");
+        if (typeChoice != null) {
+            typeChoice.getItems().addAll("BENZINA",
+                    "DIESEL",
+                    "METANO",
+                    "GPL",
+                    "ELETTRICA");
+            typeChoice.setValue("BENZINA");
+        }
+        if (unitBox != null) {
+            unitBox.getItems().addAll(capitalGoodsTables.findAll().stream().map(CapitalGood::unitId).distinct().toList());
+        }
     }
 }

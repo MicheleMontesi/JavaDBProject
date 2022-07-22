@@ -127,6 +127,7 @@ public class CreateShiftController implements Initializable {
         if (dayBox != null) {
             dayBox.getItems().addAll(new ArrayList<>(Arrays.asList("LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI",
                     "VENERDI", "SABATO", "DOMENICA")));
+            dayBox.setValue("LUNEDI");
         }
         if (ouBox != null) {
             ouBox.getItems().addAll(operatingUnitTables.findAll().stream().map(OperatingUnit::unitId).toList());
