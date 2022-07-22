@@ -110,9 +110,9 @@ public class CommonCheckers {
         }
     }
 
-    public static boolean checkOpUnitExistence(WorkersTables workersTables, TextField idField, Table<? extends Record, String> ctTable, TextField nameField) {
-        final var idCheck = workersTables.findByCode(toUpperNormalizer(idField));
-        final var nameCheck = ctTable.findByCode(toUpperNormalizer(nameField));
+    public static boolean checkExistence(WorkersTables workersTables, String id, Table<? extends Record, String> ctTable, String name) {
+        final var idCheck = workersTables.findByCode(id);
+        final var nameCheck = ctTable.findByCode(name);
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The input id or name doesn't exist");

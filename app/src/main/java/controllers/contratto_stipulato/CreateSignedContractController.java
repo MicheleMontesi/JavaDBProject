@@ -53,7 +53,7 @@ public class CreateSignedContractController {
     private boolean check() {
         return lengthChecker(idField, 16, 16) &
                 lengthChecker(nameField, 2, 30) &
-                checkOpUnitExistence(workersTables, idField, ctTable, nameField);
+                checkExistence(workersTables, toUpperNormalizer(idField), ctTable, toUpperNormalizer(nameField));
     }
 
     private void init() {
