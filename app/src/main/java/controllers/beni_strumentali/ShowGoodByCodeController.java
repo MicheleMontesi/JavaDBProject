@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CapitalGood;
 import utilities.ConnectionProvider;
+import utilities.FillUtils;
 import utilities.views.CreateCapitalGoodsView;
 
 import java.net.URL;

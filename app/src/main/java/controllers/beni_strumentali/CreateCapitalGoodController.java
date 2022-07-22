@@ -1,6 +1,5 @@
 package controllers.beni_strumentali;
 
-import db.Table;
 import db.tables.CapitalGoodsTables;
 import db.tables.OperatingUnitTables;
 import javafx.fxml.FXML;
@@ -8,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.CapitalGood;
 import utilities.ConnectionProvider;
+import utilities.FillUtils;
 import utilities.checkers.CommonCheckers;
 
 import java.net.URL;

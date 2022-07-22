@@ -6,9 +6,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import model.CapitalGood;
 import utilities.ConnectionProvider;
+import utilities.FillUtils;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;

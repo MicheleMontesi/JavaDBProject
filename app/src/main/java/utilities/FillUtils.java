@@ -1,4 +1,4 @@
-package controllers.beni_strumentali;
+package utilities;
 
 import db.tables.CapitalGoodsTables;
 import javafx.scene.control.ChoiceBox;
