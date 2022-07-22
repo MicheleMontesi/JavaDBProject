@@ -47,7 +47,7 @@
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Fiscale" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <ChoiceBox fx:id="fiscalCodeBox" layoutX="181.0" layoutY="36.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="fiscalCodeBox" layoutX="181.0" layoutY="35.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
       <Label alignment="CENTER_RIGHT" layoutX="19.0" layoutY="70.0" prefWidth="165.0" text="Codice Terapia" AnchorPane.leftAnchor="9.0" />
       <ChoiceBox fx:id="therapyIdBox" layoutX="190.0" layoutY="65.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
