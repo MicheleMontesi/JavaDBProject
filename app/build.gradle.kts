@@ -32,6 +32,9 @@ dependencies {
     implementation("com.google.guava:guava:30.1.1-jre")
 
     implementation("mysql:mysql-connector-java:8.0.29")
+
+    // Joda-Time
+    implementation("joda-time:joda-time:2.3")
 }
 
 application {
