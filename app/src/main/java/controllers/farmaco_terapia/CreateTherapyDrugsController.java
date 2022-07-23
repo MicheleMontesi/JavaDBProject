@@ -6,6 +6,7 @@ import db.tables.TherapyDrugsTable;
 import db.tables.WorkersTables;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -45,22 +46,31 @@ public class CreateTherapyDrugsController implements Initializable {
     private String fiscalCode;
 
     public void create() {
-        if (check() && intCheck(consumptionField, 1, 6)) {
+        if (
+                check() &&
+                intCheck(consumptionField, 1, 6)
+        ) {
             this.init();
-            consumptionId = Integer.parseInt(consumptionField.getText());
-            sumDrugs(Objects.toString(drugId), quantity, true);
-            tdTable.save(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
+            if (checkDrugAvailability(Objects.toString(drugId), quantity)) {
+                consumptionId = Integer.parseInt(consumptionField.getText());
+                sumDrugs(Objects.toString(drugId), quantity, true);
+                tdTable.save(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
+            }
         }
     }
 
     public void update() {
         if (check()) {
             this.init();
-            var qt = Objects.requireNonNull(tdTable.findByParameters(therapyId, consumptionId).orElse(null)).get(0).quantity();
             consumptionId = Integer.parseInt(consumptionIdBox.getValue());
-            sumDrugs(Objects.toString(drugId), qt, true);
-            sumDrugs(Objects.toString(drugId), quantity, false);
-            tdTable.update(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
+            var qt = Objects.requireNonNull(tdTable.findByParameters(therapyId, consumptionId).orElse(null)).get(0).quantity();
+            sumDrugs(Objects.toString(drugId), qt, false);
+            if (checkDrugAvailability(Objects.toString(drugId), quantity)) {
+                sumDrugs(Objects.toString(drugId), quantity, true);
+                tdTable.update(new TherapyDrug(therapyId, consumptionId, date, quantity, fiscalCode, drugId));
+            } else {
+                sumDrugs(Objects.toString(drugId), qt, false);
+            }
         }
     }
 
@@ -94,6 +104,22 @@ public class CreateTherapyDrugsController implements Initializable {
             var newDrug = new Drug(drug.drugId(), drug.name(), drug.pharmaCompany(), drug.purchaseDate(), drug.expirationDate(), qt);
             drugsTables.update(newDrug);
         }
+    }
+
+    private boolean checkDrugAvailability(String id, int quantity) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        errorAlert.setContentText("There are not enough drugs");
+        var drug = findDrug(id);
+        if (drug != null) {
+            var qt = drug.quantity() - quantity;
+            if (qt < 0) {
+                errorAlert.showAndWait();
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -78,7 +78,7 @@ public class CreateDrugController implements Initializable {
             var expirationDate = Date.from(Instant.from(expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
             if (getYearDifference(purchaseDate, expirationDate) <= 0) {
-                errorAlert.setContentText("The input expiration date must be one year bigger than the purchase date");
+                errorAlert.setContentText("The input expiration date must be one year bigger from the purchase date");
                 errorAlert.showAndWait();
                 return false;
             }

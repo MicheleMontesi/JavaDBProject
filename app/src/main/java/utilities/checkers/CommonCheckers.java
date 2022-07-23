@@ -3,7 +3,10 @@ package utilities.checkers;
 import db.Table;
 import db.tables.WorkersTables;
 import javafx.scene.control.*;
+import org.joda.time.Years;
+import org.joda.time.LocalDate;
 
+import java.time.ZoneId;
 import java.util.*;
 
 import static java.util.Calendar.*;
@@ -37,13 +40,8 @@ public class CommonCheckers {
         return true;
     }
 
-    public static int getYears(Calendar newDate, Calendar oldDate) {
-        int diff = newDate.get(YEAR) - oldDate.get(YEAR);
-        if (newDate.get(MONTH) > oldDate.get(MONTH) ||
-                (newDate.get(MONTH) == oldDate.get(MONTH) && newDate.get(DATE) > oldDate.get(DATE))) {
-            diff--;
-        }
-        return diff;
+    public static int getYears(LocalDate newDate, LocalDate oldDate) {
+        return Years.yearsBetween(oldDate, newDate).getYears();
     }
 
     public static boolean dateCheck(DatePicker datePicker) {
@@ -58,8 +56,11 @@ public class CommonCheckers {
     }
 
     public static int getYearDifference(Date purchaseDate, Date expirationDate) {
-        Calendar newDate = getCalendar(expirationDate);
-        Calendar oldDate = getCalendar(purchaseDate);
+
+        LocalDate newDate = new LocalDate(expirationDate);
+        LocalDate oldDate = new LocalDate(purchaseDate);
+//        Calendar newDate = getCalendar(expirationDate);
+//        Calendar oldDate = getCalendar(purchaseDate);
         return CommonCheckers.getYears(newDate, oldDate);
     }
 
