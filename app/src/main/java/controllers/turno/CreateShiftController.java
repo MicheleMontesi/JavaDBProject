@@ -1,6 +1,5 @@
 package controllers.turno;
 
-import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.OperatingUnitTables;
 import db.tables.ShiftsTables;
@@ -10,9 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import model.OperatingUnit;
 import model.Shift;
-import model.Worker;
+import utilities.ConnectionProvider;
 
 import java.net.URL;
 import java.time.LocalTime;
@@ -21,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.PersonCheckers.lengthChecker;
 import static utilities.checkers.PersonCheckers.timeCheck;
 
@@ -37,11 +36,8 @@ public class CreateShiftController implements Initializable {
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
     private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());
 
-    private String id;
-    private String day;
-    private LocalTime begin;
-    private LocalTime end;
-    private String unitId;
+    private String id, day, unitId;
+    private LocalTime begin, end;
 
     public void create() {
         if (check()) {
@@ -121,16 +117,12 @@ public class CreateShiftController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(workersTables.findAll().stream().map(Worker::fiscalCode).toList());
-        }
         if (dayBox != null) {
             dayBox.getItems().addAll(new ArrayList<>(Arrays.asList("LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI",
                     "VENERDI", "SABATO", "DOMENICA")));
             dayBox.setValue("LUNEDI");
         }
-        if (ouBox != null) {
-            ouBox.getItems().addAll(operatingUnitTables.findAll().stream().map(OperatingUnit::unitId).toList());
-        }
+        getList(idBox, workersTables, e -> e.getId().get(0));
+        getList(ouBox, operatingUnitTables, e -> e.getId().get(0));
     }
 }

@@ -1,6 +1,5 @@
 package controllers.turno;
 
-import utilities.ConnectionProvider;
 import db.tables.ShiftsTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,21 +7,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Shift;
+import utilities.ConnectionProvider;
 import utilities.views.CreateShiftView;
 
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
-import static utilities.FXUtils.disableOnWrite;
-import static utilities.checkers.PersonCheckers.lengthChecker;
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class FindShiftController implements Initializable {
 
     @FXML
-    private TextField idField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> idBox;
     @FXML
     private TableView<Shift> table;
     @FXML
@@ -35,15 +33,15 @@ public class FindShiftController implements Initializable {
     private final ShiftsTables shiftsTables = new ShiftsTables(connectionProvider.getMySQLConnection());
 
     public void search() {
-        if (lengthChecker(idField, 16, 16)) {
-            var shift = shiftsTables.findByCode(idField.getText());
+        if (choiceBoxChecker(idBox)) {
+            var shift = shiftsTables.findByCode(idBox.getValue());
             if (shift.isPresent()) {
                 final ObservableList<Shift> list = FXCollections.observableArrayList(shift.get());
                 CreateShiftView.create(table, idColumn, dayColumn, beginColumn, endColumn, unitColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("The fiscal code \"" + idField.getText() + "\" doesn't exist.");
+                errorAlert.setContentText("The fiscal code \"" + idBox.getValue() + "\" doesn't exist.");
                 errorAlert.showAndWait();
             }
         }
@@ -51,6 +49,6 @@ public class FindShiftController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        disableOnWrite(searchButton, idField);
+        getList(idBox, shiftsTables, e -> e.getId().get(0));
     }
 }

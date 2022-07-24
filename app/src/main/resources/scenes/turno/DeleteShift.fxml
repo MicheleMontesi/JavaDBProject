@@ -32,13 +32,9 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.turno.DeleteShiftController">
    <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the code of the shift you want to delete" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -47,13 +43,13 @@
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice" AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <TextField fx:id="idField" layoutX="180.0" layoutY="35.0" promptText="Enter the fiscal code..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+      <ChoiceBox fx:id="idBox" onAction="#fillDayField" layoutX="180.0" layoutY="35.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="70.0" prefWidth="165.0" text="Giorno Settimana" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="dayField" layoutX="185.0" layoutY="65.0" promptText="Enter the day of the week..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="dayBox" onAction="#fillTimeField" layoutX="180.0" layoutY="65.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="100.0" prefWidth="165.0" text="Ora Inizio" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="timeField" layoutX="185.0" layoutY="95.0" promptText="Enter the beginning time..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="beginBox" onAction="#fillOUField" layoutX="180.0" layoutY="95.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="19.0" layoutY="130.0" prefWidth="165.0" text="Codice Unita' " AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="unitIdField" layoutX="190.0" layoutY="125.0" promptText="Enter the unit id..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <ChoiceBox fx:id="ouBox" layoutX="180.0" layoutY="125.0" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Button layoutX="10.0" layoutY="230.0" mnemonicParsing="false" onAction="#delete" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </AnchorPane>
 </HBox>

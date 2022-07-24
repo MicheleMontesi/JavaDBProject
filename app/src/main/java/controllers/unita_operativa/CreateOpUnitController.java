@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 import static utilities.checkers.PersonCheckers.*;
 import static utilities.checkers.CommonCheckers.checkChecker;
+import static utilities.FillUtils.getList;
 
 public class CreateOpUnitController implements Initializable {
 
@@ -30,13 +31,9 @@ public class CreateOpUnitController implements Initializable {
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
 
-    private String type;
-    private String name;
-    private String location;
-    private int beds;
-    private int patients;
-    private boolean auth;
-    private boolean accredit;
+    private String type, name, location;
+    private int beds, patients;
+    private boolean auth, accredit;
 
     public void create() {
         if (
@@ -107,8 +104,6 @@ public class CreateOpUnitController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         typeChoice.getItems().addAll("Gruppo Appartamento",
                 "Residenza Sanitaria Psichiatrica");
-        if (unitIdBox != null) {
-            unitIdBox.getItems().addAll(operatingUnitTables.findAll().stream().map(OperatingUnit::unitId).toList());
-        }
+        getList(unitIdBox, operatingUnitTables, e -> e.getId().get(0));
     }
 }

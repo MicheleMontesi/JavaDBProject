@@ -115,7 +115,7 @@ public class CreateCapitalGoodController implements Initializable {
             final var purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             final var maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
-            if (getYearDifference(purchaseDate, maintenanceDate) < 0) {
+            if (getYearDifference(purchaseDate, maintenanceDate) <= 0) {
                 errorAlert.setContentText("The input maintenance date must be one year bigger than the purchase date");
                 errorAlert.showAndWait();
                 return false;

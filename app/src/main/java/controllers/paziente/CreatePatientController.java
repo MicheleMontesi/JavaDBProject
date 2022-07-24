@@ -36,16 +36,10 @@ public class CreatePatientController implements Initializable {
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
 
-    private String id;
-    private String name;
-    private String surname;
-    private String residence;
-    private String gender;
+    private String id, name, surname, residence, gender;
     private Date birth;
     private int patientId;
-    private boolean privacy;
-    private boolean consent;
-    private boolean acceptance;
+    private boolean privacy, consent, acceptance;
 
     public void create() {
         if (
