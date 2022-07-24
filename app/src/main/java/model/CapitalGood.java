@@ -62,6 +62,6 @@ public record CapitalGood(String unitId, int goodId, Date purchaseDate, Date nex
 
     @Override
     public List<String> getId() {
-        return List.of(Objects.toString(goodId));
+        return List.of(unitId, Objects.toString(goodId));
     }
 }
