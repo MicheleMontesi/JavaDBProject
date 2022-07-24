@@ -1,22 +1,21 @@
 package utilities;
 
 import db.Table;
-import db.tables.CapitalGoodsTables;
 import javafx.scene.control.ChoiceBox;
-import model.CapitalGood;
 import model.Entity;
 
 import java.util.Objects;
 import java.util.function.Function;
 
 public class FillUtils {
-    public static void fillGoodField(ChoiceBox<String> unitBox, ChoiceBox<String> goodBox, CapitalGoodsTables cgTable) {
-        if (!unitBox.getSelectionModel().isEmpty()) {
-            if (goodBox != null) {
-                goodBox.getItems().removeAll(goodBox.getItems());
-                goodBox.getItems().addAll(cgTable.findAll().stream()
-                        .filter(e -> e.unitId().equals(unitBox.getValue()))
-                        .map(CapitalGood::goodId).map(Objects::toString).toList());
+    public static void fillRelatedField(ChoiceBox<String> firstBox, ChoiceBox<String> secondBox,
+                                        Table<? extends Entity, String> table, int firstIndex, int secondIndex) {
+        if (!firstBox.getSelectionModel().isEmpty()) {
+            if (secondBox != null) {
+                secondBox.getItems().removeAll(secondBox.getItems());
+                secondBox.getItems().addAll(table.findAll().stream()
+                        .filter(e -> e.getId().get(firstIndex).equals(firstBox.getValue()))
+                        .map(e -> e.getId().get(secondIndex)).map(Objects::toString).toList());
             }
         }
     }

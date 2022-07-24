@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static utilities.checkers.PersonCheckers.*;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+import static utilities.FillUtils.*;
 
 public class CreatePatientController implements Initializable {
     
@@ -59,7 +61,7 @@ public class CreatePatientController implements Initializable {
     }
 
     public void update() {
-        if (check()) {
+        if (check() && choiceBoxChecker(fiscalCodeBox)) {
             this.init();
             id = fiscalCodeBox.getValue();
             patientsTables.update(new Patient(id, name, surname, birth, residence, gender,
@@ -120,8 +122,6 @@ public class CreatePatientController implements Initializable {
                 .orElse(0);
         patientIdField.setText(Integer.toString(max + 1));
 
-        if (fiscalCodeBox != null) {
-            fiscalCodeBox.getItems().addAll(patientsTables.findAll().stream().map(Patient::fiscalCode).toList());
-        }
+        getList(fiscalCodeBox, patientsTables, e -> e.getId().get(0));
     }
 }

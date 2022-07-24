@@ -1,30 +1,34 @@
 package controllers.ospitazione;
 
-import utilities.ConnectionProvider;
 import db.tables.HostingTables;
 import db.tables.OperatingUnitTables;
 import db.tables.PatientsTables;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import model.Hosting;
+import utilities.ConnectionProvider;
+import utilities.FillUtils;
 import utilities.checkers.CommonCheckers;
 
+import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 
-public class CreateHostingController {
+public class CreateHostingController implements Initializable {
 
     @FXML
-    public TextField idField, unitIdField;
+    public ChoiceBox<String> idBox, unitIdBox, unitIdUpdateBox;
     @FXML
     public DatePicker beginPicker, endPicker;
 
@@ -37,9 +41,9 @@ public class CreateHostingController {
 
     public void create() {
         if (check()) {
-            var id = toUpperNormalizer(idField);
+            var id = idBox.getValue();
             var begin = Date.from(Instant.from(beginPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            var unitId = toUpperNormalizer(unitIdField);
+            var unitId = unitIdBox.getValue();
             Optional<Date> endDate = Optional.empty();
             if (dateChecker(id, begin, unitId, endDate)) {
                 hostingTables.save(hosting);
@@ -49,9 +53,9 @@ public class CreateHostingController {
 
     public void update() {
         if (check()) {
-            var id = toUpperNormalizer(idField);
+            var id = idBox.getValue();
             var begin = Date.from(Instant.from(beginPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            var unitId = toUpperNormalizer(unitIdField);
+            var unitId = unitIdBox.getValue();
             Optional<Date> endDate = Optional.empty();
             if (endDateChecker(id, begin, endDate, unitId)) {
                 hostingTables.update(hosting);
@@ -60,15 +64,15 @@ public class CreateHostingController {
     }
 
     private boolean check() {
-        return lengthChecker(idField, 16, 16) &
+        return choiceBoxChecker(idBox) &
                 CommonCheckers.dateCheck(beginPicker) &
-                lengthChecker(unitIdField, 1, 5) &
+                choiceBoxChecker(unitIdBox) &
                 checkFieldsExistence();
     }
 
     private boolean checkFieldsExistence() {
-        final var retUnit = operatingUnitTables.findByCode(toUpperNormalizer(unitIdField));
-        final var retPatient = patientsTables.findByCode(toUpperNormalizer(idField));
+        final var retUnit = operatingUnitTables.findByCode(unitIdBox.getValue());
+        final var retPatient = patientsTables.findByCode(idBox.getValue());
         return CommonCheckers.fieldChecker(List.of(retUnit, retPatient));
     }
 
@@ -95,7 +99,7 @@ public class CreateHostingController {
             final var list = hostingTables.findAll();
 
             for (var host : list) {
-                if (host.fiscalCode().equals(toUpperNormalizer(idField))) {
+                if (host.fiscalCode().equals(idBox.getValue())) {
                     if (host.endDate().isPresent()) {
                         if (CommonCheckers.getYearDifference(host.endDate().get(), begin) <= 0) {
                             errorAlert.setContentText("The input begin date must be one year bigger than the previous end date");
@@ -112,5 +116,15 @@ public class CreateHostingController {
             endDateChecker(id, begin, endDate, unitId);
         }
         return true;
+    }
+
+    public void fillRelatedField() {
+        FillUtils.fillRelatedField(idBox, unitIdUpdateBox, hostingTables, 0, 2);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        getList(idBox, patientsTables, e -> e.getId().get(0));
+        getList(unitIdBox, operatingUnitTables, e -> e.getId().get(0));
     }
 }

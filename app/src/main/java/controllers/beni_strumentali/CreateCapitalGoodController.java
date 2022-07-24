@@ -163,7 +163,7 @@ public class CreateCapitalGoodController implements Initializable {
     }
 
     public void fillGoodField() {
-        FillUtils.fillGoodField(unitBox, goodBox, capitalGoodsTables);
+        FillUtils.fillRelatedField(unitBox, goodBox, capitalGoodsTables, 0, 1);
     }
 
     public void fillFields() {

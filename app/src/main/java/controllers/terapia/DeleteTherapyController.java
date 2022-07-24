@@ -1,26 +1,36 @@
 package controllers.terapia;
 
-import utilities.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import utilities.ConnectionProvider;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DeleteTherapyController {
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+
+public class DeleteTherapyController implements Initializable {
 
     @FXML
-    private TextField idField;
+    private ChoiceBox<String> idBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
 
     public void delete() {
-        if (lengthChecker(idField, 16, 16)) {
-            final String id = idField.getText();
+        if (choiceBoxChecker(idBox)) {
+            final String id = idBox.getValue();
 
             therapiesTable.delete(id);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        getList(idBox, therapiesTable, e -> e.getId().get(0));
     }
 }

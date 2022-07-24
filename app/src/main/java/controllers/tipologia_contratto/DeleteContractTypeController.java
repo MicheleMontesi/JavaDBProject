@@ -1,26 +1,36 @@
 package controllers.tipologia_contratto;
 
-import utilities.ConnectionProvider;
 import db.tables.ContractTypeTables;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import utilities.ConnectionProvider;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DeleteContractTypeController {
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+
+public class DeleteContractTypeController implements Initializable {
 
     @FXML
-    private TextField nameField;
+    private ChoiceBox<String> nameBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final ContractTypeTables ctTable = new ContractTypeTables(connectionProvider.getMySQLConnection());
 
     public void delete() {
-        if (lengthChecker(nameField, 1, 20)) {
-            final String id = nameField.getText();
+        if (choiceBoxChecker(nameBox)) {
+            final String id = nameBox.getValue();
 
             ctTable.delete(id);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        getList(nameBox, ctTable, e -> e.getId().get(0));
     }
 }

@@ -35,7 +35,7 @@ public class DeleteCapitalGoodController implements Initializable {
     }
 
     public void fillGoodField() {
-        FillUtils.fillGoodField(unitBox, goodBox, cgTable);
+        FillUtils.fillRelatedField(unitBox, goodBox, cgTable, 0, 1);
     }
 
     @Override

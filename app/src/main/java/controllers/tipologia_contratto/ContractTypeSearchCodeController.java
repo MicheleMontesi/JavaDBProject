@@ -1,27 +1,28 @@
 package controllers.tipologia_contratto;
 
-import utilities.ConnectionProvider;
 import db.tables.ContractTypeTables;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import model.ContractType;
-import utilities.FXUtils;
+import utilities.ConnectionProvider;
 import utilities.views.CreateContractTypeView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ContractTypeSearchCodeController implements Initializable {
 
     @FXML
-    private TextField nameField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> nameBox;
     @FXML
     private TableView<ContractType> table;
     @FXML
@@ -34,15 +35,15 @@ public class ContractTypeSearchCodeController implements Initializable {
     private final ContractTypeTables ctTable = new ContractTypeTables(connectionProvider.getMySQLConnection());
 
     public void search() {
-        if (lengthChecker(nameField, 1, 20)) {
-            var ct = ctTable.findByCode(toUpperNormalizer(nameField));
+        if (choiceBoxChecker(nameBox)) {
+            var ct = ctTable.findByCode(nameBox.getValue());
             if (ct.isPresent()) {
                 final ObservableList<ContractType> list = FXCollections.observableArrayList(ct.get());
                 CreateContractTypeView.create(table, nameColumn, hoursColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("The fiscal code \"" + nameField.getText() + "\" doesn't exist.");
+                errorAlert.setContentText("The fiscal code \"" + nameBox.getValue() + "\" doesn't exist.");
                 errorAlert.showAndWait();
             }
         }
@@ -50,6 +51,6 @@ public class ContractTypeSearchCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FXUtils.disableOnWrite(searchButton, nameField);
+        getList(nameBox, ctTable, e -> e.getId().get(0));
     }
 }

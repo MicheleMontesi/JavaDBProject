@@ -1,15 +1,14 @@
 package controllers.ospitazione;
 
-import utilities.ConnectionProvider;
 import db.tables.HostingTables;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Hosting;
+import utilities.ConnectionProvider;
+import utilities.FillUtils;
 import utilities.checkers.CommonCheckers;
 import utilities.views.CreateHostingView;
 
@@ -19,15 +18,14 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.*;
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ShowHostingByCodeController implements Initializable {
     @FXML
-    private TextField fiscalCodeField, unitIdField;
+    private ChoiceBox<String> fiscalCodeBox, unitIdBox;
     @FXML
     private DatePicker datePicker;
-    @FXML
-    private Button searchButton;
     @FXML
     private TableView<Hosting> table;
     @FXML
@@ -41,13 +39,14 @@ public class ShowHostingByCodeController implements Initializable {
 
     public void search() {
         if (
-                lengthChecker(fiscalCodeField, 16, 16) &
+                choiceBoxChecker(fiscalCodeBox) &&
+                choiceBoxChecker(unitIdBox) &&
                 CommonCheckers.dateCheck(datePicker)
 
         ) {
-            var hosting = hostingTables.findByParameters(toUpperNormalizer(fiscalCodeField),
+            var hosting = hostingTables.findByParameters(fiscalCodeBox.getValue(),
                     Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()))),
-                    toUpperNormalizer(unitIdField));
+                    unitIdBox.getValue());
             if (hosting.isPresent()) {
                 final ObservableList<Hosting> list = FXCollections.observableArrayList(hosting.get());
                 CreateHostingView.create(table, fiscalCodeColumn, signedColumn, endColumn, unitIdColumn, list);
@@ -60,12 +59,12 @@ public class ShowHostingByCodeController implements Initializable {
         }
     }
 
+    public void fillRelatedField() {
+        FillUtils.fillRelatedField(fiscalCodeBox, unitIdBox, hostingTables, 0, 2);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BooleanBinding idFieldValid = Bindings.createBooleanBinding(() ->
-                fiscalCodeField.getText().isEmpty() || datePicker.getEditor().getText().isEmpty() || unitIdField.getText().isEmpty(),
-                fiscalCodeField.textProperty(), datePicker.getEditor().textProperty(), unitIdField.textProperty());
-
-        searchButton.disableProperty().bind(idFieldValid);
+        getList(fiscalCodeBox, hostingTables, e -> e.getId().get(0));
     }
 }

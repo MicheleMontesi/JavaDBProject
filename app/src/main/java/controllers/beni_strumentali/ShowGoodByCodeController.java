@@ -57,7 +57,7 @@ public class ShowGoodByCodeController implements Initializable {
     }
 
     public void fillGoodField() {
-        FillUtils.fillGoodField(unitBox, goodBox, cgTables);
+        FillUtils.fillRelatedField(unitBox, goodBox, cgTables, 0, 1);
     }
 
     @Override

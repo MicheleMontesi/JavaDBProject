@@ -1,26 +1,36 @@
 package controllers.tipologia_attestato;
 
-import utilities.ConnectionProvider;
-import db.tables.TherapiesTable;
+import db.tables.CertificateTypeTables;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import utilities.ConnectionProvider;
 
-import static utilities.checkers.PersonCheckers.lengthChecker;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DeleteCertificateTypeController {
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+
+public class DeleteCertificateTypeController implements Initializable {
 
     @FXML
-    private TextField nameField;
+    private ChoiceBox<String> nameChoiceBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
-    private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
+    private final CertificateTypeTables ctTable = new CertificateTypeTables(connectionProvider.getMySQLConnection());
 
     public void delete() {
-        if (lengthChecker(nameField, 16, 16)) {
-            final String id = nameField.getText();
+        if (choiceBoxChecker(nameChoiceBox)) {
+            final String id = nameChoiceBox.getValue();
 
-            therapiesTable.delete(id);
+            ctTable.delete(id);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        getList(nameChoiceBox, ctTable, e -> e.getId().get(0));
     }
 }

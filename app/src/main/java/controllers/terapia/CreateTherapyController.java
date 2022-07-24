@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.intCheck;
+import static utilities.FillUtils.getList;
 
 public class CreateTherapyController implements Initializable {
     @FXML
@@ -60,7 +61,8 @@ public class CreateTherapyController implements Initializable {
             var selected = idBox.getSelectionModel().getSelectedItem();
             var therapyList = therapiesTable.findByCode(selected);
             if (therapyList.isPresent()) {
-                var therapy = therapyList.get().stream().findFirst().isPresent() ? therapyList.get().stream().findFirst().get() : null;
+                var therapy = therapyList.get().stream().findFirst().isPresent() ?
+                        therapyList.get().stream().findFirst().get() : null;
                 if (therapy != null) {
                     datePicker.getEditor().setText(therapy.creationDate().toString());
                 }
@@ -70,8 +72,6 @@ public class CreateTherapyController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(therapiesTable.findAll().stream().map(Therapy::therapyId).map(Object::toString).toList());
-        }
+        getList(idBox, therapiesTable, e -> e.getId().get(0));
     }
 }

@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.function.Function;
 
 import static utilities.checkers.PersonCheckers.*;
+import static utilities.FillUtils.getList;
 
 public class CreateCertificateTypeController implements Initializable {
 
@@ -75,8 +76,6 @@ public class CreateCertificateTypeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (nameChoiceBox != null) {
-            nameChoiceBox.getItems().addAll(ctTables.findAll().stream().map(CertificateType::name).toList());
-        }
+        getList(nameChoiceBox, ctTables, e -> e.getId().get(0));
     }
 }

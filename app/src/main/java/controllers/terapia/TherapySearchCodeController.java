@@ -1,6 +1,5 @@
 package controllers.terapia;
 
-import utilities.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,22 +7,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Therapy;
-import utilities.FXUtils;
+import utilities.ConnectionProvider;
 import utilities.views.CreateTherapyView;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static utilities.checkers.PersonCheckers.intCheck;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class TherapySearchCodeController implements Initializable {
 
     @FXML
-    private TextField idField;
-    @FXML
-    private Button searchButton;
+    private ChoiceBox<String> idBox;
     @FXML
     private TableView<Therapy> table;
     @FXML
@@ -35,15 +32,15 @@ public class TherapySearchCodeController implements Initializable {
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
 
     public void search() {
-        if (intCheck(idField, 1, 10)) {
-            var therapy = therapiesTable.findByCode(toUpperNormalizer(idField));
+        if (choiceBoxChecker(idBox)) {
+            var therapy = therapiesTable.findByCode(idBox.getValue());
             if (therapy.isPresent()) {
                 final ObservableList<Therapy> list = FXCollections.observableArrayList(therapy.get());
                 CreateTherapyView.create(table, therapyColumn, dateColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");
-                errorAlert.setContentText("The fiscal code \"" + idField.getText() + "\" doesn't exist.");
+                errorAlert.setContentText("The fiscal code \"" + idBox.getValue() + "\" doesn't exist.");
                 errorAlert.showAndWait();
             }
         }
@@ -51,6 +48,6 @@ public class TherapySearchCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FXUtils.disableOnWrite(searchButton, idField);
+        getList(idBox, therapiesTable, e -> e.getId().get(0));
     }
 }
