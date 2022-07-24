@@ -23,7 +23,7 @@ public class FillUtils {
 
     public static void getList(ChoiceBox<String> box, Table<? extends Entity, String> table, Function<Entity, String> function) {
         if (box != null) {
-            box.getItems().addAll(table.findAll().stream().map(function).toList());
+            box.getItems().addAll(table.findAll().stream().map(function).distinct().toList());
         }
     }
 }
