@@ -1,8 +1,9 @@
 package model;
 
+import java.util.List;
 import java.util.Objects;
 
-public record CertificateType(String name, int ecmCredits) {
+public record CertificateType(String name, int ecmCredits) implements Entity {
 
     public CertificateType(String name, int ecmCredits) {
         this.name = Objects.requireNonNull(name);
@@ -28,5 +29,10 @@ public record CertificateType(String name, int ecmCredits) {
     @Override
     public int hashCode() {
         return Objects.hash(name, ecmCredits);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(name);
     }
 }

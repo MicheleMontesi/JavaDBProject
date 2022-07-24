@@ -1,11 +1,12 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public record Patient(String fiscalCode, String name, String surname, Date birthday, String residence, String gender,
                       int patientId, boolean privacyDocumentation, boolean consentTreatment, boolean acceptRules)
-        implements PersonRelated {
+        implements Entity {
 
     public Patient(String fiscalCode, String name, String surname, Date birthday, String residence, String gender,
                    int patientId, boolean privacyDocumentation, boolean consentTreatment, boolean acceptRules) {
@@ -58,5 +59,10 @@ public record Patient(String fiscalCode, String name, String surname, Date birth
     public int hashCode() {
         return Objects.hash(fiscalCode, name, surname, birthday, residence, gender,
                 patientId, privacyDocumentation, consentTreatment, acceptRules);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(fiscalCode);
     }
 }

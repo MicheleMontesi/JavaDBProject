@@ -1,8 +1,9 @@
 package model;
 
+import java.util.List;
 import java.util.Objects;
 
-public record ContractType(String name, int contractualHours) {
+public record ContractType(String name, int contractualHours) implements Entity {
 
     public ContractType(String name, int contractualHours) {
         this.name = Objects.requireNonNull(name);
@@ -29,5 +30,10 @@ public record ContractType(String name, int contractualHours) {
     @Override
     public int hashCode() {
         return Objects.hash(name, contractualHours);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(name);
     }
 }

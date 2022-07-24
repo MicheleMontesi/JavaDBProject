@@ -2,7 +2,7 @@ package utilities.checkers;
 
 import db.Table;
 import javafx.scene.control.*;
-import model.PersonRelated;
+import model.Entity;
 
 import java.text.Normalizer;
 import java.time.ZoneId;
@@ -27,7 +27,7 @@ public class PersonCheckers {
         return true;
     }
 
-    public static boolean isNotAlreadyPresent(TextField field, Table<? extends PersonRelated, ?> table, Function<PersonRelated, ?> matchString) {
+    public static boolean isNotAlreadyPresent(TextField field, Table<? extends Entity, ?> table, Function<Entity, ?> matchString) {
         var list = table.findAll();
         List<?> idList = list.stream().map(matchString).toList();
         if (idList.contains(field.getText())) {

@@ -1,9 +1,10 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-public record CertificateAcquired(String fiscalCode, Date acquisitionDate, String certificateName) {
+public record CertificateAcquired(String fiscalCode, Date acquisitionDate, String certificateName) implements Entity {
 
     public CertificateAcquired(String fiscalCode, Date acquisitionDate, String certificateName) {
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
@@ -33,5 +34,10 @@ public record CertificateAcquired(String fiscalCode, Date acquisitionDate, Strin
     @Override
     public int hashCode() {
         return Objects.hash(fiscalCode, acquisitionDate, certificateName);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(fiscalCode, acquisitionDate.toString(), certificateName);
     }
 }

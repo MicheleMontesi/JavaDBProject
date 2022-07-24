@@ -1,10 +1,11 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitId) {
+public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitId) implements Entity {
 
     public Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate, String unitId) {
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
@@ -37,5 +38,10 @@ public record Hosting(String fiscalCode, Date beginDate, Optional<Date> endDate,
     @Override
     public int hashCode() {
         return Objects.hash(fiscalCode, beginDate, endDate, unitId);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(fiscalCode, beginDate.toString(), unitId);
     }
 }

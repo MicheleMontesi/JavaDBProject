@@ -1,9 +1,10 @@
 package model;
 
+import java.util.List;
 import java.util.Objects;
 
 public record MedicalRecords(int medicalRecordId, String fiscalCode, String anamnesis, String diagnosis,
-                             String rehabProject) {
+                             String rehabProject) implements Entity {
 
     public MedicalRecords(int medicalRecordId, String fiscalCode, String anamnesis,
                           String diagnosis, String rehabProject) {
@@ -40,5 +41,10 @@ public record MedicalRecords(int medicalRecordId, String fiscalCode, String anam
     @Override
     public int hashCode() {
         return Objects.hash(medicalRecordId, fiscalCode, anamnesis, diagnosis, rehabProject);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(Objects.toString(medicalRecordId), fiscalCode);
     }
 }

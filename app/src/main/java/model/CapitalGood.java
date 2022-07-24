@@ -1,12 +1,13 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 public record CapitalGood(String unitId, int goodId, Date purchaseDate, Date nextMaintenance, boolean vehicle,
                           Optional<String> toolName, Optional<String> licencePlate, Optional<String> typology,
-                          Optional<Date> insuranceExpiration) {
+                          Optional<Date> insuranceExpiration) implements Entity{
 
     public CapitalGood(String unitId, int goodId, Date purchaseDate, Date nextMaintenance, boolean vehicle,
                        Optional<String> toolName, Optional<String> licencePlate, Optional<String> typology,
@@ -57,5 +58,10 @@ public record CapitalGood(String unitId, int goodId, Date purchaseDate, Date nex
     public int hashCode() {
         return Objects.hash(unitId, goodId, purchaseDate, nextMaintenance, vehicle,
                 toolName, licencePlate, typology, insuranceExpiration);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(Objects.toString(goodId));
     }
 }

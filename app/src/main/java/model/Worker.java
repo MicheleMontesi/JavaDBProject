@@ -1,11 +1,12 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public record Worker(String fiscalCode, String name, String surname, Date birthDay, String residence,
                      String gender, int workerId, String edQualification, boolean suitability, boolean partner,
-                     int ECMCredits) implements PersonRelated {
+                     int ECMCredits) implements Entity {
 
     public Worker(final String fiscalCode, final String name, final String surname, final Date birthDay,
                   final String residence, final String gender, final int workerId, final String edQualification,
@@ -62,5 +63,10 @@ public record Worker(String fiscalCode, String name, String surname, Date birthD
     public int hashCode() {
         return Objects.hash(fiscalCode, name, surname, birthDay, residence, gender,
                 workerId, edQualification, suitability, partner, ECMCredits);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(fiscalCode);
     }
 }

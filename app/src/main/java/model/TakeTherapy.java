@@ -1,8 +1,9 @@
 package model;
 
+import java.util.List;
 import java.util.Objects;
 
-public record TakeTherapy(String fiscalCode, int therapyId) {
+public record TakeTherapy(String fiscalCode, int therapyId) implements Entity {
 
     public TakeTherapy(String fiscalCode, int therapyId) {
         this.fiscalCode = Objects.requireNonNull(fiscalCode);
@@ -28,5 +29,10 @@ public record TakeTherapy(String fiscalCode, int therapyId) {
     @Override
     public int hashCode() {
         return Objects.hash(fiscalCode, therapyId);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(fiscalCode, Objects.toString(therapyId));
     }
 }

@@ -1,9 +1,11 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-public record Drug(int drugId, String name, String pharmaCompany, Date purchaseDate, Date expirationDate, int quantity) {
+public record Drug(int drugId, String name, String pharmaCompany, Date purchaseDate, Date expirationDate, int quantity)
+        implements Entity{
 
     public Drug(int drugId, String name, String pharmaCompany, Date purchaseDate, Date expirationDate, int quantity) {
         this.drugId = drugId;
@@ -42,5 +44,10 @@ public record Drug(int drugId, String name, String pharmaCompany, Date purchaseD
     @Override
     public int hashCode() {
         return Objects.hash(drugId, name, pharmaCompany, purchaseDate, expirationDate, quantity);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(Objects.toString(drugId));
     }
 }

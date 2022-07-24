@@ -1,9 +1,10 @@
 package model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-public record Therapy(int therapyId, Date creationDate) {
+public record Therapy(int therapyId, Date creationDate) implements Entity{
 
     public Therapy(int therapyId, Date creationDate) {
         this.therapyId = therapyId;
@@ -29,5 +30,10 @@ public record Therapy(int therapyId, Date creationDate) {
     @Override
     public int hashCode() {
         return Objects.hash(therapyId, creationDate);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(Objects.toString(therapyId));
     }
 }

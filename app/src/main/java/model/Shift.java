@@ -1,10 +1,11 @@
 package model;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 public record Shift(String fiscalCode, String dayOfTheWeek, LocalTime beginTime, LocalTime endTime,
-                    String unitId) implements PersonRelated {
+                    String unitId) implements Entity {
 
     public Shift(final String fiscalCode, final String dayOfTheWeek, final LocalTime beginTime,
                  final LocalTime endTime, final String unitId) {
@@ -41,5 +42,10 @@ public record Shift(String fiscalCode, String dayOfTheWeek, LocalTime beginTime,
     @Override
     public int hashCode() {
         return Objects.hash(fiscalCode, dayOfTheWeek, beginTime, endTime, unitId);
+    }
+
+    @Override
+    public List<String> getId() {
+        return List.of(fiscalCode, dayOfTheWeek, beginTime.toString(), unitId);
     }
 }
