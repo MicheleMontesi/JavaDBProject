@@ -3,13 +3,13 @@ package utilities.checkers;
 import db.Table;
 import db.tables.WorkersTables;
 import javafx.scene.control.*;
-import org.joda.time.Years;
 import org.joda.time.LocalDate;
+import org.joda.time.Years;
 
-import java.time.ZoneId;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-import static java.util.Calendar.*;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class CommonCheckers {
@@ -40,10 +40,6 @@ public class CommonCheckers {
         return true;
     }
 
-    public static int getYears(LocalDate newDate, LocalDate oldDate) {
-        return Years.yearsBetween(oldDate, newDate).getYears();
-    }
-
     public static boolean dateCheck(DatePicker datePicker) {
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
@@ -59,15 +55,7 @@ public class CommonCheckers {
 
         LocalDate newDate = new LocalDate(expirationDate);
         LocalDate oldDate = new LocalDate(purchaseDate);
-//        Calendar newDate = getCalendar(expirationDate);
-//        Calendar oldDate = getCalendar(purchaseDate);
-        return CommonCheckers.getYears(newDate, oldDate);
-    }
-
-    public static Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.ITALY);
-        cal.setTime(date);
-        return cal;
+        return Years.yearsBetween(oldDate, newDate).getYears();
     }
 
     public static boolean fieldChecker(List<Optional<? extends List<? extends Record>>> list) {
