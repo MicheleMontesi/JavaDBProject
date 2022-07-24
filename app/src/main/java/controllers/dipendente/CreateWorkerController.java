@@ -17,6 +17,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 import static utilities.FillUtils.getList;
+import static utilities.DateConverter.dateToLocalDate;
 import static utilities.checkers.PersonCheckers.*;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
@@ -96,7 +97,7 @@ public class CreateWorkerController implements Initializable {
                 if (worker != null) {
                     nameField.setText(worker.name());
                     surnameField.setText(worker.surname());
-                    birthPicker.getEditor().setText(worker.birthDay().toString());
+                    birthPicker.setValue(dateToLocalDate(worker.birthDay().toString()));
                     residenceField.setText(worker.residence());
                     genderBox.setValue(worker.gender());
                     workerIdField.setText(String.valueOf(worker.workerId()));

@@ -9,16 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import model.ContractType;
 import model.SignedContract;
-import model.Worker;
 import utilities.ConnectionProvider;
 
 import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static utilities.FillUtils.getList;

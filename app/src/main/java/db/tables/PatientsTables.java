@@ -157,7 +157,7 @@ public class PatientsTables implements Table<Patient, String> {
                 final String fiscalCode = resultSet.getString("CodiceFiscale");
                 final String name = resultSet.getString("Nome");
                 final String surname = resultSet.getString("Cognome");
-                final Date birthDay = DateConverter.sqlDateToDate(resultSet.getDate("Compleanno"));
+                final Date birthDay = resultSet.getDate("Compleanno");
                 final String residence = resultSet.getString("Residenza");
                 final String gender = resultSet.getString("Sesso");
                 final int patientId = resultSet.getInt("CodicePaziente");

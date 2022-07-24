@@ -150,7 +150,7 @@ public class TherapyDrugsTable implements Table<TherapyDrug, String> {
             while (resultSet.next()) {
                 final int therapyId = resultSet.getInt("CodiceTerapia");
                 final int consumptionId = resultSet.getInt("CodiceConsumazione");
-                final Date consumptionDate = DateConverter.sqlDateToDate(resultSet.getDate("DataAssunzione"));
+                final Date consumptionDate = resultSet.getDate("DataAssunzione");
                 final int quantity = resultSet.getInt("Quantita");
                 final String fiscalCode = resultSet.getString("CodiceFiscale");
                 final int drugId = resultSet.getInt("CodFarmaco");

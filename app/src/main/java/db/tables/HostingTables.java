@@ -141,9 +141,8 @@ public class HostingTables implements Table<Hosting, String> {
         try {
             while (resultSet.next()) {
                 final String workerFiscalCode = resultSet.getString("CodiceFiscale");
-                final java.util.Date beginDate = DateConverter.sqlDateToDate(resultSet.getDate("DataInizio"));
-                final Optional<java.util.Date> endDate = Optional.ofNullable(DateConverter.sqlDateToDate(
-                        resultSet.getDate("DataFine")));
+                final java.util.Date beginDate = resultSet.getDate("DataInizio");
+                final Optional<java.util.Date> endDate = Optional.ofNullable(resultSet.getDate("DataFine"));
                 final String unitId = resultSet.getString("CodiceUnita");
 
                 final Hosting hosting = new Hosting(workerFiscalCode, beginDate, endDate, unitId);

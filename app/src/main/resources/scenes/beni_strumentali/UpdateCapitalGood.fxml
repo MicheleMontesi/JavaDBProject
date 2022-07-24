@@ -50,7 +50,7 @@
          </font>
       </Label>
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="40.0" prefWidth="165.0" text="Codice Unita' " AnchorPane.leftAnchor="9.0" AnchorPane.topAnchor="40.0" />
-      <ChoiceBox fx:id="unitBox" layoutX="180.0" layoutY="35.0" onAction="#fillGoodField" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+      <ChoiceBox fx:id="unitUpdateBox" layoutX="180.0" layoutY="35.0" onAction="#fillGoodField" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="70.0" prefWidth="165.0" text="Codice Bene" AnchorPane.leftAnchor="9.0" />
       <ChoiceBox fx:id="goodBox" layoutX="180.0" layoutY="65.0" onAction="#fillFields" prefWidth="150.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER" layoutX="114.0" layoutY="95.0" style="-fx-border-color: black;" text="Enter the new values" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

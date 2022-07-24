@@ -19,6 +19,7 @@ import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.intCheck;
 import static utilities.FillUtils.getList;
+import static utilities.DateConverter.dateToLocalDate;
 
 public class CreateTherapyController implements Initializable {
     @FXML
@@ -64,7 +65,7 @@ public class CreateTherapyController implements Initializable {
                 var therapy = therapyList.get().stream().findFirst().isPresent() ?
                         therapyList.get().stream().findFirst().get() : null;
                 if (therapy != null) {
-                    datePicker.getEditor().setText(therapy.creationDate().toString());
+                    datePicker.setValue(dateToLocalDate(therapy.creationDate().toString()));
                 }
             }
         }

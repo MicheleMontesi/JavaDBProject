@@ -2,6 +2,8 @@ package utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
@@ -25,5 +27,10 @@ public class DateConverter {
         } catch (final ParseException e) {
             return Optional.empty();
         }
+    }
+
+    public static LocalDate dateToLocalDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(date, formatter);
     }
 }

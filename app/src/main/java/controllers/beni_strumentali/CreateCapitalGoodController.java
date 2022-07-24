@@ -19,11 +19,12 @@ import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
+import static utilities.DateConverter.dateToLocalDate;
 
 public class CreateCapitalGoodController implements Initializable {
 
     @FXML
-    private ChoiceBox<String> unitBox, goodBox;
+    private ChoiceBox<String> unitBox, unitUpdateBox, goodBox;
     @FXML
     public TextField goodField, toolField, plateField;
     @FXML
@@ -51,10 +52,12 @@ public class CreateCapitalGoodController implements Initializable {
         if (
             check() &&
             intCheck(goodField, 1, 5) &&
-            alreadyExists(Integer.parseInt(goodField.getText()))
+            alreadyExists(Integer.parseInt(goodField.getText())) &&
+            choiceBoxChecker(unitBox)
         ) {
             this.init();
             this.vehicleOrToolCheck();
+            unitId = unitBox.getValue();
             goodId = Integer.parseInt(goodField.getText());
             capitalGoodsTables.save(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
                     toolName, plate, type, expirationDate));
@@ -62,9 +65,10 @@ public class CreateCapitalGoodController implements Initializable {
     }
 
     public void update() {
-        if (check()) {
+        if (check() && choiceBoxChecker(unitUpdateBox)) {
             this.init();
             this.vehicleOrToolCheck();
+            unitId = unitUpdateBox.getValue();
             goodId = Integer.parseInt(goodBox.getValue());
             capitalGoodsTables.update(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
                     toolName, plate, type, expirationDate));
@@ -72,13 +76,11 @@ public class CreateCapitalGoodController implements Initializable {
     }
 
     private boolean check() {
-        return choiceBoxChecker(unitBox) &&
-        checkUnitExistence() &&
+        return checkUnitExistence() &&
         dateCheck();
     }
 
     private void init() {
-        unitId = unitBox.getValue();
         purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         vehicle = vehicleCheck.isSelected();
@@ -91,10 +93,10 @@ public class CreateCapitalGoodController implements Initializable {
     private void vehicleOrToolCheck() {
         if (vehicleCheck.isSelected()) {
             if (
-                    lengthChecker(plateField, 4, 10) &
-                            plateNotAlreadyExists() &
-                            CommonCheckers.getYearDifference(purchaseDate, Date.from(Instant.from(
-                                    expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())))) > 0
+                lengthChecker(plateField, 4, 10) &&
+                plateNotAlreadyExists() &&
+                CommonCheckers.getYearDifference(purchaseDate, Date.from(Instant.from(
+                            expirationPicker.getValue().atStartOfDay(ZoneId.systemDefault())))) > 0
             ) {
                 plate = Optional.of(toUpperNormalizer(plateField));
                 type = Optional.of(typeChoice.getValue());
@@ -163,25 +165,33 @@ public class CreateCapitalGoodController implements Initializable {
     }
 
     public void fillGoodField() {
-        FillUtils.fillRelatedField(unitBox, goodBox, capitalGoodsTables, 0, 1);
+        FillUtils.fillRelatedField(unitUpdateBox, goodBox, capitalGoodsTables, 0, 1);
     }
 
     public void fillFields() {
         if (!goodBox.getSelectionModel().isEmpty()) {
-            var selectedUnit = unitBox.getSelectionModel().getSelectedItem();
-            var selectedGood = Integer.parseInt(goodBox.getSelectionModel().getSelectedItem());
-            var goodList = capitalGoodsTables.findByParameters(selectedUnit, selectedGood);
-            if (goodList.isPresent()) {
-                var good = goodList.get().stream().findFirst().orElse(null);
-                if (good != null) {
-                    toolField.setText(good.toolName().orElse(null));
-                    plateField.setText(good.licencePlate().orElse(null));
-                    purchasePicker.getEditor().setText(good.purchaseDate().toString());
-                    maintenancePicker.getEditor().setText(good.nextMaintenance().toString());
-                    expirationPicker.getEditor().setText(good.insuranceExpiration().isPresent() ? good.insuranceExpiration().get().toString() : null);
-                    vehicleCheck.setSelected(good.vehicle());
-                    typeChoice.setValue(good.typology().orElse(null));
+            fillUtils(unitUpdateBox, goodBox);
+        }
+    }
+
+    private void fillUtils(ChoiceBox<String> firstBox, ChoiceBox<String> secondBox) {
+        var selectedUnit = firstBox.getSelectionModel().getSelectedItem();
+        var selectedGood = Integer.parseInt(secondBox.getSelectionModel().getSelectedItem());
+        var goodList = capitalGoodsTables.findByParameters(selectedUnit, selectedGood);
+        if (goodList.isPresent()) {
+            var good = goodList.get().stream().findFirst().orElse(null);
+            if (good != null) {
+                toolField.setText(good.toolName().orElse(null));
+                plateField.setText(good.licencePlate().orElse(null));
+                purchasePicker.setValue(dateToLocalDate(good.purchaseDate().toString()));
+                maintenancePicker.setValue(dateToLocalDate(good.nextMaintenance().toString()));
+                if (good.insuranceExpiration().isPresent()) {
+                    expirationPicker.setValue(dateToLocalDate(good.insuranceExpiration().get().toString()));
+                } else {
+                    expirationPicker.getEditor().setText(null);
                 }
+                vehicleCheck.setSelected(good.vehicle());
+                typeChoice.setValue(good.typology().orElse(null));
             }
         }
     }
@@ -205,6 +215,7 @@ public class CreateCapitalGoodController implements Initializable {
                     "ELETTRICA");
             typeChoice.setValue("BENZINA");
         }
-        getList(unitBox, capitalGoodsTables, e -> e.getId().get(0));
+        getList(unitBox, operatingUnitTables, e -> e.getId().get(0));
+        getList(unitUpdateBox, capitalGoodsTables, e -> e.getId().get(0));
     }
 }

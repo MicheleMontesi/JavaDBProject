@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
+import static utilities.DateConverter.dateToLocalDate;
 
 public class CreateDrugController implements Initializable {
     @FXML
@@ -112,8 +113,8 @@ public class CreateDrugController implements Initializable {
                 if (drug != null) {
                     nameField.setText(drug.name());
                     companyField.setText(drug.pharmaCompany());
-                    purchasePicker.getEditor().setText(drug.purchaseDate().toString());
-                    expirationPicker.getEditor().setText(drug.expirationDate().toString());
+                    purchasePicker.setValue(dateToLocalDate(drug.purchaseDate().toString()));
+                    expirationPicker.setValue(dateToLocalDate(drug.expirationDate().toString()));
                     quantityField.setText(Objects.toString(drug.quantity()));
                 }
             }

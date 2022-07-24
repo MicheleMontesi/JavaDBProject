@@ -123,7 +123,7 @@ public class TherapiesTable implements Table<Therapy, String> {
         try {
             while (resultSet.next()) {
                 final int therapyId = resultSet.getInt("CodiceTerapia");
-                final Date beginDate = DateConverter.sqlDateToDate(resultSet.getDate("DataInizio"));
+                final Date beginDate = resultSet.getDate("DataInizio");
 
                 final Therapy therapy = new Therapy(therapyId, beginDate);
                 list.add(therapy);

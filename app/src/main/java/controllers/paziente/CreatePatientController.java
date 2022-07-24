@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 import static utilities.checkers.PersonCheckers.*;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.FillUtils.*;
+import static utilities.DateConverter.dateToLocalDate;
 
 public class CreatePatientController implements Initializable {
     
@@ -94,7 +95,7 @@ public class CreatePatientController implements Initializable {
                     surnameField.setText(patient.surname());
                     residenceField.setText(patient.residence());
                     genderField.setText(patient.gender());
-                    birthPicker.getEditor().setText(patient.birthday().toString());
+                    birthPicker.setValue(dateToLocalDate(patient.birthday().toString()));
                     patientIdField.setText(String.valueOf(patient.patientId()));
                     privacyCheck.setSelected(true);
                     consentCheck.setSelected(true);

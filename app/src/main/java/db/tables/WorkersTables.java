@@ -82,7 +82,7 @@ public class WorkersTables implements Table<Worker, String> {
     }
 
     @Override
-    public void save(Worker worker) { //togli il optional alla data
+    public void save(Worker worker) {
         final String query = "INSERT INTO " + DIPENDENTE + "(CodiceFiscale, Nome, Cognome, Compleanno, Residenza, " +
                 "Sesso, CodiceDipendente, TitoloDiStudio, IdoneitaAllaMansione, Socio, CreditiECM) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
@@ -156,7 +156,7 @@ public class WorkersTables implements Table<Worker, String> {
                 final String fiscalCode = resultSet.getString("CodiceFiscale");
                 final String name = resultSet.getString("Nome");
                 final String surname = resultSet.getString("Cognome");
-                final Date birthDay = DateConverter.sqlDateToDate(resultSet.getDate("Compleanno"));
+                final Date birthDay = resultSet.getDate("Compleanno");
                 final String residence = resultSet.getString("Residenza");
                 final String gender = resultSet.getString("Sesso");
                 final int workerId = resultSet.getInt("CodiceDipendente");
