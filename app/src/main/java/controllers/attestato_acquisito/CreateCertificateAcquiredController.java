@@ -20,6 +20,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.*;
 
 public class CreateCertificateAcquiredController implements Initializable {
@@ -107,11 +108,7 @@ public class CreateCertificateAcquiredController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(workersTables.findAll().stream().map(Worker::fiscalCode).toList());
-        }
-        if (nameBox != null) {
-            nameBox.getItems().addAll(ctTable.findAll().stream().map(CertificateType::name).toList());
-        }
+        getList(idBox, workersTables, e -> e.getId().get(0));
+        getList(nameBox, ctTable, e -> e.getId().get(0));
     }
 }

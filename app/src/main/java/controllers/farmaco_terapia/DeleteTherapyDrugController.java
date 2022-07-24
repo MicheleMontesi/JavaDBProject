@@ -4,13 +4,12 @@ import db.tables.TherapyDrugsTable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import model.TherapyDrug;
 import utilities.ConnectionProvider;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class DeleteTherapyDrugController implements Initializable {
@@ -37,11 +36,7 @@ public class DeleteTherapyDrugController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (therapyIdBox != null) {
-            therapyIdBox.getItems().addAll(tdTable.findAll().stream().map(TherapyDrug::therapyId).map(Objects::toString).toList());
-        }
-        if (consumptionIdBox != null) {
-            consumptionIdBox.getItems().addAll(tdTable.findAll().stream().map(TherapyDrug::consumptionId).map(Objects::toString).toList());
-        }
+        getList(therapyIdBox, tdTable, e -> e.getId().get(0));
+        getList(consumptionIdBox, tdTable, e -> e.getId().get(1));
     }
 }

@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ShowTherapyDrugByCodeController implements Initializable {
@@ -66,5 +67,7 @@ public class ShowTherapyDrugByCodeController implements Initializable {
         if (consumptionIdBox != null) {
             consumptionIdBox.getItems().addAll(tdTable.findAll().stream().map(TherapyDrug::consumptionId).map(Objects::toString).toList());
         }
+        getList(therapyIdBox, tdTable, e -> e.getId().get(0));
+        getList(consumptionIdBox, tdTable, e -> e.getId().get(1));
     }
 }

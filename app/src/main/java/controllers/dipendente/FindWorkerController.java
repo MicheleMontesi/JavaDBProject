@@ -15,9 +15,9 @@ import utilities.views.CreateWorkerView;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class FindWorkerController implements Initializable {
@@ -57,8 +57,6 @@ public class FindWorkerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(workersTable.findAll().stream().map(Worker::fiscalCode).map(Objects::toString).distinct().toList());
-        }
+        getList(idBox, workersTable, e -> e.getId().get(0));
     }
 }

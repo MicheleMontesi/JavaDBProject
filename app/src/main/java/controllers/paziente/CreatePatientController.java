@@ -1,5 +1,6 @@
 package controllers.paziente;
 
+import model.Entity;
 import utilities.ConnectionProvider;
 import db.tables.PatientsTables;
 import javafx.fxml.FXML;
@@ -9,7 +10,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Patient;
-import model.PersonRelated;
 
 import java.net.URL;
 import java.time.Instant;
@@ -49,7 +49,7 @@ public class CreatePatientController implements Initializable {
         if (
                 check() &
                 lengthChecker(idField, 16, 16) &
-                isNotAlreadyPresent(idField, patientsTables, PersonRelated::fiscalCode)
+                isNotAlreadyPresent(idField, patientsTables, Entity::getId)
         ) {
             this.init();
             id = toUpperNormalizer(idField);

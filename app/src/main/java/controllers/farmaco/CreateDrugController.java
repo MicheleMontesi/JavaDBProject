@@ -1,16 +1,15 @@
 package controllers.farmaco;
 
-import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import model.Worker;
-import utilities.ConnectionProvider;
 import db.Table;
 import db.tables.DrugsTables;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Drug;
+import utilities.ConnectionProvider;
 
 import java.net.URL;
 import java.time.Instant;
@@ -19,6 +18,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
 
@@ -122,8 +122,6 @@ public class CreateDrugController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(drugsTables.findAll().stream().map(Drug::drugId).map(Objects::toString).distinct().toList());
-        }
+        getList(idBox, drugsTables, e -> e.getId().get(0));
     }
 }

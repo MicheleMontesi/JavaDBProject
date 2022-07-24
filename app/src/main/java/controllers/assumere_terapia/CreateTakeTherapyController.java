@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import model.Entity;
 import model.Patient;
 import model.TakeTherapy;
 import model.Therapy;
@@ -17,6 +18,8 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
+import static utilities.FillUtils.getList;
+import static utilities.checkers.CommonCheckers.getYearDifference;
 
 public class CreateTakeTherapyController implements Initializable {
     @FXML
@@ -59,11 +62,7 @@ public class CreateTakeTherapyController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (fiscalCodeBox != null) {
-            fiscalCodeBox.getItems().addAll(patientsTables.findAll().stream().map(Patient::fiscalCode).toList());
-        }
-        if (therapyIdBox != null) {
-            therapyIdBox.getItems().addAll(therapiesTable.findAll().stream().map(Therapy::therapyId).map(Objects::toString).toList());
-        }
+        getList(fiscalCodeBox, patientsTables, e -> e.getId().get(0));
+        getList(therapyIdBox, therapiesTable, e -> e.getId().get(0));
     }
 }

@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
@@ -60,5 +61,7 @@ public class ShowSignedContractByCodeController implements Initializable {
         if (nameBox != null) {
             nameBox.getItems().addAll(scTables.findAll().stream().map(SignedContract::contractName).distinct().toList());
         }
+        getList(idBox, scTables, e -> e.getId().get(0));
+        getList(nameBox, scTables, e -> e.getId().get(2));
     }
 }

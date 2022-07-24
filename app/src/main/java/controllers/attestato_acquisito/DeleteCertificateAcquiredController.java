@@ -18,6 +18,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.*;
 
 public class DeleteCertificateAcquiredController implements Initializable {
@@ -30,7 +31,6 @@ public class DeleteCertificateAcquiredController implements Initializable {
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final CertificateAcquiredTables caTable = new CertificateAcquiredTables(connectionProvider.getMySQLConnection());
-    private final WorkersTables workersTables = new WorkersTables(connectionProvider.getMySQLConnection());
     private final CertificateTypeTables ctTable = new CertificateTypeTables(connectionProvider.getMySQLConnection());
 
     public void delete() {
@@ -68,11 +68,7 @@ public class DeleteCertificateAcquiredController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(caTable.findAll().stream().map(CertificateAcquired::fiscalCode).distinct().toList());
-        }
-        if (nameBox != null) {
-            nameBox.getItems().addAll(ctTable.findAll().stream().map(CertificateType::name).toList());
-        }
+        getList(idBox, caTable, e -> e.getId().get(0));
+        getList(nameBox, ctTable, e -> e.getId().get(0));
     }
 }

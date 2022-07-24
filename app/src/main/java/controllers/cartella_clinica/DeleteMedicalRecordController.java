@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class DeleteMedicalRecordController implements Initializable {
@@ -34,5 +35,6 @@ public class DeleteMedicalRecordController implements Initializable {
         if (idBox != null) {
             idBox.getItems().addAll(mrTable.findAll().stream().map(MedicalRecords::medicalRecordId).map(Objects::toString).distinct().toList());
         }
+        getList(idBox, mrTable, e -> e.getId().get(0));
     }
 }

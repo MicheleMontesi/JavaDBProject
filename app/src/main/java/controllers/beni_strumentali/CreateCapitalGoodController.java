@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.*;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.getYearDifference;
 import static utilities.checkers.PersonCheckers.*;
@@ -204,8 +205,6 @@ public class CreateCapitalGoodController implements Initializable {
                     "ELETTRICA");
             typeChoice.setValue("BENZINA");
         }
-        if (unitBox != null) {
-            unitBox.getItems().addAll(capitalGoodsTables.findAll().stream().map(CapitalGood::unitId).distinct().toList());
-        }
+        getList(unitBox, capitalGoodsTables, e -> e.getId().get(0));
     }
 }

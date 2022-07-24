@@ -15,6 +15,7 @@ import utilities.views.CreateTakeTherapyView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class TakeTherapySearchCodeController implements Initializable {
@@ -41,8 +42,6 @@ public class TakeTherapySearchCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(ttTable.findAll().stream().map(TakeTherapy::fiscalCode).distinct().toList());
-        }
+        getList(idBox, ttTable, e -> e.getId().get(0));
     }
 }

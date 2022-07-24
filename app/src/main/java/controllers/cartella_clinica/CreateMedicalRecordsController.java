@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.PersonCheckers.intCheck;
 import static utilities.checkers.PersonCheckers.lengthChecker;
@@ -119,11 +120,7 @@ public class CreateMedicalRecordsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (fiscalCodeBox != null) {
-            fiscalCodeBox.getItems().addAll(patientsTables.findAll().stream().map(Patient::fiscalCode).distinct().toList());
-        }
-        if (idBox != null) {
-            idBox.getItems().addAll(mrTables.findAll().stream().map(MedicalRecords::medicalRecordId).map(Objects::toString).distinct().toList());
-        }
+        getList(fiscalCodeBox, patientsTables, e -> e.getId().get(0));
+        getList(idBox, mrTables, e -> e.getId().get(0));
     }
 }

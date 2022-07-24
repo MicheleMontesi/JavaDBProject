@@ -4,13 +4,12 @@ import db.tables.WorkersTables;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import model.Worker;
 import utilities.ConnectionProvider;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class DeleteWorkerController implements Initializable {
@@ -31,8 +30,6 @@ public class DeleteWorkerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(workersTable.findAll().stream().map(Worker::fiscalCode).map(Objects::toString).distinct().toList());
-        }
+        getList(idBox, workersTable, e -> e.getId().get(0));
     }
 }

@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.*;
 
 public class CreateSignedContractController implements Initializable {
@@ -90,11 +91,7 @@ public class CreateSignedContractController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(workersTables.findAll().stream().map(Worker::fiscalCode).map(Objects::toString).distinct().toList());
-        }
-        if (nameBox != null) {
-            nameBox.getItems().addAll(ctTable.findAll().stream().map(ContractType::name).map(Objects::toString).distinct().toList());
-        }
+        getList(idBox, workersTables, e -> e.getId().get(0));
+        getList(nameBox, ctTable, e -> e.getId().get(0));
     }
 }

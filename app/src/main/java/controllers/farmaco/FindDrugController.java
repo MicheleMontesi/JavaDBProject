@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class FindDrugController implements Initializable {
@@ -54,8 +55,6 @@ public class FindDrugController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(drugsTables.findAll().stream().map(Drug::drugId).map(Objects::toString).distinct().toList());
-        }
+        getList(idBox, drugsTables, e -> e.getId().get(0));
     }
 }

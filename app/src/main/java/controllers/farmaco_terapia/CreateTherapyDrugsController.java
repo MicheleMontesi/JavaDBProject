@@ -1,5 +1,6 @@
 package controllers.farmaco_terapia;
 
+import db.Table;
 import db.tables.DrugsTables;
 import db.tables.TherapiesTable;
 import db.tables.TherapyDrugsTable;
@@ -10,19 +11,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import model.Drug;
-import model.Therapy;
-import model.TherapyDrug;
-import model.Worker;
+import model.*;
 import utilities.ConnectionProvider;
 
 import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.intCheck;
@@ -136,17 +137,9 @@ public class CreateTherapyDrugsController implements Initializable {
             consumptionField.setText(Integer.toString(max + 1));
         }
 
-        if (fiscalCodeBox != null) {
-            fiscalCodeBox.getItems().addAll(workersTables.findAll().stream().map(Worker::fiscalCode).toList());
-        }
-        if (therapyIdBox != null) {
-            therapyIdBox.getItems().addAll(therapiesTable.findAll().stream().map(Therapy::therapyId).map(Objects::toString).toList());
-        }
-        if (drugIdBox != null) {
-            drugIdBox.getItems().addAll(drugsTables.findAll().stream().map(Drug::drugId).map(Objects::toString).toList());
-        }
-        if (consumptionIdBox != null) {
-            consumptionIdBox.getItems().addAll(tdTable.findAll().stream().map(TherapyDrug::consumptionId).map(Objects::toString).toList());
-        }
+        getList(fiscalCodeBox, workersTables, e -> e.getId().get(0));
+        getList(therapyIdBox, therapiesTable, e -> e.getId().get(0));
+        getList(drugIdBox, drugsTables, e -> e.getId().get(0));
+        getList(consumptionIdBox, tdTable, e -> e.getId().get(1));
     }
 }

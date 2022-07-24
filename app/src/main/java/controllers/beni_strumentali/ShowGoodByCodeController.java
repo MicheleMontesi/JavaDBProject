@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class ShowGoodByCodeController implements Initializable {
@@ -61,8 +62,6 @@ public class ShowGoodByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (unitBox != null) {
-            unitBox.getItems().addAll(cgTables.findAll().stream().map(CapitalGood::unitId).distinct().toList());
-        }
+        getList(unitBox, cgTables, e -> e.getId().get(0));
     }
 }

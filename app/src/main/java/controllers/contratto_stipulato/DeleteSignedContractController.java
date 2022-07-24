@@ -14,6 +14,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 import static utilities.checkers.CommonCheckers.dateCheck;
 
@@ -42,8 +43,6 @@ public class DeleteSignedContractController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(scTable.findAll().stream().map(SignedContract::fiscalCode).distinct().toList());
-        }
+        getList(idBox, scTable, e -> e.getId().get(0));
     }
 }

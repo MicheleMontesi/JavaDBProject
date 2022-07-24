@@ -5,18 +5,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import model.CertificateAcquired;
 import utilities.ConnectionProvider;
-import utilities.checkers.CommonCheckers;
 import utilities.views.CreateCertificateAcquiredView;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
-import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class ShowCertificatesByCodeController implements Initializable {
     @FXML
@@ -48,8 +50,6 @@ public class ShowCertificatesByCodeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (idBox != null) {
-            idBox.getItems().addAll(caTables.findAll().stream().map(CertificateAcquired::fiscalCode).distinct().toList());
-        }
+        getList(idBox, caTables, e -> e.getId().get(0));
     }
 }

@@ -4,13 +4,13 @@ import db.tables.CapitalGoodsTables;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
-import model.CapitalGood;
 import utilities.ConnectionProvider;
 import utilities.FillUtils;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static utilities.FillUtils.getList;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
 
 public class DeleteCapitalGoodController implements Initializable {
@@ -40,8 +40,6 @@ public class DeleteCapitalGoodController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (unitBox != null) {
-            unitBox.getItems().addAll(cgTable.findAll().stream().map(CapitalGood::unitId).distinct().toList());
-        }
+        getList(unitBox, cgTable, e -> e.getId().get(0));
     }
 }
