@@ -15,7 +15,7 @@ public class TablesInitializer {
 
     public static void createDB() {
         final String username = "root";
-        final String password = "o6*&GstbGajcf&x5";
+        final String password = "";
         final String dbName = "cooperativasanitaria";
 
         final String uri = "jdbc:mysql://localhost:3306/";

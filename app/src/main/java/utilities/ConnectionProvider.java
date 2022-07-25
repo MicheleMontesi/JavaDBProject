@@ -11,7 +11,7 @@ public class ConnectionProvider {
 
     public ConnectionProvider() {
         this.username = "root";
-        this.password = "o6*&GstbGajcf&x5";
+        this.password = "";
         this.dbName = "cooperativasanitaria";
     }
 
