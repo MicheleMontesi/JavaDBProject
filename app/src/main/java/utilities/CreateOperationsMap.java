@@ -48,7 +48,6 @@ public class CreateOperationsMap {
         final Map<String, List<String>> permittedOp = new TreeMap<>();
         entities.forEach(e -> permittedOp.put(e, new ArrayList<>(defaultOperations)));
 
-        permittedOp.get("Beni Strumentali").addAll(Arrays.asList("Visualizza Automezzi", "Visualizza Attrezzature"));
         permittedOp.get("Assumere Terapia").remove("Aggiorna");
         permittedOp.get("Attestato Acquisito").remove("Aggiorna");
 
