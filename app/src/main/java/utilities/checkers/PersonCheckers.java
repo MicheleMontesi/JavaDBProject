@@ -6,8 +6,6 @@ import model.Entity;
 
 import java.text.Normalizer;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -83,21 +81,6 @@ public class PersonCheckers {
             errorAlert.showAndWait();
             return false;
         }
-    }
-
-    public static boolean dayCheck(TextField dayField) {
-        List<String> week = new ArrayList<>(Arrays.asList("LUNEDI", "MARTEDI", "MERCOLEDI", "GIOVEDI", "SABATO", "DOMENICA"));
-        final var str = Normalizer.normalize(dayField.getText(), Normalizer.Form.NFD)
-                .replaceAll("'", "")
-                .replaceAll("[^\\p{ASCII}]", "")
-                .toUpperCase();
-        if (week.stream().noneMatch(e->e.equalsIgnoreCase(str))) {
-            errorAlert.setHeaderText("Input Not Valid");
-            errorAlert.setContentText("The day of the week must be one of these:\n" + week);
-            errorAlert.showAndWait();
-            return false;
-        }
-        return true;
     }
 
     public static boolean timeCheck(TextField timeField) {

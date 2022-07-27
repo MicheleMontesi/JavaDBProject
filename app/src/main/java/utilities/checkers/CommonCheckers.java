@@ -14,9 +14,10 @@ import static utilities.checkers.PersonCheckers.toUpperNormalizer;
 
 public class CommonCheckers {
 
+    private static final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+
     public static boolean isAlreadyPresent(List<?> idList, TextField field) {
         if (idList.contains(toUpperNormalizer(field))) {
-            final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
             errorAlert.setHeaderText("Input not valid");
             errorAlert.setContentText("The input \"" + field.getText() + "\" already exists");
             errorAlert.showAndWait();
@@ -29,7 +30,6 @@ public class CommonCheckers {
         for (var o : idList) {
             if (o.isPresent()) {
                 if(o.get().equals(toUpperNormalizer(field))) {
-                    final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setHeaderText("Input not valid");
                     errorAlert.setContentText("The input \"" + field.getText() + "\" already exists");
                     errorAlert.showAndWait();
@@ -41,7 +41,6 @@ public class CommonCheckers {
     }
 
     public static boolean dateCheck(DatePicker datePicker) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         if (datePicker.getValue() == null) {
             errorAlert.setContentText("The input date must be filled");
@@ -52,14 +51,12 @@ public class CommonCheckers {
     }
 
     public static int getYearDifference(Date purchaseDate, Date expirationDate) {
-
         LocalDate newDate = new LocalDate(expirationDate);
         LocalDate oldDate = new LocalDate(purchaseDate);
         return Years.yearsBetween(oldDate, newDate).getYears();
     }
 
     public static boolean fieldChecker(List<Optional<? extends List<? extends Record>>> list) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The input doesn't exist");
 
@@ -76,7 +73,6 @@ public class CommonCheckers {
     }
 
     public static boolean checkChecker(CheckBox check) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The check box " + check.getId() + " must be selected");
         if (!check.isSelected()) {
@@ -88,7 +84,6 @@ public class CommonCheckers {
     }
 
     public static boolean choiceBoxChecker(ChoiceBox<String> box) {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The choice box " + box.getId() + " must be selected");
         if (box.getSelectionModel().isEmpty()) {
@@ -100,16 +95,14 @@ public class CommonCheckers {
     }
 
     public static boolean checkExistence(WorkersTables workersTables, String id, Table<? extends Record, String> ctTable, String name) {
-        final var idCheck = workersTables.findByCode(id);
-        final var nameCheck = ctTable.findByCode(name);
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
         errorAlert.setContentText("The input id or name doesn't exist");
+        final var idCheck = workersTables.findByCode(id);
+        final var nameCheck = ctTable.findByCode(name);
         return CommonCheckers.fieldChecker(List.of(idCheck, nameCheck));
     }
 
     public static void nonErasableCheck() {
-        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("The record can't be deleted");
         errorAlert.setContentText("The given record is used as foreign key from another record.\n" +
                 "Delete it first and retry.");
