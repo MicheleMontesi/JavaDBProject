@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class CertificateTypeTables implements Table<CertificateType, String> {
 
     protected static final String TIPOLOGIA_ATTESTATO = "tipologia_attestato";
@@ -109,7 +111,7 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
             statement.setString(1, name);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
 

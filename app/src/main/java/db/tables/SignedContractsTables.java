@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.*;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class SignedContractsTables implements Table<SignedContract, String> {
 
     protected static final String STIPULATO = "contratto_stipulato";
@@ -135,7 +137,7 @@ public class SignedContractsTables implements Table<SignedContract, String> {
             statement.setDate(2, DateConverter.dateToSqlDate(stipulationDate));
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
 

@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.*;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class TherapyDrugsTable implements Table<TherapyDrug, String> {
 
     protected static final String FARMACO_TERAPIA = "farmaco_terapia";
@@ -139,7 +141,7 @@ public class TherapyDrugsTable implements Table<TherapyDrug, String> {
             statement.setInt(2, consumptionId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
 

@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.*;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class CertificateAcquiredTables implements Table<CertificateAcquired, String> {
 
     protected static final String ACQUISITO = "attestato_acquisito";
@@ -111,7 +113,7 @@ public class CertificateAcquiredTables implements Table<CertificateAcquired, Str
             statement.setString(3, name);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            nonErasableCheck();
         }
     }
 

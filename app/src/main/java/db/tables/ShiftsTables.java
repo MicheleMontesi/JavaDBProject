@@ -7,6 +7,8 @@ import java.sql.*;
 import java.time.LocalTime;
 import java.util.*;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class ShiftsTables implements Table<Shift, String> {
 
     protected static final String TURNO = "turno";
@@ -126,7 +128,7 @@ public class ShiftsTables implements Table<Shift, String> {
             statement.setString(4, giornoSettimana);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
 

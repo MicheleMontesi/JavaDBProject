@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class OperatingUnitTables implements Table<OperatingUnit, String> {
 
     protected static final String UNITA_OPERATIVA = "unita_operativa";
@@ -131,7 +133,7 @@ public class OperatingUnitTables implements Table<OperatingUnit, String> {
             statement.setString(1, unitId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            nonErasableCheck();
         }
     }
 

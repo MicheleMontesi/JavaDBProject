@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class CapitalGoodsTables implements Table<CapitalGood, String> {
 
     protected static final String BENI = "beni_strumentali";
@@ -146,7 +148,7 @@ public class CapitalGoodsTables implements Table<CapitalGood, String> {
             statement.setInt(2, codBene);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            nonErasableCheck();
         }
     }
     @Override

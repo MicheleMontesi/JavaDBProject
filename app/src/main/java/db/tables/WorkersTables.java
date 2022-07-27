@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class WorkersTables implements Table<Worker, String> {
     protected static final String DIPENDENTE = "dipendente";
     private final Connection connection;
@@ -145,7 +147,7 @@ public class WorkersTables implements Table<Worker, String> {
             statement.setString(1, CodiceFiscale);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            nonErasableCheck();
         }
     }
     @Override

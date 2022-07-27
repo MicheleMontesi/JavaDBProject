@@ -107,4 +107,12 @@ public class CommonCheckers {
         errorAlert.setContentText("The input id or name doesn't exist");
         return CommonCheckers.fieldChecker(List.of(idCheck, nameCheck));
     }
+
+    public static void nonErasableCheck() {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("The record can't be deleted");
+        errorAlert.setContentText("The given record is used as foreign key from another record.\n" +
+                "Delete it first and retry.");
+        errorAlert.showAndWait();
+    }
 }

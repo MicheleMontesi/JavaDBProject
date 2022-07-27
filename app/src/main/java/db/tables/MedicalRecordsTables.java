@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class MedicalRecordsTables implements Table<MedicalRecords, String> {
 
     protected static final String CARTELLA = "cartella_clinica";
@@ -123,7 +125,7 @@ public class MedicalRecordsTables implements Table<MedicalRecords, String> {
             statement.setInt(1, Integer.parseInt(id));
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
     @Override

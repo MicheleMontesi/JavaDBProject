@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class TakeTherapiesTables implements Table<TakeTherapy, String> {
 
     protected static final String ASSUMERE = "assumere_terapia";
@@ -107,7 +109,7 @@ public class TakeTherapiesTables implements Table<TakeTherapy, String> {
             statement.setInt(2, therapyId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
 
     }

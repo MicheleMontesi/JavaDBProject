@@ -8,6 +8,8 @@ import java.sql.*;
 import java.util.Date;
 import java.util.*;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class TherapiesTable implements Table<Therapy, String> {
 
     protected static final String TERAPIA = "terapia";
@@ -102,18 +104,14 @@ public class TherapiesTable implements Table<Therapy, String> {
     }
 
     @Override
-    public void delete(String primaryKey) {
-    }
-
-    public void deleteByParameters(String therapyId, Date beginDate) {
+    public void delete(String therapyId) {
         final String query = "DELETE FROM " + TERAPIA +
-                " WHERE CodiceTerapia = ? AND DataInizio = ?";
+                " WHERE CodiceTerapia = ?";
         try (final PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, therapyId);
-            statement.setDate(2, DateConverter.dateToSqlDate(beginDate));
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
 

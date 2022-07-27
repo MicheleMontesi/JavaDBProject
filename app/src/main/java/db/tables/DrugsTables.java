@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class DrugsTables implements Table<Drug, String> {
 
     protected static final String FARMACO = "farmaco";
@@ -128,7 +130,7 @@ public class DrugsTables implements Table<Drug, String> {
             statement.setString(1, codFarmaco);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
 

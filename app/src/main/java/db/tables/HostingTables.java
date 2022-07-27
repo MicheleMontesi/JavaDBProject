@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class HostingTables implements Table<Hosting, String> {
 
     protected static final String OSPITAZIONE = "ospitazione";
@@ -132,7 +134,7 @@ public class HostingTables implements Table<Hosting, String> {
             statement.setString(3, unitId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new IllegalStateException(e);
+            nonErasableCheck();
         }
     }
     @Override

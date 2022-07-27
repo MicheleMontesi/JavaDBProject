@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static utilities.checkers.CommonCheckers.nonErasableCheck;
+
 public class PatientsTables implements Table<Patient, String> {
 
     protected static final String PAZIENTE = "paziente";
@@ -145,7 +147,7 @@ public class PatientsTables implements Table<Patient, String> {
             statement.setString(1, fiscalCode);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            nonErasableCheck();
         }
     }
 
