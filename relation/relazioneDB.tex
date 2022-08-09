@@ -1,4 +1,4 @@
-\documentclass[a4paper, 12pt]{report}
+\documentclass{report}
 
 \usepackage{alltt, fancyvrb, url}
 \usepackage{graphicx}
@@ -6,6 +6,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{xurl}
+\usepackage{lipsum}  
 
 \usepackage[italian]{babel}
 \usepackage[italian]{cleveref}
@@ -23,21 +24,30 @@
 \maketitle
 \tableofcontents
 
-\chapter[]{Analisi Dei Requisiti}
+\chapter{Analisi Dei Requisiti}
+Si vuole realizzare un database a supporto dell'automatizzazione della gestione di una
+comunitá la quale gestisce diverse residenze per pazienti psichiatrici.
+La base di dati dovrá immagazzinare informazioni relative agli operatori, ai pazienti e
+alle varie residenze.
 
-\section[]{Intervista}
+\section{Intervista}
+Un primo testo ottenuto dall'intervista é il seguente:
+\newline
+Si vuole tenere traccia di pazienti e dipendenti memorizzandone le informazioni personali
+quali codice fiscale, nome, cognome, compleanno e sesso. Differenziando le due entitá
+si memorizzeranno, inoltre, le informazioni legate alla propria posizione. 
 
-\section[]{Estrazione dei concetti principali}
+\section{Estrazione dei concetti principali}
 
-\chapter[]{Progettazione Concettuale}
+\chapter{Progettazione Concettuale}
 
-\section[]{Schema scheletro}
+\section{Schema scheletro}
 
-\section[]{Schema finale}
+\section{Schema finale}
 
-\chapter[]{Progettazione Logica}
+\chapter{Progettazione Logica}
 
-\section[]{Stima del volume dei dati}
+\section{Stima del volume dei dati}
 
 
 \end{document}
