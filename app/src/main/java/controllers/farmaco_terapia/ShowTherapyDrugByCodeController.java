@@ -1,6 +1,5 @@
 package controllers.farmaco_terapia;
 
-import db.tables.TherapiesTable;
 import db.tables.TherapyDrugsTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
