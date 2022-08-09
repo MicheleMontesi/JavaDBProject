@@ -40,8 +40,8 @@
 
 \chapter{Analisi Dei Requisiti}
 Si vuole realizzare un database a supporto dell'automatizzazione della gestione di una
-comunitá la quale gestisce diverse residenze per pazienti psichiatrici.
-La base di dati dovrá immagazzinare informazioni relative agli operatori, ai pazienti e
+comunità la quale gestisce diverse residenze per pazienti psichiatrici.
+La base di dati dovrà immagazzinare informazioni relative agli operatori, ai pazienti e
 alle varie residenze.
 
 \section{Intervista}
@@ -50,21 +50,21 @@ Un primo testo ottenuto dall'intervista è il seguente:
 \begin{changemargin}{0.5cm}{0.5cm}
         \noindent
         Si vuole tenere traccia di \textbf{pazienti} e \textbf{dipendenti} memorizzandone le informazioni personali
-        quali codice fiscale, nome, cognome, compleanno e sesso. Differenziando le due entitá
-        si memorizzeranno, inoltre, le informazioni legate alla propria posizione.
+        quali codice fiscale, nome, cognome, compleanno e sesso.
+        Differenziando le due entità si memorizzeranno, inoltre, le informazioni legate alla propria posizione.
         Questi due soggetti possono essere registrati nel sistema solo accettando alcune clausole o
         disponendo di eventuali requisiti.\\
         I \textbf{dipendenti} possono acquisire degli attestati che gli conferiscono crediti ECM e possono firmare
         contratti (prima di firmare un secondo contratto con lo stesso nome, il primo deve essere concluso).\\
         I \textbf{turni} dei dipendenti sono determinati dal codice fiscale del dipendente, il giorno della settimana, 
-        l'ora di inizio, l'ora di fine e l'unitá operativa in cui si svolgeranno.\\
+        l'ora d'inizio, l'ora di fine e l'unità operativa in cui si svolgeranno.\\
         I \textbf{pazienti} sono identificati da una \textbf{cartella clinica} la quale contiene informazioni riguardanti
         l'anamnesi, la diagnosi e il progetto riabilitativo del paziente.\\
-        Sono presenti \textbf{unitá operative} (le quali possono essere \texttt{gruppi appartamento} o \texttt{residenze
-        sanitarie psichiatriche}) adibite all' \textbf{ospitazione} di piú pazienti (la quale dovrá essere registrata 
-        con data di inizio e opzionalmente con una data di fine). Queste sono caratterizzate dalla loro
-        ubicazione, i posti letto e il numero dei pazienti. Per poter essere operative devono ricevere
-        un'\texttt{autorizzazione al funzionamento} e l'\texttt{accreditamento}.
+        Sono presenti \textbf{unità operative} (le quali possono essere \texttt{gruppi appartamento} o \texttt{residenze
+        sanitarie psichiatriche}) adibite all' \textbf{ospitazione} di piú pazienti (la quale dovrà essere registrata
+        con data d'inizio e opzionalmente con una data di fine).
+        Queste sono caratterizzate dalla loro ubicazione, i posti letto e il numero dei pazienti.
+        Per poter essere operative devono ricevere un'\texttt{autorizzazione al funzionamento} e l'\texttt{accreditamento}.
 \end{changemargin}
 
 \section{Estrazione dei concetti principali}
