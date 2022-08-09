@@ -6,7 +6,8 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{xurl}
-\usepackage{lipsum}  
+\usepackage{lipsum}
+\usepackage[htt]{hyphenat}
 
 \usepackage[italian]{babel}
 \usepackage[italian]{cleveref}
@@ -46,7 +47,8 @@ alle varie residenze.
 \section{Intervista}
 Un primo testo ottenuto dall'intervista è il seguente:
 
-\begin{changemargin}{1cm}{1cm}
+\begin{changemargin}{0.5cm}{0.5cm}
+        \noindent
         Si vuole tenere traccia di \textbf{pazienti} e \textbf{dipendenti} memorizzandone le informazioni personali
         quali codice fiscale, nome, cognome, compleanno e sesso. Differenziando le due entitá
         si memorizzeranno, inoltre, le informazioni legate alla propria posizione.
@@ -59,7 +61,7 @@ Un primo testo ottenuto dall'intervista è il seguente:
         I \textbf{pazienti} sono identificati da una \textbf{cartella clinica} la quale contiene informazioni riguardanti
         l'anamnesi, la diagnosi e il progetto riabilitativo del paziente.\\
         Sono presenti \textbf{unitá operative} (le quali possono essere \texttt{gruppi appartamento} o \texttt{residenze
-        sanitarie psichiatriche}) adibite all'\textbf{ospitazione} di piú pazienti (la quale dovrá essere registrata 
+        sanitarie psichiatriche}) adibite all' \textbf{ospitazione} di piú pazienti (la quale dovrá essere registrata 
         con data di inizio e opzionalmente con una data di fine). Queste sono caratterizzate dalla loro
         ubicazione, i posti letto e il numero dei pazienti. Per poter essere operative devono ricevere
         un'\texttt{autorizzazione al funzionamento} e l'\texttt{accreditamento}.
