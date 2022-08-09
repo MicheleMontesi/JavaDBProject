@@ -68,10 +68,15 @@ public class CreateSignedContractController implements Initializable {
     private boolean caCheck(Table<SignedContract, String> table, ChoiceBox<String> idBox, ChoiceBox<String> nameBox,
                             DatePicker signedPicker, DatePicker endPicker) {
         var list = table.findAll();
-        var signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-        var endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setHeaderText("Input not valid");
+        if (signedPicker.getValue() == null || endPicker.getValue() == null) {
+            errorAlert.setContentText("The date fields must be filled");
+            errorAlert.showAndWait();
+            return false;
+        }
+        var signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        var endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
         for (var cs : list) {
             if (cs.fiscalCode().equals(idBox.getValue()) &&
