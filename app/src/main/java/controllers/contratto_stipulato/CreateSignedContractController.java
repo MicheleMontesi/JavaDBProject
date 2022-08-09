@@ -78,10 +78,18 @@ public class CreateSignedContractController implements Initializable {
         var signedDate = Date.from(Instant.from(signedPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         var endDate = Date.from(Instant.from(endPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
 
+        if (signedDate.after(endDate)) {
+            errorAlert.setContentText("The input start date must be bigger than the input end date");
+            errorAlert.showAndWait();
+            return false;
+        }
         for (var cs : list) {
             if (cs.fiscalCode().equals(idBox.getValue()) &&
                     cs.contractName().equals(nameBox.getValue())) {
-                if (getYearDifference(signedDate, cs.endDate()) <= 0 || getYearDifference(endDate, cs.stipulationDate()) >= 0) {
+                if (cs.stipulationDate().compareTo(signedDate)<=0 && cs.endDate().compareTo(signedDate)>=0 ||
+                        cs.stipulationDate().compareTo(endDate)<=0 && cs.endDate().compareTo(endDate)>=0 ||
+                        cs.stipulationDate().compareTo(signedDate)<=0 && cs.endDate().compareTo(endDate)>=0 ||
+                        cs.stipulationDate().compareTo(signedDate)>=0 && cs.endDate().compareTo(endDate)<=0) {
                     errorAlert.setContentText("The input date must be bigger than the end of the last contract with the same name");
                     errorAlert.showAndWait();
                     return false;
