@@ -14,6 +14,7 @@
 \usepackage{color}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
+\usepackage[font={small,it}]{caption}
 
 \usepackage[italian]{babel}
 \usepackage[italian]{cleveref}
@@ -33,6 +34,13 @@
     \setlength{\parsep}{\parskip}%
   }%
   \item[]}{\end{list}}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+        \setlength{\itemsep}{1pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+}{\end{enumerate}}
 
 \title{Relazione Progetto Basi di Dati 2022}
 \author{Michele Montesi \\
@@ -111,12 +119,64 @@ riassuma tutti i concetti e in particolare ne estragga quelli principali elimina
 sopra rilevate:
 
 \begin{changemargin}{0.5cm}{0.5cm}
-        Per ogni \textbf{Dipendente} 
+        \noindent
+        Per ogni \textbf{dipendente} vengono memorizzati Codice Fiscale, Nome, Cognome, Compleanno, Residenza, Sesso, Titolo di Studio,
+        l'Idoneità alla mansione, se è Socio o meno e i Crediti ECM. Ogni dipendente dispone, inoltre, di un codice univoco fornitogli
+        al momento del suo inserimento nel DB. 
+        Ogni dipendente può acquisire degli \textbf{attestati} che gli conferiscono crediti ECM e possono firmare
+        \textbf{contratti} (prima di firmare un secondo contratto con lo stesso nome, il primo deve essere concluso).
+        Di entrambi verrà mantenuto uno storico.\\
+        I \textbf{turni} dei dipendenti sono determinati dal codice fiscale del dipendente, il giorno della settimana, 
+        l'ora d'inizio, l'ora di fine e l'unità operativa in cui si svolgeranno. Un turno di uno stesso dipendente nello stesso
+        giorno della settimana non potrà essere definito se si interseca ad un altro.\\
+        Per ogni \textbf{paziente} vengono memorizzati Codice Fiscale, Nome, Cognome, Compleanno, Residenza, Sesso.
+        Al momento della registrazione dovrà firmare la documentazione alla privacy, il consenso al trattamento e l'accettazione
+        del regolamento. Ognuno possiede una \textbf{cartella clinica} la quale contiene informazioni riguardanti
+        l'anamnesi, la diagnosi e il progetto riabilitativo. A ognuno di questi verrà assegnata una 
+        \textbf{terapia} la quale dovrà essere seguita assumendo farmaci (somministrati da dipendenti) e della quale
+        verrà mantenuto uno storico.\\
+        Ogni \textbf{farmaco} è caratterizzato dal loro codice, il nome, la casa farmaceutica, le date d'acquisto e
+        di scadenza e la quantità.\\
+        Ogni \textbf{unità operativa} può essere \texttt{gruppo appartamento} o \texttt{residenza sanitaria psichiatrica}.
+        Ognuna di queste è adibita all' \textbf{ospitazione} di più pazienti (la quale dovrà essere registrata
+        con data d'inizio e opzionalmente con una data di fine) della quale verrà mantenuto uno storico.
+        Ognuna è caratterizzate dall'ubicazione, i posti letto e il numero dei pazienti.
+        Per poter essere operative devono ricevere l'\texttt{autorizzazione al funzionamento} e l'\texttt{accreditamento}.
+        Ogni unità operativa avrà una lista di \textbf{beni strumentali}, i quali possono essere automezzi o attrezzature.
+        \newline
 \end{changemargin}
+Segue un elenco delle principali operazioni richieste:
+\begin{packed_enum}
+        \item Registrare un nuovo dipendente
+        \item Registrare un turno
+        \item Registrare un nuovo paziente
+        \item Registrare un farmaco
+        \item Registrare una nuova unità operativa
+        \item Registrare un contratto
+        \item Registrare un attestato
+        \item Assegnare un contratto ad un dipendente
+        \item Assegnare un attestato ad un dipendente
+        \item Far assumere un farmaco ad un paziente
+        \item Visualizzare tutti i dipendenti
+        \item Visualizzare tutti i pazienti
+        \item Visualizzare tutti i turni
+\end{packed_enum}
 
 \chapter{Progettazione Concettuale}
 
 \section{Schema scheletro}
+Le entità di \textbf{dipendente} e \textbf{paziente} sono la generalizzazione di una entità \textbf{persona}, identificata
+tramite il codice fiscale. Dall'analisi del dominio si evince come serva tenere uno storico di tutti i farmaci somministrati
+da un dipendente ad un paziente. Perciò si reifica l'associazione tra \textbf{dipendente} e \textbf{terapia} generando
+una nuova entità \textbf{farmaco\_terapia} che tiene traccia della quantità del \textbf{farmaco} somministrato, la data, 
+il somministratore e la terapia. Questa entità è definita dal suo \textit{codice univoco incrementale}, il \textit{codice della terapia} ed 
+il \textit{codice del dipendente}.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=5cm]{img/dipendentePazienteER.png}
+        \caption{Schema E/R con le principali entità per modellazione della somministrazione di farmaci}
+    \end{figure}
 
 \section{Schema finale}
 
