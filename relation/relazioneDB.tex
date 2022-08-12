@@ -1,5 +1,6 @@
 \documentclass[a4paper, 12pt]{report}
 
+% Packages
 \usepackage{alltt, fancyvrb, url}
 \usepackage{graphicx}
 \usepackage[margin=2cm]{geometry}
@@ -16,10 +17,12 @@
 \usepackage[table]{xcolor}
 \usepackage[font={small,it}]{caption}
 
+% Language Package
 \usepackage[italian]{babel}
 \usepackage[italian]{cleveref}
 \usepackage[toc,page]{appendix}
 
+% Definition of environments and colors
 \definecolor{seaGreen}{cmyk}{0.19, 0, 0.25, 0.09}
 
 \newenvironment{sloppypar*}{\sloppy\ignorespaces}{\par}
@@ -42,6 +45,7 @@
         \setlength{\parsep}{0pt}
 }{\end{enumerate}}
 
+% Initialization
 \title{Relazione Progetto Basi di Dati 2022}
 \author{Michele Montesi \\
         Matricola: 0000974934 \\
@@ -49,6 +53,7 @@
 
 \date{\today}
 
+% Begin
 \begin{document}
     
 \maketitle
@@ -165,8 +170,22 @@ Segue un elenco delle principali operazioni richieste:
 \chapter{Progettazione Concettuale}
 
 \section{Schema scheletro}
+
+% Dipendente e Paziente
+\noindent
 Le entità di \textbf{dipendente} e \textbf{paziente} sono la generalizzazione di una entità \textbf{persona}, identificata
-tramite il codice fiscale. Dall'analisi del dominio si evince come serva tenere uno storico di tutti i farmaci somministrati
+tramite il codice fiscale. Ogni paziente possiede una terapia la quale gli viene somministrata da un dipendente.
+Quando questa viene somministrata, in base alla quantità di farmaci utilizzati, il contatore del farmaco in questione verrà
+diminuito di tale dato.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=5cm]{img/dipendentePazienteERPostReif.png}
+        \caption{Schema E/R con le principali entità per modellazione della somministrazione di farmaci}
+\end{figure}
+
+\noindent
+Dall'analisi del dominio si evince come serva tenere uno storico di tutti i farmaci somministrati
 da un dipendente ad un paziente. Perciò si reifica l'associazione tra \textbf{dipendente} e \textbf{terapia} generando
 una nuova entità \textbf{farmaco\_terapia} che tiene traccia della quantità del \textbf{farmaco} somministrato, la data, 
 il somministratore e la terapia. Questa entità è definita dal suo \textit{codice univoco incrementale}, il \textit{codice della terapia} ed 
@@ -174,15 +193,129 @@ il \textit{codice del dipendente}.
 
 \begin{figure}[H]
         \centering
-        \includegraphics[height=5cm]{img/dipendentePazienteER.png}
-        \caption{Schema E/R con le principali entità per modellazione della somministrazione di farmaci}
-    \end{figure}
+        \includegraphics[height=5cm]{img/dipendentePazienteERPreReif.png}
+        \caption{Schema E/R con le principali entità per modellazione della somministrazione di farmaci e del suo storico}
+\end{figure}
+
+% Dipendente
+\noindent
+Un dipendente durante la sua carriera può acquisire \textbf{contratti} e \textbf{attestati}, i quali verranno registrati con le proprie date
+di acquisizione ed eventualmente di fine validità.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=6cm]{img/dipendenteContrattiPreReif.png}
+        \caption{Schema E/R rappresentante il sistema di contratti e attestati per i dipendenti}
+\end{figure}
+
+\noindent
+Poiché ogni dipendente può firmare più di un contratto e può acquisire più di un attestato non è sufficiente un'associazione.
+Viene, quindi, eseguita la reificazione delle due associazioni interessate creando due nuove entità, grazie alle quali sarà possibile
+mantenere uno storico degli \textbf{attestati acquisiti} e dei \textbf{contratti stipulati}, potendone registrare più di uno per dipendente.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=8cm]{img/dipendenteContrattiPostReif.png}
+        \caption{Schema E/R rappresentante il sistema di contratti e attestati per i dipendenti e la loro storicizzazione}
+\end{figure}
+
+\noindent
+Ogni paziente possiede una tabella rappresentante i propri turni dal lunedì alla domenica. Ogni turno è identificato dall'unità operativa
+in cui verrà svolto, dal giorno della settimana, l'ora d'inizio e dal dipendente da cui verrà svolto.
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=4cm]{img/dipendenteTurniPreReif.png}
+        \caption{Schema E/R rappresentante il sistema di turni per ogni paziente}
+\end{figure}
+
+\noindent
+Poiché ogni dipendente può svolgere più di un turno è stato necessario operare una reificazione dell'associazione tra dipendente
+e unità operativa. In questo modo si potrà tenere più di un turno per ogni dipendente, a patto che questi non siano in sovrapposizione.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=3.5cm]{img/dipendenteTurniPostReif.png}
+        \caption{Schema E/R rappresentante il sistema di turni per ogni paziente e la tabella dei turni}
+\end{figure}
+
+% Paziente
+\noindent
+Un paziente può essere ospitato in un'\textbf{unità operativa}. Nelle informazioni che vanno registrate al momento dell'inserimento è presente
+la data d'inizio permanenza e opzionalmente la data di fine.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=4cm]{img/pazienteOspitazionePreReif.png}
+        \caption{Schema E/R rappresentante il sistema di ospitazione dei pazienti nelle unità operative}
+\end{figure}
+
+\noindent
+Poiché ogni paziente può essere ospitato in più unità operative in diversi periodi di tempo, è necessario operare la reificazione
+dell'associazione tra paziente e unità operativa. Così facendo sarà possibile mantenere uno storico di tutte le \textbf{ospitazioni},
+potendone inserire più di una per paziente.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=3cm]{img/pazienteOspitazionePostReif.png}
+        \caption{Schema E/R rappresentante il sistema di ospitazione dei pazienti nelle unità operative e la loro storicizzazione}
+\end{figure}
+
+\noindent
+Ogni paziente è identificato da una, ed una soltanto, \textbf{cartella clinica}, per cui è stata sufficiente e necessaria un'associazione
+1-1 tra i due soggetti interessati. In ogni cartella clinica sono presenti informazioni personali per ogni paziente quali l'\textit{anamnesi},
+la \textit{diagnosi} e il proprio \textit{progetto riabilitativo}. 
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=3cm]{img/pazienteCartella.png}
+        \caption{Schema E/R rappresentante la relazione tra paziente e cartella clinica}
+\end{figure}
+
+% Unità Operativa
+\noindent
+Ogni unità operativa possiede diversi \textbf{beni strumentali} i quali possono essere \textbf{attrezzature} oppure \textbf{automezzi}.
+Ogni bene strumentale appartiene ad una, ed una soltanto, unità operativa. Le entità \texttt{attrezzatura} e \texttt{automezzi} sono una generalizzazione
+dell'entità \texttt{beni\_strumentali}. Nel caso di \texttt{attrezzatura} verrà registrato, oltre alle informazioni del supertipo, il nome dell'attrezzo.
+Nel caso di \texttt{automezzi} verrà registrata, invece, la targa, la tipologia di veicolo e la scadenza della sua assicurazione.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=10cm]{img/unitàOperativaBeni.png}
+        \caption{Schema E/R rappresentante la relazione tra unità operativa e beni strumentali}
+\end{figure}
 
 \section{Schema finale}
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/ERFinaleSX.png}
+\end{figure}
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/ERFinaleDX.png}
+\end{figure}
 
 \chapter{Progettazione Logica}
 
 \section{Stima del volume dei dati}
 
+\section{Descrizione delle operazioni principali e stima della loro frequenza}
+
+\section{Schemi di navigazione e tabelle degli accessi}
+
+\section{Raffinamento dello schema}
+
+\section{Analisi delle ridondanze}
+
+\section{Traduzione di entità e associazioni in relazioni}
+
+\section{Schema relazionale finale}
+
+\section{Traduzione delle operazioni in query SQL}
+
+\chapter{Progettazione dell’applicazione}
+
+\section{Descrizione dell’architettura dell’applicazione realizzata}
 
 \end{document}
