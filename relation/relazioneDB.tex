@@ -7,6 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{hyperref}
+\usepackage{multicol}
 \usepackage{xurl}
 \usepackage{lipsum}
 \usepackage[htt]{hyphenat}
@@ -299,6 +300,50 @@ Nel caso di \texttt{automezzi} verrà registrata, invece, la targa, la tipologia
 \chapter{Progettazione Logica}
 
 \section{Stima del volume dei dati}
+\begin{changemargin}{-1cm}{-1cm}
+        \begin{multicols}{2}
+                \begin{tabularx}{8.5cm}{lXc}
+                        \rowcolor{seaGreen}
+                        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\
+                        Dipendente & E & 500 \\
+                        \hline
+                        Turno & E & 10000 \\
+                        \hline
+                        Assegnare & R & 10000 \\
+                        \hline
+                        \vspace{\baselineskip} \\
+                        \hline
+                        Tipologia Attestato & E & 50 \\
+                        \hline
+                        Acquisizione & R & 2500 \\
+                        \hline
+                        Attestato Acquisito & E & 2500 \\
+                        \hline
+                        Conseguire & R & 2500 \\
+                        \hline
+                        \vspace{\baselineskip} \\
+                        \hline
+                        Tipologia Contratto & E & 20 \\
+                        \hline
+                        Stipulare & R & 1000 \\
+                        \hline
+                        Contratto Stipulato & E & 1000 \\
+                        \hline
+                        Firmare & R & 1000 \\
+                \end{tabularx}
+
+                \begin{tabularx}{8.5cm}{lXc}
+                        \rowcolor{seaGreen}
+                        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\
+                        Dipendente & E & 500 \\
+                        \hline
+                        Turno & E & 10000 \\
+                        \hline
+                        Assegnare & R & 10000 \\
+                        \hline
+                \end{tabularx}
+        \end{multicols}
+\end{changemargin}
 
 \section{Descrizione delle operazioni principali e stima della loro frequenza}
 
