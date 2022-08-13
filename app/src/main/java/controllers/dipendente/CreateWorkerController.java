@@ -69,7 +69,7 @@ public class CreateWorkerController implements Initializable {
         return lengthChecker(nameField, 2, 15) &
                 lengthChecker(surnameField, 2, 15) &
                 birthAndCheck(birthPicker, List.of(suitabilityCheck)) &
-                lengthChecker(residenceField, 10, 50) &
+                lengthChecker(residenceField, 2, 100) &
                 intCheck(workerIdField, 1, 10) &
                 lengthChecker(edField, 10, 50) &
                 intCheck(ecmField, 0, 5);
