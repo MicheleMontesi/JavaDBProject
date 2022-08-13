@@ -53,10 +53,10 @@ public class CreateCapitalGoodController implements Initializable {
             check() &&
             intCheck(goodField, 1, 5) &&
             alreadyExists(Integer.parseInt(goodField.getText())) &&
-            choiceBoxChecker(unitBox)
+            choiceBoxChecker(unitBox) &&
+            vehicleOrToolCheck()
         ) {
             this.init();
-            this.vehicleOrToolCheck();
             unitId = unitBox.getValue();
             goodId = Integer.parseInt(goodField.getText());
             capitalGoodsTables.save(new CapitalGood(unitId, goodId, purchaseDate, maintenanceDate, vehicle,
@@ -84,13 +84,9 @@ public class CreateCapitalGoodController implements Initializable {
         purchaseDate = Date.from(Instant.from(purchasePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         maintenanceDate = Date.from(Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         vehicle = vehicleCheck.isSelected();
-        plate = Optional.empty();
-        type = Optional.empty();
-        expirationDate = Optional.empty();
-        toolName = Optional.empty();
     }
 
-    private void vehicleOrToolCheck() {
+    private boolean vehicleOrToolCheck() {
         if (vehicleCheck.isSelected()) {
             if (
                 lengthChecker(plateField, 4, 10) &&
@@ -102,12 +98,19 @@ public class CreateCapitalGoodController implements Initializable {
                 type = Optional.of(typeChoice.getValue());
                 expirationDate = Optional.of(Date.from(
                         Instant.from(maintenancePicker.getValue().atStartOfDay(ZoneId.systemDefault()))));
+                toolName = Optional.empty();
+                return true;
             }
         } else {
             if (lengthChecker(toolField, 2, 20)) {
                 toolName = Optional.of(toUpperNormalizer(toolField));
+                plate = Optional.empty();
+                type = Optional.empty();
+                expirationDate = Optional.empty();
+                return true;
             }
         }
+        return false;
     }
 
     private boolean dateCheck() {
