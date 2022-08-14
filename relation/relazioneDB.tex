@@ -300,16 +300,22 @@ Nel caso di \texttt{automezzi} verrà registrata, invece, la targa, la tipologia
 \chapter{Progettazione Logica}
 
 \section{Stima del volume dei dati}
+
 \begin{changemargin}{-1cm}{-1cm}
         \begin{multicols}{2}
+                \renewcommand{\arraystretch}{1.2}
                 \begin{tabularx}{8.5cm}{lXc}
                         \rowcolor{seaGreen}
                         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\
                         Dipendente & E & 500 \\
                         \hline
+                        Assegnare & R & 10000 \\
+                        \hline
                         Turno & E & 10000 \\
                         \hline
-                        Assegnare & R & 10000 \\
+                        Svolgere & R & 10000 \\
+                        \hline
+                        Unità Operativa & E & 50 \\
                         \hline
                         \vspace{\baselineskip} \\
                         \hline
@@ -330,22 +336,89 @@ Nel caso di \texttt{automezzi} verrà registrata, invece, la targa, la tipologia
                         Contratto Stipulato & E & 1000 \\
                         \hline
                         Firmare & R & 1000 \\
+                        \hline
+                        \vspace{\baselineskip} \\
+                        \hline
+                        Paziente & E & 2000 \\
+                        \hline
+                        Identificare & R & 2000 \\
+                        \hline
+                        Cartella Clinica & E & 2000 \\
+                        \hline
+                        \vspace{\baselineskip} \\
+                        \hline
+                        Terapia & E & 1500 \\
+                        \hline
+                        Assumere Terapia & R & 2000 \\
+                        \hline
+                        Definire & R & 1000 \\
+                        \hline
+                        Farmaco Terapia & E & 10000 \\
+                        \hline
+                        Somministrare & R & 10000 \\
+                        \hline
+                        Consumare & R & 10000 \\
+                        \hline
+                        Farmaco & E & 1000 \\
+                        \hline
                 \end{tabularx}
 
                 \begin{tabularx}{8.5cm}{lXc}
                         \rowcolor{seaGreen}
                         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Volume} \\
-                        Dipendente & E & 500 \\
+                        Ospitare & R & 8000 \\
                         \hline
-                        Turno & E & 10000 \\
+                        Ospitazione & E & 8000 \\
                         \hline
-                        Assegnare & R & 10000 \\
+                        Fornire & R & 8000 \\
+                        \hline
+                        Possedere & R & 5000 \\
+                        \hline
+                        Beni Strumentali & E & 5000 \\
                         \hline
                 \end{tabularx}
         \end{multicols}
 \end{changemargin}
 
 \section{Descrizione delle operazioni principali e stima della loro frequenza}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{cXl}
+        \rowcolor{seaGreen}
+        \textbf{Codice} & \textbf{Operazione} & \textbf{Frequenza} \\
+        1 & Registrare un nuovo dipendente & 10 all'anno \\
+        \hline
+        2 & Registrare un nuovo paziente & 5 al mese \\
+        \hline
+        3 & Registrare la somministrazione di un farmaco & 2000 al giorno \\
+        \hline
+        4 & Compilare una nuova cartella clinica & 5 al mese \\
+        \hline
+        5 & Creare una terapia & 1 al mese \\
+        \hline
+        6 & Assegnare una terapia già esistente ad un paziente & 5 al mese \\
+        \hline
+        7 & Aggiornare la terapia di un paziente & 20 all'anno \\
+        \hline
+        8 & Visualizzare tutti i pazienti con inizio ospitazione in un dato anno & 20 al mese \\
+        \hline
+        9 & Registrare l'acquisto di beni strumentali & 10 al mese \\
+        \hline
+        10 & Registrare l'acquisto di farmaci & 15 al mese \\
+        \hline
+        11 & Visualizzare tutti i pazienti con una data terapia & 10 al giorno \\
+        \hline
+        12 & Registrare la stipulazione di un contratto già esistente & 10 all'anno \\
+        \hline
+        13 & Visualizzare tutti i dipendenti con un contratto specifico & 10 al mese\\
+        \hline
+        14 & Visualizzare tutti i dipendenti di turno in un giorno della settimana & 1 ogni 2 anni \\
+        \hline
+        15 & Registrare un nuovo turno & 1 al mese \\
+        \hline
+        16 & Aggiornare un turno già esistente & 10 al mese \\
+        \hline
+\end{tabularx}
 
 \section{Schemi di navigazione e tabelle degli accessi}
 
