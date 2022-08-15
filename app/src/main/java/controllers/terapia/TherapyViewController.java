@@ -23,6 +23,8 @@ public class TherapyViewController implements Initializable {
     private TableColumn<Therapy, Date> dateColumn;
     @FXML
     private TableColumn<Therapy, Integer> therapyColumn;
+    @FXML
+    private TableColumn<Therapy, String> descriptionColumn;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
@@ -31,6 +33,6 @@ public class TherapyViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CreateTherapyView.create(table, therapyColumn, dateColumn, list);
+        CreateTherapyView.create(table, therapyColumn, dateColumn, descriptionColumn, list);
     }
 }

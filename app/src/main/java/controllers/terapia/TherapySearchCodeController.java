@@ -27,6 +27,8 @@ public class TherapySearchCodeController implements Initializable {
     private TableColumn<Therapy, Integer> therapyColumn;
     @FXML
     private TableColumn<Therapy, Date> dateColumn;
+    @FXML
+    private TableColumn<Therapy, String> descriptionColumn;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final TherapiesTable therapiesTable = new TherapiesTable(connectionProvider.getMySQLConnection());
@@ -36,7 +38,7 @@ public class TherapySearchCodeController implements Initializable {
             var therapy = therapiesTable.findByCode(idBox.getValue());
             if (therapy.isPresent()) {
                 final ObservableList<Therapy> list = FXCollections.observableArrayList(therapy.get());
-                CreateTherapyView.create(table, therapyColumn, dateColumn, list);
+                CreateTherapyView.create(table, therapyColumn, dateColumn, descriptionColumn, list);
             } else {
                 final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                 errorAlert.setHeaderText("Input not valid");

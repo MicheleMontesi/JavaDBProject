@@ -41,6 +41,7 @@
           <columns>
               <TableColumn fx:id="therapyColumn" editable="false" prefWidth="150.0" text="Codice Terapia" />
               <TableColumn fx:id="dateColumn" editable="false" prefWidth="150.0" text="Data Inizio" />
+              <TableColumn fx:id="descriptionColumn" editable="false" prefWidth="150.0" text="Descrizione" />
           </columns>
       </TableView>
 </HBox>

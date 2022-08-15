@@ -31,6 +31,7 @@ public class TherapiesTable implements Table<Therapy, String> {
                     "CREATE TABLE terapia (" +
                             "  CodiceTerapia int NOT NULL," +
                             "  DataInizio date NOT NULL," +
+                            "  Descrizione char(255) NOT NULL," +
                             "  PRIMARY KEY (CodiceTerapia)," +
                             "  UNIQUE KEY ID_TERAPIA_IND (CodiceTerapia)" +
                             ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci"
@@ -76,11 +77,12 @@ public class TherapiesTable implements Table<Therapy, String> {
 
     @Override
     public void save(Therapy therapy) {
-        final String query = "INSERT INTO " + TERAPIA + "(codiceterapia, DataInizio) " +
-                "VALUES (?,?)";
+        final String query = "INSERT INTO " + TERAPIA + "(codiceterapia, DataInizio, Descrizione) " +
+                "VALUES (?,?,?)";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setInt(1, therapy.therapyId());
             statement.setDate(2, DateConverter.dateToSqlDate(therapy.creationDate()));
+            statement.setString(3, therapy.description());
             statement.executeUpdate();
         }catch (final SQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
@@ -92,11 +94,13 @@ public class TherapiesTable implements Table<Therapy, String> {
     @Override
     public boolean update(Therapy therapy) {
         final String query = "UPDATE " + TERAPIA + " SET " +
-                "DataInizio = ? " +
+                "DataInizio = ?, " +
+                "Descrizione = ? " +
                 "WHERE CodiceTerapia = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setDate(1, DateConverter.dateToSqlDate(therapy.creationDate()));
-            statement.setInt(2, therapy.therapyId());
+            statement.setString(2, therapy.description());
+            statement.setInt(3, therapy.therapyId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new IllegalStateException(e);
@@ -122,8 +126,9 @@ public class TherapiesTable implements Table<Therapy, String> {
             while (resultSet.next()) {
                 final int therapyId = resultSet.getInt("CodiceTerapia");
                 final Date beginDate = resultSet.getDate("DataInizio");
+                final String description = resultSet.getString("Descrizione");
 
-                final Therapy therapy = new Therapy(therapyId, beginDate);
+                final Therapy therapy = new Therapy(therapyId, beginDate, description);
                 list.add(therapy);
             }
         } catch (SQLException e) {

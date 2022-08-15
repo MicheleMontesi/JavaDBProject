@@ -1,5 +1,6 @@
 package controllers.terapia;
 
+import javafx.scene.control.TextArea;
 import utilities.ConnectionProvider;
 import db.tables.TherapiesTable;
 import javafx.fxml.FXML;
@@ -20,12 +21,15 @@ import static utilities.checkers.CommonCheckers.dateCheck;
 import static utilities.checkers.PersonCheckers.intCheck;
 import static utilities.FillUtils.getList;
 import static utilities.DateConverter.dateToLocalDate;
+import static utilities.checkers.PersonCheckers.lengthChecker;
 
 public class CreateTherapyController implements Initializable {
     @FXML
-    public TextField therapyField;
+    private TextField therapyField;
     @FXML
-    public DatePicker datePicker;
+    private DatePicker datePicker;
+    @FXML
+    private TextArea descriptionArea;
     @FXML
     private ChoiceBox<String> idBox;
 
@@ -34,27 +38,38 @@ public class CreateTherapyController implements Initializable {
 
     private int therapyId;
     private Date date;
+    private String description;
 
     public void create() {
         if (
-                intCheck(therapyField, 1, 10) &
-                dateCheck(datePicker)
+                intCheck(therapyField, 1, 10) &&
+                check()
         ) {
             therapyId = Integer.parseInt(therapyField.getText());
-            date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            therapiesTable.save(new Therapy(therapyId, date));
+            this.init();
+            therapiesTable.save(new Therapy(therapyId, date, description));
         }
     }
 
     public void update() {
         if (
-                choiceBoxChecker(idBox) &
-                dateCheck(datePicker)
+                choiceBoxChecker(idBox) &&
+                check()
         ) {
             therapyId = Integer.parseInt(idBox.getValue());
-            date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
-            therapiesTable.update(new Therapy(therapyId, date));
+            this.init();
+            therapiesTable.update(new Therapy(therapyId, date, description));
         }
+    }
+
+    private boolean check() {
+        return dateCheck(datePicker) &&
+                lengthChecker(descriptionArea, 2, 255);
+    }
+
+    private void init() {
+        date = Date.from(Instant.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault())));
+        description = descriptionArea.getText();
     }
 
     public void fillFields() {
@@ -66,6 +81,7 @@ public class CreateTherapyController implements Initializable {
                         therapyList.get().stream().findFirst().get() : null;
                 if (therapy != null) {
                     datePicker.setValue(dateToLocalDate(therapy.creationDate().toString()));
+                    descriptionArea.setText(therapy.description());
                 }
             }
         }
