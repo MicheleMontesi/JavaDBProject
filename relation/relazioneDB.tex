@@ -394,29 +394,25 @@ Nel caso di \texttt{automezzi} verrà registrata, invece, la targa, la tipologia
         \hline
         4 & Compilare una nuova cartella clinica & 5 al mese \\
         \hline
-        5 & Creare una terapia & 1 al mese \\
+        5 & Assegnare una terapia già esistente ad un paziente & 5 al mese \\
         \hline
-        6 & Assegnare una terapia già esistente ad un paziente & 5 al mese \\
+        6 & Visualizzare tutti i pazienti con inizio ospitazione in un dato anno & 20 al mese \\
         \hline
-        7 & Aggiornare la terapia di un paziente & 20 all'anno \\
+        7 & Registrare l'acquisto di beni strumentali & 10 al mese \\
         \hline
-        8 & Visualizzare tutti i pazienti con inizio ospitazione in un dato anno & 20 al mese \\
+        8 & Registrare l'acquisto di farmaci & 15 al mese \\
         \hline
-        9 & Registrare l'acquisto di beni strumentali & 10 al mese \\
+        9 & Visualizzare tutti i pazienti con una data terapia & 10 al giorno \\
         \hline
-        10 & Registrare l'acquisto di farmaci & 15 al mese \\
+        10 & Registrare la stipulazione di un contratto già esistente & 10 all'anno \\
         \hline
-        11 & Visualizzare tutti i pazienti con una data terapia & 10 al giorno \\
+        11 & Visualizzare tutti i dipendenti con un contratto specifico & 10 al mese\\
         \hline
-        12 & Registrare la stipulazione di un contratto già esistente & 10 all'anno \\
+        12 & Visualizzare tutti i dipendenti di turno in un giorno della settimana & 1 al giorno \\
         \hline
-        13 & Visualizzare tutti i dipendenti con un contratto specifico & 10 al mese\\
+        13 & Registrare un nuovo turno & 1 al mese \\
         \hline
-        14 & Visualizzare tutti i dipendenti di turno in un giorno della settimana & 1 al giorno \\
-        \hline
-        15 & Registrare un nuovo turno & 1 al mese \\
-        \hline
-        16 & Aggiornare un turno già esistente & 10 al mese \\
+        14 & Aggiornare un turno già esistente & 10 al mese \\
         \hline
 \end{tabularx}
 
@@ -474,6 +470,40 @@ Questo comporterà di dover leggere la lista dei pazienti. \par
         Cartella Clinica & E & 1 & S \\
         \rowcolor{seaGreen}
          &  & \textbf{Totale}: 2S + 1L $\rightarrow$ 5 al mese & \\
+\end{tabularx}
+
+\subsubsection*{OP 5 - Assegnare una terapia già esistente ad un paziente}
+Prima di permettere l'assegnamento della terapia ad un paziente, bisogna controllare che questi due esistano.
+Sarà quindi necessario andare a leggere sia il paziente che la terapia. \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Paziente & E & 1 & L \\
+        \hline
+        Terapia & E & 1 & L \\
+        \hline
+        Assumere Terapia & R & 1 & S \\
+        \hline
+        Paziente & E & 1 & S \\
+        \hline
+        Terapia & E & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 3S + 2L $\rightarrow$ 5 al mese & \\
+\end{tabularx}
+
+\subsubsection*{OP 6 - Registrare l'acquisto di beni strumentali}
+Prima di permettere l'inserimento di un nuovo bene strumentale, bisogna controllare che l'unità operativa a
+cui lo si assegna esista. Sarà quindi necessario leggere l'unità operativa. \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Unità Operativa & E & 1 & L \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 3S + 2L $\rightarrow$ 5 al mese & \\
 \end{tabularx}
 
 \section{Raffinamento dello schema}
