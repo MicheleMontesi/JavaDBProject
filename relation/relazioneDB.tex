@@ -24,7 +24,7 @@
 \usepackage[toc,page]{appendix}
 
 % Definition of environments and colors
-\definecolor{seaGreen}{cmyk}{0.19, 0, 0.25, 0.09}
+\definecolor{seaGreen}{cmyk}{0.19, 0, 0.25, 0.00}
 
 \newenvironment{sloppypar*}{\sloppy\ignorespaces}{\par}
 
@@ -118,12 +118,12 @@ Un primo testo ottenuto dall'intervista è il seguente:
         Unità operativa & Residenza o appartamento i cui i pazienti risiedono e ricevono le cure da parte del personale.\ & Residenza, Unità \\
         \hline
         Bene strumentale & Strumento o veicolo aziendale necessario o utile a semplificare il lavoro o la permanenza nell'unità operativa.\ & Strumentazione, Veicolo
-\end{tabularx}
-\\\\\\
+\end{tabularx} \par
+\bigskip \noindent
 A seguito della lettura e comprensione dei requisiti, si procede redigendo un testo che ne 
 riassuma tutti i concetti e in particolare ne estragga quelli principali eliminando le ambiguità 
-sopra rilevate:
-
+sopra rilevate: \par
+\smallskip
 \begin{changemargin}{0.5cm}{0.5cm}
         \noindent
         Per ogni \textbf{dipendente} vengono memorizzati Codice Fiscale, Nome, Cognome, Compleanno, Residenza, Sesso, Titolo di Studio,
@@ -421,6 +421,60 @@ Nel caso di \texttt{automezzi} verrà registrata, invece, la targa, la tipologia
 \end{tabularx}
 
 \section{Schemi di navigazione e tabelle degli accessi}
+Sono riportate in seguito le tabelle degli accessi delle operazioni sopra riportate; inoltre, ove
+non risulti banale, sono stati inseriti i relativi schemi di navigazione. Al fine del calcolo dei
+costi, si considerano di peso doppio gli accessi in scrittura rispetto a quelli in lettura.
+
+\subsubsection*{OP 1 - Registrare un nuovo dipendente}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Dipendente & E & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 1S $\rightarrow$ 10 all'anno & \\
+\end{tabularx}
+
+\subsubsection*{OP 2 - Registrare un nuovo paziente}
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Paziente & E & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 1S $\rightarrow$ 5 al mese & \\
+\end{tabularx}
+
+\subsubsection*{OP 3 - Registrare la somministrazione di un farmaco}
+Prima di permettere la somministrazione di un farmaco, questo deve esserci in quantità sufficiente.
+Questo comporterà di dover leggere la quantità del farmaco in questione. \\
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Farmaco & E & 1 & L \\
+        \hline
+        Consumare & R & 1 & L \\
+        \hline
+        Farmaco Terapia & E & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 1S + 2L $\rightarrow$ 2000 al giorno & \\
+\end{tabularx}
+
+\subsubsection*{OP 4 - Compilare una nuova cartella clinica}
+Prima di permettere la creazione di una cartella clinica, bisogna controllare che il paziente esista.
+Questo comporterà di dover leggere la lista dei pazienti. \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Paziente & E & 1 & L \\
+        \hline
+        Identificare & R & 1 & S \\
+        \hline
+        Cartella Clinica & E & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 2S + 1L $\rightarrow$ 5 al mese & \\
+\end{tabularx}
 
 \section{Raffinamento dello schema}
 

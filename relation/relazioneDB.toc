@@ -10,10 +10,10 @@
 \contentsline {section}{\numberline {3.1}Stima del volume dei dati}{11}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Descrizione delle operazioni principali e stima della loro frequenza}{12}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Schemi di navigazione e tabelle degli accessi}{12}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Raffinamento dello schema}{12}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Analisi delle ridondanze}{12}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Traduzione di entità e associazioni in relazioni}{12}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Schema relazionale finale}{12}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Traduzione delle operazioni in query SQL}{12}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Progettazione dell’applicazione}{13}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descrizione dell’architettura dell’applicazione realizzata}{13}{section.4.1}%
+\contentsline {section}{\numberline {3.4}Raffinamento dello schema}{13}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Analisi delle ridondanze}{13}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Traduzione di entità e associazioni in relazioni}{13}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Schema relazionale finale}{13}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Traduzione delle operazioni in query SQL}{13}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Progettazione dell’applicazione}{14}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descrizione dell’architettura dell’applicazione realizzata}{14}{section.4.1}%
