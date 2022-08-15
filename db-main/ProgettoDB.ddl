@@ -3,8 +3,8 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Tue Aug  9 15:55:23 2022 
--- * LUN file: \\192.168.1.142\NetBackup\BasiDiDati\Progetto\ProgettoDB.lun 
+-- * Generation date: Mon Aug 15 12:54:07 2022 
+-- * LUN file: C:\Users\miche\Desktop\Progetti\JavaDBProject\db-main\ProgettoDB.lun 
 -- * Schema: CooperativaSanitaria/L2 
 -- ********************************************* 
 
@@ -115,6 +115,7 @@ create table PAZIENTE (
 create table TERAPIA (
      CodiceTerapia int not null,
      DataInizio date not null,
+     Descrizione char(1) not null,
      constraint ID_TERAPIA_ID primary key (CodiceTerapia));
 
 create table TIPOLOGIA_ATTESTATO (
