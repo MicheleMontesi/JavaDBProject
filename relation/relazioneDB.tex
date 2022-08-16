@@ -531,7 +531,15 @@ cui lo si assegna esista. Sarà quindi necessario leggere l'unità operativa. \p
 \end{tabularx}
 
 \subsubsection*{OP 9 - Registrare la stipulazione di un contratto già esistente}
-Prima di stipulare un contratto, bisogna controllare che questo esista. Si dovrà quindi leggere Tipologia Contratto. \par
+Prima di stipulare un contratto, bisogna controllare che questo ed il dipendente esistano. 
+Si dovrà quindi leggere Tipologia Contratto e Dipendente. \par
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=10cm]{img/OP9SchemaNavigazione.png}
+        \caption{Schema Navigazione rappresentante l'analisi di esistenza del dipendente e del contratto}
+\end{figure}
+
 \bigskip
 \noindent
 \begin{tabularx}{\textwidth}{XlXl}
@@ -548,6 +556,64 @@ Prima di stipulare un contratto, bisogna controllare che questo esista. Si dovr�
         Dipendente & E & 1 & L \\
         \rowcolor{seaGreen}
          &  & \textbf{Totale}: 3S + 2L $\rightarrow$ 10 all'anno & \\
+\end{tabularx}
+
+\subsubsection*{OP 10 - Visualizzare tutti i dipendenti con un contratto specifico}
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Contratto Stipulato & E & 1 & L \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 1L $\rightarrow$ 10 al mese & \\
+\end{tabularx}
+
+\subsubsection*{OP 11 - Visualizzare tutti i dipendenti di turno in un giorno della settimana}
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Turno & E & 1 & L \\
+        \hline
+        Assegnare & R & 1 & L \\
+        \hline
+        Dipendente & E & 1 & L \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 3L $\rightarrow$ 1 al giorno & \\
+\end{tabularx}
+
+\subsubsection*{OP 12 - Registrare un nuovo turno}
+Prima di poter registrare un nuovo turno, bisogna controllare che l'unità operativa in cui si svolgerà
+e il dipendente interessato, esistano. Si leggerà quindi il dipendente e l'unità operativa. \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Unità Operativa & E & 1 & L \\
+        \hline
+        Dipendente & E & 1 & L \\
+        \hline
+        Turno & E & 1 & S \\
+        \hline
+        Assegnare & R & 1 & S \\
+        \hline
+        Svolgere & R & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 3S + 2L $\rightarrow$ 1 al mese & \\
+\end{tabularx}
+
+\subsubsection*{OP 13 - Aggiornare un turno già esistente}
+Prima di poter aggiornare un turno già esistente, bisogna controllare che questo esista. Si andrà quindi a
+leggere il turno e poi a scriverlo. \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Turno & E & 1 & L \\
+        \hline
+        Turno & E & 1 & S \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 3S + 2L $\rightarrow$ 10 al mese & \\
 \end{tabularx}
 
 \section{Raffinamento dello schema}
