@@ -16,6 +16,7 @@
 \usepackage{color}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
+\usepackage{numprint}
 \usepackage[font={small,it}]{caption}
 
 % Language Package
@@ -492,16 +493,20 @@ Sarà quindi necessario andare a leggere sia il paziente che la terapia. \par
 \end{tabularx}
 
 \subsubsection*{OP 6 - Visualizzare tutti i pazienti con inizio ospitazione in un dato anno}
+Per visualizzare questa lista occorre leggere tutte le ospitazioni, e nel caso corrisponda con il criterio di ricerca,
+leggere anche il paziente in questione. \par 
+\bigskip
+\noindent
 \begin{tabularx}{\textwidth}{XlXl}
         \rowcolor{seaGreen}
         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
-        Ospitazione & E & 1 & L \\
+        Ospitazione & E & \numprint{8000} & L \\
         \hline
-        Ospitare & R & 1 & L \\
+        Ospitare & R & \numprint{8000} & L \\
         \hline
-        Paziente & E & 1 & L \\
+        Paziente & E & \numprint{2000} & L \\
         \rowcolor{seaGreen}
-         &  & \textbf{Totale}: 3L $\rightarrow$ 20 al mese & \\
+         &  & \textbf{Totale}: \numprint{18000}L $\rightarrow$ 20 al mese & \\
 \end{tabularx}
 
 \subsubsection*{OP 7 - Registrare l'acquisto di beni strumentali}
@@ -559,25 +564,36 @@ Si dovrà quindi leggere Tipologia Contratto e Dipendente. \par
 \end{tabularx}
 
 \subsubsection*{OP 10 - Visualizzare tutti i dipendenti con un contratto specifico}
+Per visualizzare questa lista occorre leggere tutti i contratti stipulati, e nel caso il contratto corrisponda con il criterio di ricerca,
+leggere anche il dipendente in questione. \par 
+\bigskip
+\noindent
 \begin{tabularx}{\textwidth}{XlXl}
         \rowcolor{seaGreen}
         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
-        Contratto Stipulato & E & 1 & L \\
+        Contratto Stipulato & E & \numprint{1000} & L \\
+        \hline
+        Firmare & R & \numprint{1000} & L \\
+        \hline
+        Dipendente & E & \numprint{500} & L \\
         \rowcolor{seaGreen}
-         &  & \textbf{Totale}: 1L $\rightarrow$ 10 al mese & \\
+         &  & \textbf{Totale}: \numprint{2500}L $\rightarrow$ 10 al mese & \\
 \end{tabularx}
 
 \subsubsection*{OP 11 - Visualizzare tutti i dipendenti di turno in un giorno della settimana}
+Per visualizzare questa lista occorre leggere tutti i dipendenti e tutti i turni legati a questi. \par 
+\bigskip
+\noindent
 \begin{tabularx}{\textwidth}{XlXl}
         \rowcolor{seaGreen}
         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
-        Turno & E & 1 & L \\
+        Dipendente & E & \numprint{500} & L \\
         \hline
-        Assegnare & R & 1 & L \\
+        Assegnare & R & \numprint{10000} & L \\
         \hline
-        Dipendente & E & 1 & L \\
+        Turno & E & \numprint{10000} & L \\
         \rowcolor{seaGreen}
-         &  & \textbf{Totale}: 3L $\rightarrow$ 1 al giorno & \\
+         &  & \textbf{Totale}: \numprint{20500}L $\rightarrow$ 1 al giorno & \\
 \end{tabularx}
 
 \subsubsection*{OP 12 - Registrare un nuovo turno}
