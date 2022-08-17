@@ -13,7 +13,7 @@
 \contentsline {section}{\numberline {3.4}Raffinamento dello schema}{16}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Analisi delle ridondanze}{16}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Traduzione di entità e associazioni in relazioni}{16}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Schema relazionale finale}{16}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Traduzione delle operazioni in query SQL}{16}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Progettazione dell’applicazione}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Descrizione dell’architettura dell’applicazione realizzata}{17}{section.4.1}%
+\contentsline {section}{\numberline {3.7}Schema relazionale finale}{17}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Traduzione delle operazioni in query SQL}{19}{section.3.8}%
+\contentsline {chapter}{\numberline {4}Progettazione dell’applicazione}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Descrizione dell’architettura dell’applicazione realizzata}{20}{section.4.1}%

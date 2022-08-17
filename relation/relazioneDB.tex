@@ -47,6 +47,13 @@
         \setlength{\parsep}{0pt}
 }{\end{enumerate}}
 
+\newenvironment{packed_itemize}{
+\begin{itemize}
+        \setlength{\itemsep}{1pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
 % Initialization
 \title{Relazione Progetto Basi di Dati 2022}
 \author{Michele Montesi \\
@@ -634,12 +641,57 @@ leggere il turno e poi a scriverlo. \par
 
 \newpage
 \section{Raffinamento dello schema}
+\subsubsection*{Eliminazione delle gerarchie}
+Per l'eliminazione della gerarchia \texttt{Persona} si è scelto di adottare l'approccio del collasso verso il basso,
+replicando così gli attributi in \texttt{Dipendente} e \texttt{Paziente}. Si è adottata questa soluzione in quanto si deve interagire
+con i pazienti e con i dipendenti molto spesso e non si ha la necessità che l'identificatore per tali entità sia globalmente
+univoco. \par
+\noindent
+Per l'eliminazione della gerarchia \texttt{Beni Strumentali} si è scelto, invece, di adottare l'approccio del collasso verso l'alto,
+collassando, così, gli attributi di \texttt{Attrezzatura} e di \texttt{Automezzi} in Beni Strumentali. Si è adottata questa soluzione
+in quanto si deve interagire con attrezzatura e automezzi poco spesso, per cui è comodo che l'identificatore sia univoco. 
+
+\subsubsection*{Scelta delle chiavi primarie}
+Nello schema sono già evidenziate senza ambiguità tutte le chiavi primarie per la maggior parte delle entità. Per quanto riguarda
+Dipendente e Paziente verrà usato il codice fiscale.
+
+\subsubsection*{Eliminazione degli identificatori esterni}
+Nello schema E/R sono eliminate le seguenti relazioni:
+\begin{packed_itemize}
+        \item \texttt{Acquisizione}, importando Nome in Attestato\_Acquisito
+        \item \texttt{Conseguire}, importando CodiceFiscale (del dipendente) in Attestato\_Acquisito
+        \item \texttt{Stipulare}, importando Nome in Contratto\_Stipulato
+        \item \texttt{Firmare}, importando CodiceFiscale (del dipendente) in Contratto\_Stipulato
+        \item \texttt{Assegnare}, importando CodiceFiscale (del dipendente) in Turno
+        \item \texttt{Svolgere}, importando CodiceUnità in Turno
+        \item \texttt{Possedere}, importando CodiceUnità in Beni\_Strumentali
+        \item \texttt{Fornire}, importando CodiceUnità in Ospitazione
+        \item \texttt{Ospitare}, importando CodiceFiscale (del paziente) in Ospitazione
+        \item \texttt{Identificare}, importando CodiceFiscale (del paziente) in Cartella\_Clinica
+        \item \texttt{Assumere\_Terapia}, reificata importando CodiceFiscale da Paziente e CodiceTerapia da Terapia
+        \item \texttt{Definire}, importando CodiceTerapia in Farmaco\_Terapia
+        \item \texttt{Somministrare}, importando CodiceFiscale (del dipendente) in Farmaco\_Terapia
+        \item \texttt{Consumare}, importando CodFarmaco in Farmaco\_Terapia
+\end{packed_itemize}
 
 \section{Analisi delle ridondanze}
 
 \section{Traduzione di entità e associazioni in relazioni}
+\begin{packed_itemize}
+        \item assumere\_terapia(\underline{CodiceFiscale}, \underline{\smash{CodiceTerapia}})
+\end{packed_itemize}
 
 \section{Schema relazionale finale}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/schemaRelazionaleSX.png}
+\end{figure}
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\textwidth]{img/schemaRelazionaleDX.png}
+\end{figure}
+\newpage
 
 \section{Traduzione delle operazioni in query SQL}
 
