@@ -70,6 +70,18 @@ public class OperatingUnitTables implements Table<OperatingUnit, String> {
         }
     }
 
+    public List<OperatingUnit> findFull() {
+        final String query = "SELECT * " +
+                "FROM " + UNITA_OPERATIVA +
+                " WHERE PostiLetto = NumeroPazienti";
+        try (final Statement statement = this.connection.createStatement()) {
+            final ResultSet resultSet = statement.executeQuery(query);
+            return readFromResultSet(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public List<OperatingUnit> findAll() {
         try (final Statement statement = this.connection.createStatement()) {

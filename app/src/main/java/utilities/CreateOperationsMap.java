@@ -51,6 +51,7 @@ public class CreateOperationsMap {
         permittedOp.get("Assumere Terapia").remove("Aggiorna");
         permittedOp.get("Attestato Acquisito").remove("Aggiorna");
         permittedOp.get("Ospitazione").add("Ricerca Per Anno");
+        permittedOp.get("Unita' Operativa").add("Ricerca Strutture Piene");
 
         return permittedOp;
     }
