@@ -17,6 +17,8 @@
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
 \usepackage{numprint}
+\usepackage{listings, lstautogobble}
+\usepackage{textcomp}
 \usepackage[font={small,it}]{caption}
 \usepackage[normalem]{ulem}
 
@@ -31,6 +33,55 @@
 \definecolor{yellowCanary}{cmyk}{0, 0.13, 0.45, 0}
 
 \newenvironment{sloppypar*}{\sloppy\ignorespaces}{\par}
+
+% START MYSQL CODE FORMATTING
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{HTML}{C42043}
+\definecolor{backcolour}{HTML}{F2F2F2}
+\definecolor{bookColor}{cmyk}{0,0,0,0.90}  
+\color{bookColor}
+
+\lstset{
+        language=SQL,
+        deletekeywords={IDENTITY},
+        deletekeywords={[2]INT},
+        morekeywords={clustered},
+        framesep=8pt,
+        xleftmargin=40pt,
+        framexleftmargin=40pt,
+        frame=tb,
+        framerule=0pt
+}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codepurple},
+    numberstyle=\numberstyle,
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=10pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+}
+\lstset{style=mystyle}
+
+\newcommand\numberstyle[1]{%
+    \footnotesize
+    \color{codegray}%
+    \ttfamily
+    \ifnum#1<10 0\fi#1 |%
+}
+
+% END MYSQL CODE FORMATTING
 
 \newenvironment{changemargin}[2]{%
   \begin{list}{}{%
@@ -750,6 +801,89 @@ temporaneo ad ogni occorrenza e poi verificare se si è raggiunto il numero mass
 \newpage
 
 \section{Traduzione delle operazioni in query SQL}
+
+\subsubsection*{OP 1 - Registrare un nuovo dipendente}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO dipendente (CodiceFiscale, Nome, Cognome, Compleanno, Residenza, Sesso, CodiceDipendente, TitoloDiStudio, IdoneitaAllaMansione, Socio, CreditiECM)
+VALUES (?,?,?,?,?,?,?,?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 2 - Registrare un nuovo paziente}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO paziente (CodiceFiscale, Nome, Cognome, Compleanno, Residenza, Sesso, CodicePaziente, DocumentazionePrivacy, ConsensoInformatoAlTrattamento, AccettazioneRegolamento)
+VALUES (?,?,?,?,?,?,?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 3 - Registrare la somministrazione di un farmaco}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO farmacco_terapia (CodiceTerapia, CodiceConsumazione, DataAssunzione, Quantita, CodiceFiscale, CodFarmaco)
+VALUES (?,?,?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 4 - Compilare una nuova cartella clinica}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO cartella_clinica (CodCartellaClinica, CodiceFiscale, Anamnesi, Diagnosi, ProgettoRiabilitativo) 
+VALUES (?,?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 5 - Assegnare una terapia già esistente ad un paziente}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO assumere_terapia (CodiceFiscale, CodiceTerapia)
+VALUES (?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 6 - Visualizzare tutti i pazienti con inizio ospitazione in un dato anno}
+\begin{lstlisting}[breaklines=true]
+SELECT *
+FROM paziente p LEFT JOIN ospitazione o ON p.CodiceFiscale = o.CodiceFiscale
+WHERE YEAR(o.DataInizio) = ?;
+\end{lstlisting}
+
+\subsubsection*{OP 7 - Registrare l'acquisto di beni strumentali}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO beni_sturmentali (CodiceUnita, CodBene, DataAcquisto, ProssimaManutenzione, Automezzo, NomeAttrezzo, Targa, Tipologia, ScadenzaAssicurazione)
+VALUES (?,?,?,?,?,?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 8 - Visualizzare tutte le unità operativa con tutti i posti letto occupati}
+\begin{lstlisting}[breaklines=true]
+SELECT *
+FROM unità_operativa
+WHERE PostiLetto = NumeroPazienti;
+\end{lstlisting}
+
+\subsubsection*{OP 9 - Registrare la stipulazione di un contratto già esistente}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO contratto_stipulato (CodiceFiscale, DataStipulazione, DataFine, Nome)
+VALUES (?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 10 - Visualizzare tutti i dipendenti con un contratto specifico}
+\begin{lstlisting}[breaklines=true]
+SELECT *
+FROM dipendente d LEFT JOIN contratto_stipulato cs ON d.CodiceFiscale = cs.CodiceFiscale
+WHERE cs.Nome = ?;
+\end{lstlisting}
+
+\subsubsection*{OP 11 - Visualizzare tutti i dipendenti di turno in un giorno della settimana}
+\begin{lstlisting}[breaklines=true]
+SELECT *
+FROM dipendente d LEFT JOIN turno t ON d.CodiceFiscale = t.CodiceFiscale
+WHERE t.GiornoSettimana = ?;
+\end{lstlisting}
+
+\subsubsection*{OP 12 - Registrare un nuovo turno}
+\begin{lstlisting}[breaklines=true]
+INSERT INTO turno (CodiceFiscale, GiornoSettimana, OraInizio, OraFine, CodiceUnita) 
+VALUES (?,?,?,?,?);
+\end{lstlisting}
+
+\subsubsection*{OP 13 - Aggiornare un turno già esistente}
+\begin{lstlisting}[breaklines=true]
+UPDATE turno 
+SET OraFine = ? 
+WHERE CodiceFiscale = ? AND OraInizio = ? AND CodiceUnita = ? AND GiornoSettimana = ?;
+\end{lstlisting}
 
 \chapter{Progettazione dell’applicazione}
 
