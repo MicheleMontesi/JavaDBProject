@@ -1,7 +1,6 @@
 package db.tables;
 
 import db.Table;
-import model.Entity;
 import model.Hosting;
 import utilities.DateConverter;
 
