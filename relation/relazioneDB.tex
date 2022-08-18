@@ -18,6 +18,7 @@
 \usepackage[table]{xcolor}
 \usepackage{numprint}
 \usepackage[font={small,it}]{caption}
+\usepackage[normalem]{ulem}
 
 % Language Package
 \usepackage[italian]{babel}
@@ -26,6 +27,8 @@
 
 % Definition of environments and colors
 \definecolor{seaGreen}{cmyk}{0.19, 0, 0.25, 0.00}
+
+\definecolor{yellowCanary}{cmyk}{0, 0.13, 0.45, 0}
 
 \newenvironment{sloppypar*}{\sloppy\ignorespaces}{\par}
 
@@ -533,11 +536,11 @@ cui lo si assegna esista. Sarà quindi necessario leggere l'unità operativa. \p
          &  & \textbf{Totale}: 2S + 1L $\rightarrow$ 10 al mese & \\
 \end{tabularx}
 
-\subsubsection*{OP 8 - Visualizzare tutti i pazienti con una data terapia}
+\subsubsection*{OP 8 - Visualizzare tutte le unità operativa con tutti i posti letto occupati}
 \begin{tabularx}{\textwidth}{XlXl}
         \rowcolor{seaGreen}
         \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
-        Assumere Terapia & R & 1 & L \\
+        Unità Operativa & E & 50 & L \\
         \rowcolor{seaGreen}
          &  & \textbf{Totale}: 1L $\rightarrow$ 10 al giorno & \\
 \end{tabularx}
@@ -674,11 +677,64 @@ Nello schema E/R sono eliminate le seguenti relazioni:
         \item \texttt{Consumare}, importando CodFarmaco in Farmaco\_Terapia
 \end{packed_itemize}
 
+\newpage
 \section{Analisi delle ridondanze}
+È stata inserita una ridondanza tramite l'inserimento di un attributo NumeroPazienti in Unità Operativa, così da ridurre gli accessi
+nel momento in cui questa informazione venga richiesta.
 
+\subsubsection*{OP 8 - Visualizzare tutte le unità operativa con tutti i posti letto occupati}
+L'avere una ridondanza in questo caso aiuta nella verifica del requisito: infatti, per controllare che tutti i posti letto siano occupati
+in un'unità operativa basterà comparare l'attributo NumeroPazienti con l'attributo PostiLetto. \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{seaGreen}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Unità Operativa & E & 50 & L \\
+        \rowcolor{seaGreen}
+         &  & \textbf{Totale}: 50L $\rightarrow$ 10 al giorno & \\
+\end{tabularx} \par
+\bigskip
+\noindent
+Senza ridondanza sarebbe invece necessario leggere tutte le ospitazioni relative ad ogni unità operativa, incrementare un contatore
+temporaneo ad ogni occorrenza e poi verificare se si è raggiunto il numero massimo di PostiLetto: \par
+\bigskip
+\noindent
+\begin{tabularx}{\textwidth}{XlXl}
+        \rowcolor{yellowCanary}
+        \textbf{Concetto} & \textbf{Costrutto} & \textbf{Accessi} & \textbf{Tipo} \\
+        Unità Operativa & E & 50 & L \\
+        \hline
+        Fornire & R & 8000 & L \\
+        \hline
+        Ospitazione & E & 8000 & L \\
+        \rowcolor{yellowCanary}
+         &  & \textbf{Totale}: \numprint{16050}L $\rightarrow$ 10 al giorno & \\
+\end{tabularx}
+
+\newpage
 \section{Traduzione di entità e associazioni in relazioni}
 \begin{packed_itemize}
-        \item assumere\_terapia(\underline{CodiceFiscale}, \underline{\smash{CodiceTerapia}})
+        \item \texttt{assumere\_terapia}(\uline{CodiceFiscale}: paziente, \uline{CodiceTerapia}: terapia)
+        \item \texttt{attestato\_acquisito}(\uline{CodiceFiscale}: dipendente, \uline{DataAcquisizione}, Nome: tipologia\_attestato)
+        \item \texttt{beni\_strumentali}(\uline{CodiceUnità}: unità\_operativa, \uline{CodBene}, DataAcquisto, ProssimaManutenzione, 
+                        Automezzo, NomeAttrezzo*, Targa*, Tipologia*, ScadenzaAssicurazione*)
+        \item \texttt{cartella\_clinica}(\uline{CodCartellaClinica}, \uline{CodiceFiscale})
+        \item \texttt{contratto\_stipulato}(\uline{CodiceFiscale}: dipendente, \uline{DataStipulazione}, DataFine, Nome: tipologia\_contratto)
+        \item \texttt{dipendente}(\uline{CodiceFiscale}, Nome, Cognome, Compleanno, Residenza, Sesso, \\\uline{CodiceDipendente}, TitoloDiStudio,
+                        IdoneitàAllaMansione, Socio, CreditiECM)
+        \item \texttt{farmaco}(\uline{CodFarmaco}, Nome, CasaFarmaceutica, DataAcquisto, DataScadenza, Quantità)
+        \item \texttt{farmaco\_terapia}(\uline{CodiceTerapia}: terapia, \uline{CodiceConsumazione}, DataAssunzione, \\Quantità,
+                        CodiceFiscale: dipendente, CodFarmaco: farmaco)
+        \item \texttt{ospitazione}(\uline{CodiceFiscale}: paziente, \uline{DataInizio}, DataFine*, CodiceUnità: unità\_operativa)
+        \item \texttt{paziente}(\uline{CodiceFiscale}, Nome, Cognome, Compleanno, Residenza, Sesso, \\\uline{CodicePaziente}, 
+                        DocumentazionePrivacy, ConsensoInformatoAlTrattamento, AccettazioneRegolamento)
+        \item \texttt{terapia}(\uline{CodiceTerapia}, DataInizio, Descrizione)
+        \item \texttt{tipologia\_attestato}(\uline{Nome}, CreditiECM)
+        \item \texttt{tipologia\_contratto}(\uline{Nome}, OreContrattuali)
+        \item \texttt{turno}(\uline{CodiceFiscale}: dipendente, \uline{GiornoSettimana}, \uline{OraInizio}, OraFine, CodiceUnità: unità\_operativa)
+        \item \texttt{unità\_operativa}(\uline{CodiceUnità}, Tipologia, Denominazione, Ubicazione, PostiLetto, NumeroPazienti, 
+                        AutorizzazioneAlFunzionamento, Accreditamento)
 \end{packed_itemize}
 
 \section{Schema relazionale finale}
