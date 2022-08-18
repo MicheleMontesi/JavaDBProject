@@ -1,6 +1,7 @@
 package db.tables;
 
 import db.Table;
+import model.Hosting;
 import model.Patient;
 import utilities.DateConverter;
 
@@ -69,6 +70,19 @@ public class PatientsTables implements Table<Patient, String> {
         final String query = "SELECT * FROM " + PAZIENTE + " WHERE CodiceFiscale = ?";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             statement.setString(1, code);
+            final ResultSet resultSet = statement.executeQuery();
+            return Optional.of(readFromResultSet(resultSet));
+        } catch (SQLException e) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<List<Patient>> findPatientByYear(int year, PatientsTables patientsTables) {
+        final String query = "SELECT * " +
+                "FROM paziente p LEFT JOIN ospitazione o on p.CodiceFiscale = o.CodiceFiscale " +
+                "WHERE YEAR(o.DataInizio) = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setInt(1, year);
             final ResultSet resultSet = statement.executeQuery();
             return Optional.of(readFromResultSet(resultSet));
         } catch (SQLException e) {

@@ -26,6 +26,7 @@ public class OperationChooser {
                         case "Elimina" -> this.loadContent("Delete" + entitiesMap.get(currentEntitySelection));
                         case "Visualizza" -> this.loadContent("View" + entitiesMap.get(currentEntitySelection));
                         case "Ricerca Tramite Codice" -> this.loadContent("Search" + entitiesMap.get(currentEntitySelection));
+                        case "Ricerca Per Anno" -> this.loadContent("ViewPerYear" + entitiesMap.get(currentEntitySelection));
                         default -> this.contentPane.getChildren().clear();
                     }
                 }

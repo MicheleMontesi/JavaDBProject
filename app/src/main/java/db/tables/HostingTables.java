@@ -1,6 +1,7 @@
 package db.tables;
 
 import db.Table;
+import model.Entity;
 import model.Hosting;
 import utilities.DateConverter;
 
@@ -137,6 +138,7 @@ public class HostingTables implements Table<Hosting, String> {
             nonErasableCheck();
         }
     }
+
     @Override
     public List<Hosting> readFromResultSet(final ResultSet resultSet) {
         final List<Hosting> list = new ArrayList<>();
