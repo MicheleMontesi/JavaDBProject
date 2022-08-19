@@ -105,5 +105,6 @@ public class CreateOpUnitController implements Initializable {
         typeChoice.getItems().addAll("Gruppo Appartamento",
                 "Residenza Sanitaria Psichiatrica");
         getList(unitIdBox, operatingUnitTables, e -> e.getId().get(0));
+        patientsField.setText("0");
     }
 }

@@ -64,7 +64,7 @@
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Posti Letto" translateY="30.0" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="bedsField" layoutX="190.0" layoutY="155.0" promptText="Enter the shift end time..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="190.0" prefWidth="165.0" text="Numero Pazienti" translateY="30.0" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="patientsField" layoutX="223.0" layoutY="185.0" promptText="Enter the shift start time..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <TextField fx:id="patientsField" editable="false" layoutX="223.0" layoutY="185.0" promptText="Enter the shift start time..." translateY="30.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="220.0" prefWidth="165.0" text="Autorizzazione Funzionamento" translateY="30.0" AnchorPane.leftAnchor="9.0" />
       <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="250.0" prefWidth="165.0" text="Accreditamento" translateY="30.0" AnchorPane.leftAnchor="9.0" />
       <CheckBox fx:id="authCheck" layoutX="180.0" layoutY="220.0" mnemonicParsing="false" translateY="30.0" AnchorPane.leftAnchor="180.0" />

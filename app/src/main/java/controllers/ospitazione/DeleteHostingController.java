@@ -1,10 +1,13 @@
 package controllers.ospitazione;
 
 import db.tables.HostingTables;
+import db.tables.OperatingUnitTables;
+import db.tables.PatientsTables;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import model.OperatingUnit;
 import utilities.ConnectionProvider;
 import utilities.FillUtils;
 
@@ -28,6 +31,8 @@ public class DeleteHostingController implements Initializable {
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
 
     private final HostingTables hostingTables = new HostingTables(connectionProvider.getMySQLConnection());
+    private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
+
 
     public void delete() {
         if (
@@ -40,6 +45,15 @@ public class DeleteHostingController implements Initializable {
             final var unitId = unitIdBox.getValue();
 
             hostingTables.deleteByParameters(fiscalCode, date, unitId);
+            this.decreasePatients(unitId);
+        }
+    }
+
+    private void decreasePatients(String unitId) {
+        var opUnit = operatingUnitTables.findByCode(unitId);
+        if (opUnit.isPresent()) {
+            var patientsNumber = opUnit.get().get(0).patientsNumber();
+            CreateHostingController.editPatientsNumber(false, patientsNumber, opUnit.get().get(0));
         }
     }
 

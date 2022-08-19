@@ -41,7 +41,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.unita_operativa.CreateOpUnitController">
+<HBox alignment="CENTER" prefHeight="791.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.unita_operativa.CreateOpUnitController">
    <AnchorPane HBox.hgrow="ALWAYS">
       <Label alignment="CENTER" layoutX="76.0" layoutY="4.0" style="-fx-border-color: black;" text="Enter the parameters" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
@@ -59,7 +59,7 @@
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="160.0" prefWidth="165.0" text="Posti Letto" AnchorPane.leftAnchor="9.0" />
       <TextField fx:id="bedsField" layoutX="190.0" layoutY="155.0" promptText="Enter the number of beds..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="190.0" prefWidth="165.0" text="Numero Pazienti" AnchorPane.leftAnchor="9.0" />
-      <TextField fx:id="patientsField" layoutX="223.0" layoutY="185.0" promptText="Enter the number of patients..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
+      <TextField fx:id="patientsField" editable="false" layoutX="223.0" layoutY="185.0" promptText="Enter the number of patients..." AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="5.0" />
       <Label alignment="CENTER_RIGHT" layoutX="9.0" layoutY="220.0" prefWidth="165.0" text="Autorizzazione Funzionamento" AnchorPane.leftAnchor="9.0" />
       <CheckBox fx:id="authCheck" layoutX="180.0" layoutY="220.0" mnemonicParsing="false" AnchorPane.leftAnchor="180.0" />
       <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="250.0" prefWidth="165.0" text="Accreditamento" AnchorPane.leftAnchor="9.0" />

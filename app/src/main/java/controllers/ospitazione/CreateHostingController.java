@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import model.Hosting;
+import model.OperatingUnit;
 import utilities.ConnectionProvider;
 import utilities.FillUtils;
 import utilities.checkers.CommonCheckers;
@@ -32,9 +33,9 @@ public class CreateHostingController implements Initializable {
     @FXML
     public DatePicker beginPicker, endPicker;
 
-    private final ConnectionProvider connectionProvider = new ConnectionProvider();
+    private static final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final HostingTables hostingTables = new HostingTables(connectionProvider.getMySQLConnection());
-    private final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
+    private static final OperatingUnitTables operatingUnitTables = new OperatingUnitTables(connectionProvider.getMySQLConnection());
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
 
     private Hosting hosting;
@@ -45,7 +46,10 @@ public class CreateHostingController implements Initializable {
             var begin = Date.from(Instant.from(beginPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             var unitId = unitIdBox.getValue();
             Optional<Date> endDate = Optional.empty();
-            if (dateChecker(id, begin, unitId, endDate)) {
+            if (
+                    dateChecker(id, begin, unitId, endDate) &&
+                    checkAvailability(unitId)
+            ) {
                 hostingTables.save(hosting);
             }
         }
@@ -57,7 +61,9 @@ public class CreateHostingController implements Initializable {
             var begin = Date.from(Instant.from(beginPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
             var unitId = unitIdBox.getValue();
             Optional<Date> endDate = Optional.empty();
-            if (endDateChecker(id, begin, endDate, unitId)) {
+            if (
+                    endDateChecker(id, begin, endDate, unitId)
+            ) {
                 hostingTables.update(hosting);
             }
         }
@@ -116,6 +122,40 @@ public class CreateHostingController implements Initializable {
             endDateChecker(id, begin, endDate, unitId);
         }
         return true;
+    }
+
+    private boolean checkAvailability(String unitID) {
+        final Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+        errorAlert.setHeaderText("Input not valid");
+        var opUnit = operatingUnitTables.findByCode(unitID);
+        if (opUnit.isPresent()) {
+            var bedsNumber = opUnit.get().get(0).bedsNumber();
+            var patientsNumber = opUnit.get().get(0).patientsNumber();
+            if (bedsNumber >= patientsNumber + 1) {
+                editPatientsNumber(true, patientsNumber, opUnit.get().get(0));
+                return true;
+            }
+        }
+        errorAlert.setContentText("The operating unit is full");
+        errorAlert.showAndWait();
+        return false;
+    }
+
+    protected static void editPatientsNumber(boolean sum, int patientsNumber, OperatingUnit opUnit) {
+        if (sum) {
+            patientsNumber++;
+        } else {
+            patientsNumber--;
+        }
+        var newOpUnit = new OperatingUnit(opUnit.unitId(),
+                opUnit.type(),
+                opUnit.name(),
+                opUnit.location(),
+                opUnit.bedsNumber(),
+                patientsNumber,
+                true,
+                true);
+        operatingUnitTables.update(newOpUnit);
     }
 
     public void fillRelatedField() {
