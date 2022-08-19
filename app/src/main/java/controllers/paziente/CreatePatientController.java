@@ -68,7 +68,7 @@ public class CreatePatientController implements Initializable {
         return lengthChecker(nameField, 2, 15) &
                 lengthChecker(surnameField, 2, 15) &
                 birthAndCheck(birthPicker, List.of(privacyCheck, consentCheck, acceptanceCheck)) &
-                lengthChecker(residenceField, 10, 50) &
+                lengthChecker(residenceField, 2, 100) &
                 genderCheck(genderField);
     }
 
