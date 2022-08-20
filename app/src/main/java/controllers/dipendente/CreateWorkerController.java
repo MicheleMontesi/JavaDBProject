@@ -125,6 +125,7 @@ public class CreateWorkerController implements Initializable {
 
         if (genderBox != null) {
             genderBox.getItems().addAll(new ArrayList<>(Arrays.asList("M", "F")));
+            genderBox.setValue("M");
         }
         getList(idBox, workersTable, e -> e.getId().get(0));
     }

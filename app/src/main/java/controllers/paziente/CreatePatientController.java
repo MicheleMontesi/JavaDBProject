@@ -14,9 +14,7 @@ import model.Patient;
 import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static utilities.checkers.PersonCheckers.*;
 import static utilities.checkers.CommonCheckers.choiceBoxChecker;
@@ -26,13 +24,13 @@ import static utilities.DateConverter.dateToLocalDate;
 public class CreatePatientController implements Initializable {
     
     @FXML
-    private TextField idField, nameField, surnameField, residenceField, genderField, patientIdField;
+    private TextField idField, nameField, surnameField, residenceField, patientIdField;
     @FXML
     private DatePicker birthPicker;
     @FXML
     private CheckBox privacyCheck, consentCheck, acceptanceCheck;
     @FXML
-    private ChoiceBox<String> fiscalCodeBox;
+    private ChoiceBox<String> fiscalCodeBox, genderBox;
 
     private final ConnectionProvider connectionProvider = new ConnectionProvider();
     private final PatientsTables patientsTables = new PatientsTables(connectionProvider.getMySQLConnection());
@@ -68,15 +66,14 @@ public class CreatePatientController implements Initializable {
         return lengthChecker(nameField, 2, 15) &
                 lengthChecker(surnameField, 2, 15) &
                 birthAndCheck(birthPicker, List.of(privacyCheck, consentCheck, acceptanceCheck)) &
-                lengthChecker(residenceField, 2, 100) &
-                genderCheck(genderField);
+                lengthChecker(residenceField, 2, 100);
     }
 
     private void init() {
         name = nameField.getText();
         surname = surnameField.getText();
         residence = residenceField.getText();
-        gender = genderField.getText().toUpperCase();
+        gender = genderBox.getValue();
         birth = Date.from(Instant.from(birthPicker.getValue().atStartOfDay(ZoneId.systemDefault())));
         patientId = Integer.parseInt(patientIdField.getText());
         privacy = privacyCheck.isSelected();
@@ -94,7 +91,7 @@ public class CreatePatientController implements Initializable {
                     nameField.setText(patient.name());
                     surnameField.setText(patient.surname());
                     residenceField.setText(patient.residence());
-                    genderField.setText(patient.gender());
+                    genderBox.setValue(patient.gender());
                     birthPicker.setValue(dateToLocalDate(patient.birthday().toString()));
                     patientIdField.setText(String.valueOf(patient.patientId()));
                     privacyCheck.setSelected(true);
@@ -116,6 +113,11 @@ public class CreatePatientController implements Initializable {
                 .max()
                 .orElse(0);
         patientIdField.setText(Integer.toString(max + 1));
+
+        if (genderBox != null) {
+            genderBox.getItems().addAll(new ArrayList<>(Arrays.asList("M", "F")));
+            genderBox.setValue("M");
+        }
 
         getList(fiscalCodeBox, patientsTables, e -> e.getId().get(0));
     }
