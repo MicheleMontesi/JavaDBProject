@@ -79,10 +79,8 @@ public class CreateShiftController implements Initializable {
         final var inputStartTime = LocalTime.parse(beginField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
 
         for (var shift : list) {
-            if (shift.unitId().equalsIgnoreCase(ouBox.getValue()) &&
-            shift.dayOfTheWeek().equalsIgnoreCase(dayBox.getValue()) ||
-            shift.fiscalCode().equalsIgnoreCase(idBox.getValue()) &&
-            shift.dayOfTheWeek().equalsIgnoreCase(dayBox.getValue())) {
+            if (shift.fiscalCode().equalsIgnoreCase(idBox.getValue()) &&
+                    shift.dayOfTheWeek().equalsIgnoreCase(dayBox.getValue())) {
                 if (inputStartTime.getHour() >= shift.beginTime().getHour() &&
                         inputStartTime.getHour() <= shift.endTime().getHour()) {
                     errorAlert.setContentText("The input begin time begins during an already existing shift");
