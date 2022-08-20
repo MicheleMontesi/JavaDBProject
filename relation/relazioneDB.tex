@@ -150,8 +150,7 @@ Un primo testo ottenuto dall'intervista è il seguente:
         I \textbf{farmaci} sono caratterizzati dal loro codice, il nome, la casa farmaceutica, le date d'acquisto e
         di scadenza e la quantità.\\
         Sono presenti \textbf{unità operative} (le quali possono essere \texttt{gruppi appartamento} o \texttt{residenze
-        sanitarie psichiatriche}) adibite all' \textbf{ospitazione} di più pazienti (la quale dovrà essere registrata
-        con data d'inizio e opzionalmente con una data di fine) della quale verrà mantenuto uno storico.
+        sanitarie psichiatriche}) adibite all' \textbf{ospitazione} di più pazienti della quale verrà mantenuto uno storico.
         Queste sono caratterizzate dalla loro ubicazione, i posti letto e il numero dei pazienti.
         Per poter essere operative devono ricevere l'\texttt{autorizzazione al funzionamento} e l'\texttt{accreditamento}.
         Ogni unità operativa avrà una lista di \textbf{beni strumentali}, i quali possono essere automezzi o attrezzature.
@@ -193,9 +192,10 @@ sopra rilevate: \par
         al momento del suo inserimento nel DB. 
         Ogni dipendente può acquisire degli \textbf{attestati} che gli conferiscono crediti ECM e possono firmare
         \textbf{contratti} (prima di firmare un secondo contratto con lo stesso nome, il primo deve essere concluso).
-        Di entrambi verrà mantenuto uno storico.\\
-        I \textbf{turni} dei dipendenti sono determinati dal codice fiscale del dipendente, il giorno della settimana, 
-        l'ora d'inizio, l'ora di fine e l'unità operativa in cui si svolgeranno. Un turno di uno stesso dipendente nello stesso
+        Di entrambi verrà mantenuto uno storico. Oltre queste due possibili operazioni, ogni dipendente può Somministrare
+        eventuali farmaci a i pazienti che ne devono usufruire come da terapia (maggiori informazioni più avanti).\\
+        Ogni \textbf{turno} è determinato dal codice fiscale del dipendente, il giorno della settimana, 
+        l'ora d'inizio, l'ora di fine e l'unità operativa in cui si svolgerà. Un turno di uno stesso dipendente nello stesso
         giorno della settimana non potrà essere definito se si interseca ad un altro.\\
         Per ogni \textbf{paziente} vengono memorizzati Codice Fiscale, Nome, Cognome, Compleanno, Residenza, Sesso.
         Al momento della registrazione dovrà firmare la documentazione alla privacy, il consenso al trattamento e l'accettazione
@@ -203,15 +203,18 @@ sopra rilevate: \par
         l'anamnesi, la diagnosi e il progetto riabilitativo. A ognuno di questi verrà assegnata una 
         \textbf{terapia} la quale dovrà essere seguita assumendo farmaci (somministrati da dipendenti) e della quale
         verrà mantenuto uno storico.\\
-        Ogni \textbf{farmaco} è caratterizzato dal loro codice, il nome, la casa farmaceutica, le date d'acquisto e
-        di scadenza e la quantità.\\
+        Ogni \textbf{farmaco} è caratterizzato dal proprio codice, utilizzato come chiave, il nome, la casa farmaceutica, 
+        la data d'acquisto e di scadenza e la quantità.\\
         Ogni \textbf{unità operativa} può essere \texttt{gruppo appartamento} o \texttt{residenza sanitaria psichiatrica}.
         Ognuna di queste è adibita all' \textbf{ospitazione} di più pazienti (la quale dovrà essere registrata
-        con data d'inizio e opzionalmente con una data di fine) della quale verrà mantenuto uno storico.
-        Ognuna è caratterizzate dall'ubicazione, i posti letto e il numero dei pazienti. Il numero di pazienti dev'essere
+        con data d'inizio e opzionalmente con una data di fine), della quale verrà mantenuto uno storico.
+        Ognuna unità operativa è caratterizzate dall'ubicazione, i posti letto e il numero dei pazienti il quale dev'essere
         minore o uguale al numero di pazienti e non inferiore allo 0.
         Per poter essere operative devono ricevere l'\texttt{autorizzazione al funzionamento} e l'\texttt{accreditamento}.
-        Ogni unità operativa avrà una lista di \textbf{beni strumentali}, i quali possono essere automezzi o attrezzature.
+        Ogni unità operativa avrà una lista di \textbf{beni strumentali}, i quali possono essere \textbf{automezzi} o \textbf{attrezzature}. \\
+        Nel caso il bene sia un automezzo viene registrata, oltre ai dati generici del supertipo, la targa, la tipologia (benzina, diesel, ...)
+        e la data di scadenza dell'assicurazione. \\
+        Nel caso sia, invece, attrezzatura generica, viene registrato il nome dell'attrezzo.
         \newline
 \end{changemargin}
 Segue un elenco delle principali operazioni richieste:
@@ -849,7 +852,7 @@ VALUES (?,?,?,?,?,?,?,?,?);
 \subsubsection*{OP 8 - Visualizzare tutte le unità operativa con tutti i posti letto occupati}
 \begin{lstlisting}[breaklines=true]
 SELECT *
-FROM unità_operativa
+FROM unita_operativa
 WHERE PostiLetto = NumeroPazienti;
 \end{lstlisting}
 
@@ -889,5 +892,36 @@ WHERE CodiceFiscale = ? AND OraInizio = ? AND CodiceUnita = ? AND GiornoSettiman
 \chapter{Progettazione dell’applicazione}
 
 \section{Descrizione dell’architettura dell’applicazione realizzata}
+L'applicazione per interfacciarsi al database è stata realizzata in Java. Il database risiede in locale e il DBMS usato è MySQL.
+L'applicazione utilizza JavaFX come ambiente grafico e utilizza diversi file FXML (uno per ogni finestra) associati ognuno
+al proprio controller il quale ha il compito di portare a termine le query appoggiandosi alla classe ConnectionProvider, la 
+quale fornisce la connessione al database.
 
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=10cm]{img/schermataPrincipaleApp.png}
+        \caption{Schermata principale dell'applicazione, nell'esempio è stata selezionata l'entità Dipendente 
+        con la propria operazione di aggiunta}
+\end{figure}
+\noindent
+La correttezza dei dati viene controllata dal controller della scheda attualmente aperta, il quale in caso di errore dei dati
+restituirà un errore sotto forma di pop-up. Nel caso nessun errore venga mostrato, l'operazione si può considerare
+andata a buon fine.
+\newpage
+\noindent
+Nel caso di aggiornamenti, ricerche per parametro e inserimenti di record dipendenti da foreign key, per evitare ulteriori controlli 
+da parte del programma, è stato inserito un menù a tendina per i campi già presenti.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[height=10cm]{img/schermataAggiornaApp.png}
+        \caption{Schermata di aggiornamento di un dipendente}
+\end{figure}
+\noindent
+Una volta selezionato la chiave desiderata, il resto dei campi da aggiornare, nella maggior parte dei casi, si riempirà in automatico.
+
+\bigskip
+\noindent
+L’applicazione fornisce nel complesso le funzionalità richieste evidenziate nella fase di progettazione, includendo 
+ulteriormente alcune banali operazioni non elencate come la cancellazione di un dipendente o di un paziente, la loro visualizzazione, ecc...
 \end{document}
