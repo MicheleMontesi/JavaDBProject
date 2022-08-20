@@ -52,6 +52,7 @@ public class CreateOperationsMap {
         permittedOp.get("Attestato Acquisito").remove("Aggiorna");
         permittedOp.get("Ospitazione").add("Ricerca Per Anno");
         permittedOp.get("Unita' Operativa").add("Ricerca Strutture Piene");
+        permittedOp.get("Dipendente").add("Ricerca Tramite Contratto");
         permittedOp.get("Dipendente").add("Ricerca Tramite Giorno Del Turno");
 
         return permittedOp;

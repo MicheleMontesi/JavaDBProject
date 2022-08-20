@@ -85,6 +85,18 @@ public class WorkersTables implements Table<Worker, String> {
         }
     }
 
+    public Optional<List<Worker>> findByContract(String contractName) {
+        final String query = "SELECT * FROM " + DIPENDENTE + " d LEFT JOIN contratto_stipulato cs ON d.CodiceFiscale = cs.CodiceFiscale" +
+                " WHERE cs.Nome = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setString(1, contractName);
+            final ResultSet resultSet = statement.executeQuery();
+            return Optional.of(readFromResultSet(resultSet));
+        } catch (SQLException e) {
+            return Optional.empty();
+        }
+    }
+
     @Override
     public List<Worker> findAll() {
         try (final Statement statement = this.connection.createStatement()) {

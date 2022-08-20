@@ -29,6 +29,8 @@ public class OperationChooser {
                         case "Ricerca Per Anno" -> this.loadContent("ViewPerYear" + entitiesMap.get(currentEntitySelection));
                         case "Ricerca Strutture Piene" -> this.loadContent("ViewFull" + entitiesMap.get(currentEntitySelection));
                         case "Ricerca Tramite Giorno Del Turno" -> this.loadContent("ViewSameDayShift" + entitiesMap.get(currentEntitySelection));
+                        case "Ricerca Tramite Contratto" -> this.loadContent("ViewSameContract" + entitiesMap.get(currentEntitySelection));
+
                         default -> this.contentPane.getChildren().clear();
                     }
                 }
