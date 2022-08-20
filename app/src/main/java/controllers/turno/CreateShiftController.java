@@ -79,7 +79,9 @@ public class CreateShiftController implements Initializable {
         final var inputStartTime = LocalTime.parse(beginField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
 
         for (var shift : list) {
-            if (shift.unitId().equalsIgnoreCase(idBox.getValue()) &&
+            if (shift.unitId().equalsIgnoreCase(ouBox.getValue()) &&
+            shift.dayOfTheWeek().equalsIgnoreCase(dayBox.getValue()) ||
+            shift.fiscalCode().equalsIgnoreCase(idBox.getValue()) &&
             shift.dayOfTheWeek().equalsIgnoreCase(dayBox.getValue())) {
                 if (inputStartTime.getHour() >= shift.beginTime().getHour() &&
                         inputStartTime.getHour() <= shift.endTime().getHour()) {

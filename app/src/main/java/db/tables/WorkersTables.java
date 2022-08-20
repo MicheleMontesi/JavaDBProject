@@ -73,6 +73,18 @@ public class WorkersTables implements Table<Worker, String> {
         }
     }
 
+    public Optional<List<Worker>> findByDayShift(String day) {
+        final String query = "SELECT * FROM " + DIPENDENTE + " d LEFT JOIN turno t ON d.CodiceFiscale = t.CodiceFiscale" +
+                " WHERE t.GiornoSettimana = ?";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setString(1, day);
+            final ResultSet resultSet = statement.executeQuery();
+            return Optional.of(readFromResultSet(resultSet));
+        } catch (SQLException e) {
+            return Optional.empty();
+        }
+    }
+
     @Override
     public List<Worker> findAll() {
         try (final Statement statement = this.connection.createStatement()) {
