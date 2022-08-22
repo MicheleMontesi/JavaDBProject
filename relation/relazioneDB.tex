@@ -924,4 +924,19 @@ Una volta selezionato la chiave desiderata, il resto dei campi da aggiornare, ne
 \noindent
 L’applicazione fornisce nel complesso le funzionalità richieste evidenziate nella fase di progettazione, includendo 
 ulteriormente alcune banali operazioni non elencate come la cancellazione di un dipendente o di un paziente, la loro visualizzazione, ecc...
+
+\section{Credenziali del programma}
+Le credenziali di default del programma sono:
+\begin{packed_itemize}
+        \item \textit{Username}: "\texttt{root}" 
+        \item \textit{Password}: "\texttt{}"
+\end{packed_itemize}
+Per cambiarle bisogna modificarle nelle classi:
+\begin{packed_itemize}
+        \item \texttt{app/src/main/java/utilities/ConnectionProvider.java}
+        \item \texttt{app/src/main/java/utilities/TablesInitializer.java}
+\end{packed_itemize}
+In queste si trovano i campi \textit{username} e \textit{password}, i quali possono essere
+modificati. Il campo \textit{dbName} serve a \texttt{TablesInitializer} per creare il database o le tabelle in caso
+di assenza di questi elementi, mentre in \texttt{ConnectionProvider} per connettersi al database corretto.
 \end{document}

@@ -17,3 +17,4 @@
 \contentsline {section}{\numberline {3.8}Traduzione delle operazioni in query SQL}{21}{section.3.8}%
 \contentsline {chapter}{\numberline {4}Progettazione dell’applicazione}{23}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Descrizione dell’architettura dell’applicazione realizzata}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Credenziali del programma}{24}{section.4.2}%
