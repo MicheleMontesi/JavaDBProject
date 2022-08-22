@@ -48,7 +48,7 @@ public class TakeTherapiesTables implements Table<TakeTherapy, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + ASSUMERE);
+            statement.executeUpdate("DROP TABLE " + ASSUMERE);
             return true;
         } catch (SQLException e) {
             return false;

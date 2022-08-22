@@ -34,6 +34,9 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -41,42 +44,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="1109.0" prefWidth="1615.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/"
-      fx:controller="controllers.MainController">
+<VBox prefHeight="1109.0" prefWidth="1615.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="controllers.MainController">
+    <MenuBar>
+        <Menu mnemonicParsing="false" text="DataBase">
+            <MenuItem mnemonicParsing="false" onAction="#dropAll" text="Drop All"/>
+        </Menu>
+    </MenuBar>
     <AnchorPane VBox.vgrow="ALWAYS">
-        <Label alignment="CENTER" style="-fx-border-color: black;" text="Select an entity" textAlignment="CENTER"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label alignment="CENTER" style="-fx-border-color: black;" text="Select an entity" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <font>
-                <Font size="14.0"/>
+                <Font size="14.0" />
             </font>
         </Label>
-        <SplitPane dividerPositions="0.4" layoutY="27.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="640.0"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="20.0">
+        <SplitPane dividerPositions="0.4" layoutY="27.0" orientation="VERTICAL" prefHeight="373.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <ListView fx:id="myEntityList" layoutX="-12.0" layoutY="75.0" AnchorPane.bottomAnchor="0.0"
-                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                          AnchorPane.topAnchor="0.0"/>
+                <ListView fx:id="myEntityList" layoutX="-12.0" layoutY="75.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <SplitPane dividerPositions="0.5" layoutX="219.0" layoutY="59.0" prefHeight="277.0"
-                           prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane dividerPositions="0.5" layoutX="219.0" layoutY="59.0" prefHeight="277.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                        <ListView fx:id="myOperationList" layoutX="58.0" layoutY="23.0"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0"/>
-                        <Label alignment="CENTER" layoutY="6.0" style="-fx-border-color: black;"
-                               text="Select an operation" AnchorPane.leftAnchor="0.0"
-                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ListView fx:id="myOperationList" layoutX="58.0" layoutY="23.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+                        <Label alignment="CENTER" layoutY="6.0" style="-fx-border-color: black;" text="Select an operation" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
                     </AnchorPane>
                     <BorderPane fx:id="contentPane" prefHeight="200.0" prefWidth="200.0">
                         <center>
-                            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+                            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                         </center>
                     </BorderPane>
                 </SplitPane>

@@ -1,16 +1,12 @@
 package db.tables;
 
 import db.Table;
-import model.Hosting;
 import model.Patient;
 import utilities.DateConverter;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static utilities.checkers.CommonCheckers.nonErasableCheck;
 
@@ -58,7 +54,7 @@ public class PatientsTables implements Table<Patient, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + PAZIENTE);
+            statement.executeUpdate("DROP TABLE " + PAZIENTE);
             return true;
         } catch (SQLException e) {
             return false;
@@ -77,7 +73,7 @@ public class PatientsTables implements Table<Patient, String> {
         }
     }
 
-    public Optional<List<Patient>> findPatientByYear(int year, PatientsTables patientsTables) {
+    public Optional<List<Patient>> findPatientByYear(int year) {
         final String query = "SELECT * " +
                 "FROM paziente p LEFT JOIN ospitazione o on p.CodiceFiscale = o.CodiceFiscale " +
                 "WHERE YEAR(o.DataInizio) = ?";

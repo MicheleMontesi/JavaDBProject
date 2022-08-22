@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import utilities.CreateOperationsMap;
+import utilities.DropUtils;
 import utilities.OperationChooser;
 import utilities.TablesInitializer;
 
@@ -24,6 +25,11 @@ public class MainController implements Initializable {
     private String currentEntitySelection;
     private String currentOperationSelection;
     private final OperationChooser chooser = new OperationChooser();
+
+    public void dropAll() {
+        DropUtils.dropAll();
+        javafx.application.Platform.exit();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

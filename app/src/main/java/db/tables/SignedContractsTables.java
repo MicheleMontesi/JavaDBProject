@@ -49,7 +49,7 @@ public class SignedContractsTables implements Table<SignedContract, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + STIPULATO);
+            statement.executeUpdate("DROP TABLE " + STIPULATO);
             return true;
         } catch (SQLException e) {
             return false;

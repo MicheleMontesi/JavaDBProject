@@ -51,7 +51,7 @@ public class HostingTables implements Table<Hosting, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + OSPITAZIONE);
+            statement.executeUpdate("DROP TABLE " + OSPITAZIONE);
             return true;
         } catch (SQLException e) {
             return false;

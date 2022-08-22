@@ -45,7 +45,7 @@ public class ContractTypeTables implements Table<ContractType, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + TIPOLOGIA_CONTRATTO);
+            statement.executeUpdate("DROP TABLE " + TIPOLOGIA_CONTRATTO);
             return true;
         } catch (SQLException e) {
             return false;

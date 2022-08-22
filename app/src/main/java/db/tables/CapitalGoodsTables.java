@@ -54,7 +54,7 @@ public class CapitalGoodsTables implements Table<CapitalGood, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + BENI);
+            statement.executeUpdate("DROP TABLE " + BENI);
             return true;
         } catch (SQLException e) {
             return false;

@@ -38,7 +38,7 @@ public class ListPatientsPerYearHosting {
     public void search() {
         if (intCheck(yearField, 4, 4)) {
             var patient = patientsTables.findPatientByYear(
-                    Integer.parseInt(yearField.getText()), patientsTables);
+                    Integer.parseInt(yearField.getText()));
             if (patient.isPresent()) {
                 final ObservableList<Patient> patientList = FXCollections.observableArrayList(patient.get());
                 CreatePatientView.create(table, idColumn, nameColumn, surnameColumn, birthColumn, residenceColumn, genderColumn,

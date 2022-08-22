@@ -48,7 +48,7 @@ public class CertificateAcquiredTables implements Table<CertificateAcquired, Str
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + ACQUISITO);
+            statement.executeUpdate("DROP TABLE " + ACQUISITO);
             return true;
         } catch (SQLException e) {
             return false;

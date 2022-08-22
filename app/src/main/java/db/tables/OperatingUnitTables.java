@@ -51,7 +51,7 @@ public class OperatingUnitTables implements Table<OperatingUnit, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + UNITA_OPERATIVA);
+            statement.executeUpdate("DROP TABLE " + UNITA_OPERATIVA);
             return true;
         } catch (SQLException e) {
             return false;

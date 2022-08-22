@@ -49,7 +49,7 @@ public class ShiftsTables implements Table<Shift, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + TURNO);
+            statement.executeUpdate("DROP TABLE " + TURNO);
             return true;
         } catch (SQLException e) {
             return false;

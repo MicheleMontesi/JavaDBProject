@@ -51,7 +51,7 @@ public class MedicalRecordsTables implements Table<MedicalRecords, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + CARTELLA);
+            statement.executeUpdate("DROP TABLE " + CARTELLA);
             return true;
         } catch (SQLException e) {
             return false;

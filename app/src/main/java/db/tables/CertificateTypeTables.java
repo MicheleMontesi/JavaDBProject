@@ -45,7 +45,7 @@ public class CertificateTypeTables implements Table<CertificateType, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + TIPOLOGIA_ATTESTATO);
+            statement.executeUpdate("DROP TABLE " + TIPOLOGIA_ATTESTATO);
             return true;
         } catch (SQLException e) {
             return false;

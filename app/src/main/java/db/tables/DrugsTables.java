@@ -1,16 +1,12 @@
 package db.tables;
 
 import db.Table;
-import model.ContractType;
 import model.Drug;
 import utilities.DateConverter;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static utilities.checkers.CommonCheckers.nonErasableCheck;
 
@@ -52,7 +48,7 @@ public class DrugsTables implements Table<Drug, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + FARMACO);
+            statement.executeUpdate("DROP TABLE " + FARMACO);
             return true;
         } catch (SQLException e) {
             return false;

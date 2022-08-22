@@ -54,7 +54,7 @@ public class WorkersTables implements Table<Worker, String> {
     @Override
     public boolean dropTable() {
         try (final Statement statement = this.connection.createStatement()) {
-            statement.executeQuery("DROP TABLE " + DIPENDENTE);
+            statement.executeUpdate("DROP TABLE " + DIPENDENTE);
             return true;
         } catch (SQLException e) {
             return false;
